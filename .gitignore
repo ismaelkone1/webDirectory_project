@@ -1,2 +1,2 @@
 *.ini
-/webDirectory.server/src/vendors
+/webDirectory.core/webDirectory.server/src/vendor
