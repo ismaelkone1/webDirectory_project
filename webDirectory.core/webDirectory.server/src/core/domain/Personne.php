@@ -5,14 +5,14 @@ namespace web\directory\core\domain;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use web\directory\core\domain\Telephone;
 
-class Utilisateur extends Eloquent
+class Personne extends Eloquent
 {
     protected $table = 'personne';
     protected $primaryKey = 'id';
     public $timestamp = false;
 
     public function telephones(){
-        return $this->hasMany('web\directory\core\domain\Telephone', 'id_personne');
+        return $this->hasMany(Telephone::class, 'id_personne');
     }
     
 
