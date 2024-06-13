@@ -28,7 +28,9 @@ services:
     ports:
       - "20001:3306"
     networks:
-      - webDirectory.net
+      webDirectory.net:
+          aliases:
+            - sql.db
   
   adminer:
     image: adminer
