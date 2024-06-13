@@ -11,6 +11,6 @@ class Service extends Eloquent
     public $timestamp = false;
 
     public function personnes(){
-        return $this->belongsToMany('web\directory\core\domain\Personne', 'personne_service', 'id_service', 'id_personne');
+        return $this->belongsToMany(Personne::class, 'personne_service', 'id_service', 'id_personne');
     }
 }
