@@ -1,3 +1,4 @@
 *.ini
 /webDirectory.core/webDirectory.server/src/vendor
 /webDirectory.core/webDirectory.server/src/composer.lock
+*.env

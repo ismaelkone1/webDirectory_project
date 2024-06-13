@@ -1,0 +1,62 @@
+networks:
+  webDirectory.net:
+    driver: bridge
+
+services:
+
+  php:
+    hostname: interface-backend
+    image: canals/php
+    ports:
+      - "20000:80"
+    volumes:
+      - ./webDirectory.core/webDirectory.server/public:/var/www/html
+      - ./webDirectory.core/webDirectory.server/src:/var/www/src
+    working_dir: /var/www/src
+    networks:
+      - webDirectory.net
+    depends_on:
+      - sql
+
+  sql:
+    hostname: mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    # volumes:
+    #   - ./databases:/var/lib/mysql
+    ports:
+      - "20001:3306"
+    networks:
+      - webDirectory.net
+  
+  adminer:
+    image: adminer
+    ports:
+      - "20002:8080"
+    networks:
+      - webDirectory.net
+
+  api:
+    hostname: api
+    image: canals/php:latest
+    ports:
+      - 20003:80
+    volumes:
+      - ./webDirectory.core/webDirectory.api/public:/var/www/html
+      - ./webDirectory.core/webDirectory.api/src:/var/www/src
+    working_dir: /var/www/src
+    networks:
+      - webDirectory.net
+    depends_on:
+      - sql
+
+  nginx:
+    hostname: nginx
+    image: nginx
+    ports:
+      - "20004:80"
+    volumes:
+      - ./webDirectory.web:/usr/share/nginx/html
+    networks:
+      - webDirectory.net
