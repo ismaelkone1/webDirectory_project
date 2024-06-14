@@ -1,10 +1,10 @@
 <?php 
 
-namespace web\directory\api\core\services\authentification;
+namespace web\directory\core\services\authentification;
 
 use web\directory\api\core\domain\Utilisateur;
-use web\directory\api\core\services\exception\InvalidArgumentException;
-use web\directory\api\core\services\authentification\AuthServiceInterface;
+use web\directory\core\services\exception\InvalidArgumentException;
+use web\directory\core\services\authentification\AuthServiceInterface;
 use Ramsey\Uuid\Uuid;
 
 class AuthService implements AuthServiceInterface
@@ -32,7 +32,7 @@ class AuthService implements AuthServiceInterface
 
     public function checkUsernameDB(string $user_id): bool 
     {
-        $user = Utilisateur::where('user_id', $user_id)->first();
+        $user = Utilisateur::where('mail', $user_id)->first();
         return $user === null;
     }
 

@@ -1,6 +1,6 @@
 <?php 
 
-namespace web\directory\api\core\services\authentification;
+namespace web\directory\core\services\authentification;
 
 use web\directory\api\core\domain\Utilisateur;
 

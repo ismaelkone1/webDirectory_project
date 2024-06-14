@@ -1,6 +1,6 @@
 <?php
 
-namespace web\directory\api\core\services\exception;
+namespace web\directory\core\services\exception;
 
 class InvalidArgumentException extends \Exception
 {
