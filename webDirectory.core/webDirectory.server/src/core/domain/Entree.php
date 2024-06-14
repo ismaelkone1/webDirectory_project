@@ -10,12 +10,14 @@ class Entree extends Eloquent
     protected $primaryKey = 'id';
     public $timestamp = false;
 
-    public function telephones(){
+    public function telephones()
+    {
         return $this->hasMany(Telephone::class, 'id_entree');
     }
-    
 
-    public function services(){
+
+    public function services()
+    {
         return $this->belongsToMany(Service::class, 'entree_service', 'id_entree', 'id_service');
     }
 }

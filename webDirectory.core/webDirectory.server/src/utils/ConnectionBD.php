@@ -13,4 +13,9 @@ class ConnectionBD
         $db->setAsGlobal();
         $db->bootEloquent();
     }
+
+    static function getInstance()
+    {
+        return DB::connection();
+    }
 }
