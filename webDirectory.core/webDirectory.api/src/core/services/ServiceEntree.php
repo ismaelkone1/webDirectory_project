@@ -17,4 +17,9 @@ class ServiceEntree implements ServiceEntreeInterface
     {
         return Entree::find($id)->toArray();
     }
+
+    public function getEntreeEnFonctionDuNom(string $nom): array
+    {
+        return Entree::where('nom', 'like', '%' . $nom . '%')->get()->toArray();
+    }
 }

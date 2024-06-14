@@ -24,7 +24,7 @@ class EntreesAction
                 'nom' => $entree['nom'],
                 'prenom' => $entree['prenom'],
                 'services' => $entree['services'],
-                'url' => 'http://localhost:20003/entrees/'.$entree['id']
+                'url' => 'http://localhost:20003/api/entrees/'.$entree['id']
             ];
         }
 

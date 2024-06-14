@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5978fd6f-d1b3-4540-a48f-6ed1b0966de7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesEntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesEntreeAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/conf/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/conf/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceServices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceEntree.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceEntree.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceEntreeInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceEntreeInterface.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +36,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "HugoBranch",
     "last_opened_file_path": "C:/Users/hugoAssal/Documents/webDirectory_project/webDirectory.core/webDirectory.server/src/core/domain",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -75,7 +77,7 @@
       <workItem from="1718269858033" duration="2093000" />
       <workItem from="1718272389331" duration="232000" />
       <workItem from="1718303149628" duration="241000" />
-      <workItem from="1718348188774" duration="8724000" />
+      <workItem from="1718348188774" duration="10051000" />
     </task>
     <servers />
   </component>
