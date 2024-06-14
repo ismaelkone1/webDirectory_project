@@ -2,7 +2,7 @@
 
 namespace web\directory\api\app\actions;
 
-use web\directory\api\core\services\ServiceServices;
+use web\directory\api\core\services\services\ServiceServices;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 class ServicesEntreeAction
@@ -27,7 +27,7 @@ class ServicesEntreeAction
                 'nom' => $entree['nom'],
                 'prenom' => $entree['prenom'],
                 'services' => $entree['services'],
-                'url' => 'http://localhost:20003/entrees/'.$entree['id']
+                'url' => 'http://localhost:20003/api/entrees/'.$entree['id']
             ];
         }, $entrees);
 

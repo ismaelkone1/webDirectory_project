@@ -1,6 +1,6 @@
 <?php
 
-namespace web\directory\api\core\services;
+namespace web\directory\api\core\services\entree;
 
 interface ServiceEntreeInterface
 {
@@ -8,4 +8,6 @@ interface ServiceEntreeInterface
     public function getAllEntrees(): array;
 
     public function getEntree(int $id): array;
+
+    public function getEntreeEnFonctionDuNom(string $nom): array;
 }
