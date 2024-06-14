@@ -6,3 +6,5 @@
 */vendor
 *composer.lock
 *.idea
+*vendor
+/webDirectory.core/webDirectory.api/src/vendor
