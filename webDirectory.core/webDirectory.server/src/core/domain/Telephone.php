@@ -10,7 +10,8 @@ class Telephone extends Eloquent
     protected $primaryKey = 'id';
     public $timestamp = false;
 
-    public function entree(){
+    public function entree()
+    {
         return $this->belongsTo(Entree::class);
     }
 }
