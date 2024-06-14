@@ -26,7 +26,7 @@ CREATE TABLE service (
 );
 
 CREATE TABLE utilisateur (
-  id int PRIMARY KEY AUTO_INCREMENT,
+  id VARCHAR(40) PRIMARY KEY,
   mail varchar(128),
   mdp varchar(512),
   role int
