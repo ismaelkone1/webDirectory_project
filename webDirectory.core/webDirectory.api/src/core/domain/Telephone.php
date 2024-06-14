@@ -1,6 +1,6 @@
 <?php
 
-namespace web\directory\core\domain;
+namespace web\directory\api\core\domain;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 

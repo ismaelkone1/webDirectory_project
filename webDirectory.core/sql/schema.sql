@@ -1,4 +1,4 @@
-CREATE TABLE personne (
+CREATE TABLE entree (
   id int PRIMARY KEY AUTO_INCREMENT,
   nom varchar(128),
   prenom varchar(128),
@@ -10,14 +10,14 @@ CREATE TABLE personne (
 
 CREATE TABLE telephone (
   id int PRIMARY KEY AUTO_INCREMENT,
-  id_personne int,
+  id_entree int,
   numero char(10)
 );
 
-CREATE TABLE personne_service (
-  id_personne int,
+CREATE TABLE entree_service (
+  id_entree int,
   id_departement int,
-  PRIMARY KEY (id_personne, id_departement)
+  PRIMARY KEY (id_entree, id_departement)
 );
 
 CREATE TABLE service (
@@ -32,8 +32,8 @@ CREATE TABLE utilisateur (
   role int
 );
 
-ALTER TABLE telephone ADD FOREIGN KEY (id_personne) REFERENCES personne (id);
+ALTER TABLE telephone ADD FOREIGN KEY (id_entree) REFERENCES entree (id);
 
-ALTER TABLE personne_service ADD FOREIGN KEY (id_personne) REFERENCES personne (id);
+ALTER TABLE entree_service ADD FOREIGN KEY (id_entree) REFERENCES entree (id);
 
-ALTER TABLE personne_service ADD FOREIGN KEY (id_departement) REFERENCES service (id);
+ALTER TABLE entree_service ADD FOREIGN KEY (id_departement) REFERENCES service (id);

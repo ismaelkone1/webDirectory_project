@@ -1,7 +1,7 @@
-driver=
-username=
-password=
-host=
-database=
-charset=
-collation=
+driver=mysql
+username=root
+password=r00t
+host=sql.db
+database=webdirectory.database
+charset=utf8
+collation=utf8_unicode_ci

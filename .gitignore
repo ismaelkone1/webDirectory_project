@@ -3,3 +3,4 @@
 /webDirectory.core/webDirectory.server/src/composer.lock
 *.env
 /webDirectory.core/.idea
+*/vendor

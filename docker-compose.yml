@@ -43,7 +43,7 @@ services:
     hostname: api
     image: canals/php:latest
     ports:
-      - 20003:80
+      - "20003:80"
     volumes:
       - ./webDirectory.core/webDirectory.api/public:/var/www/html
       - ./webDirectory.core/webDirectory.api/src:/var/www/src
