@@ -23,7 +23,7 @@ class EntreesAction
             $entrees[$key] = [
                 'nom' => $entree['nom'],
                 'prenom' => $entree['prenom'],
-                'service' => $entree['services'],
+                'services' => $entree['services'],
                 'url' => 'http://localhost:20003/entrees/'.$entree['id']
             ];
         }

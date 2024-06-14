@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5978fd6f-d1b3-4540-a48f-6ed1b0966de7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/sql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/sql/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesEntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesEntreeAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/conf/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/conf/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceEntree.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceEntree.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceEntreeInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceEntreeInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceServices.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +52,9 @@
       <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\webDirectory.api\src\core\domain" />
       <recent name="C:\Users\hugoAssal\Documents\webDirectory_project" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\sql" />
+    </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -74,7 +75,7 @@
       <workItem from="1718269858033" duration="2093000" />
       <workItem from="1718272389331" duration="232000" />
       <workItem from="1718303149628" duration="241000" />
-      <workItem from="1718348188774" duration="8111000" />
+      <workItem from="1718348188774" duration="8724000" />
     </task>
     <servers />
   </component>

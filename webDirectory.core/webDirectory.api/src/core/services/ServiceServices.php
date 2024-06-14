@@ -14,8 +14,8 @@ class ServiceServices implements ServiceServicesInterface
 
     public function getEntreesDuService(int $id): array
     {
-        $service = Service::find($id);
+        $service = Service::with('entrees')->find($id);
 
-        return $service->entrees()->get()->toArray();
+        return $service->entrees()->with('services')->get()->toArray();
     }
 }

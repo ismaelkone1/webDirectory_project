@@ -26,7 +26,7 @@ class ServicesEntreeAction
             return [
                 'nom' => $entree['nom'],
                 'prenom' => $entree['prenom'],
-                'departement' => $entree['departement'],
+                'services' => $entree['services'],
                 'url' => 'http://localhost:20003/entrees/'.$entree['id']
             ];
         }, $entrees);
