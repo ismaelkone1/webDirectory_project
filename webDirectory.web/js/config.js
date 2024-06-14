@@ -1,1 +1,1 @@
-export
+export var pointEntree =  'http://localhost:20003/api';

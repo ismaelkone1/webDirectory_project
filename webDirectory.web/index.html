@@ -7,4 +7,26 @@
 </head>
 <body>
 
+<div id="template">
+
+</div>
+
+<script id="entreeTemplate" type="text/x-handlebars-template">
+    {{#each entrees}}
+    <div class="entree">
+        <h2>{{nom}} {{prenom}}</h2>
+        <h3>services : </h3>
+        <ul>
+            {{#each services}}
+                <li>
+                    <div class="service">
+                        <p>{{libelle}}</p>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/each}}
+</script>
+<script src="lib/index.js"></script>
 </body>

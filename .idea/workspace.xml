@@ -5,20 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5978fd6f-d1b3-4540-a48f-6ed1b0966de7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/webDirectory.web/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/entreeLoader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/entree_ui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/loader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesEntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesEntreeAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntreeInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntreeInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/services/ServiceServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/services/ServiceServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/services/ServiceServicesInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/services/ServiceServicesInterface.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +21,14 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -49,6 +51,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;HugoBranch&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/hugoAssal/Documents/webDirectory_project/webDirectory.web&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
