@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5978fd6f-d1b3-4540-a48f-6ed1b0966de7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/webDirectory.web/css/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesEntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/ServicesEntreeAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/conf/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/conf/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/ServiceServices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntreeInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntreeInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/services/ServiceServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/services/ServiceServices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/services/ServiceServicesInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/services/ServiceServicesInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +31,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -31,38 +43,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/hugoAssal/Documents/webDirectory_project/webDirectory.core/webDirectory.server/src/core/domain",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;HugoBranch&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hugoAssal/Documents/webDirectory_project/webDirectory.web&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.web" />
       <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\webDirectory.server\src\core\domain" />
       <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\webDirectory.api\src\utils" />
       <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\webDirectory.api\src\core\domain" />
       <recent name="C:\Users\hugoAssal\Documents\webDirectory_project" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.web\js" />
+      <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\webDirectory.api\src\core\services\services" />
+      <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\webDirectory.api\src\core\services\entree" />
       <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\sql" />
     </key>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PS-241.15989.102" />
-        <option value="bundled-php-predefined-ba97393d7c68-c76157a7178b-com.jetbrains.php.sharedIndexes-PS-241.15989.102" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -75,7 +84,9 @@
       <workItem from="1718269858033" duration="2093000" />
       <workItem from="1718272389331" duration="232000" />
       <workItem from="1718303149628" duration="241000" />
-      <workItem from="1718348188774" duration="8724000" />
+      <workItem from="1718348188774" duration="10394000" />
+      <workItem from="1718358838630" duration="25000" />
+      <workItem from="1718368209090" duration="2143000" />
     </task>
     <servers />
   </component>

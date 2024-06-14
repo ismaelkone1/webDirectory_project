@@ -8,3 +8,4 @@
 *.idea
 *vendor
 /webDirectory.core/webDirectory.api/src/vendor
+/webDirectory.web/node_modules
