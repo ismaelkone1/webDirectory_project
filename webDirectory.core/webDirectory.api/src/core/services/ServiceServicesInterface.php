@@ -6,4 +6,6 @@ interface ServiceServicesInterface
 {
 
     public function getAllServices(): array;
+    public function getEntreesDuService(int $id): array;
+
 }

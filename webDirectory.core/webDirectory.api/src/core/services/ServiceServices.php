@@ -11,4 +11,11 @@ class ServiceServices implements ServiceServicesInterface
     {
         return Service::all()->toArray();
     }
+
+    public function getEntreesDuService(int $id): array
+    {
+        $service = Service::find($id);
+
+        return $service->entrees()->get()->toArray();
+    }
 }

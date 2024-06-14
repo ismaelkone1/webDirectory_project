@@ -4,3 +4,5 @@
 *.env
 /webDirectory.core/.idea
 */vendor
+*composer.lock
+*.idea
