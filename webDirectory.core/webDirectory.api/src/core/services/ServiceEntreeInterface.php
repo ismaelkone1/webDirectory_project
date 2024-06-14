@@ -6,4 +6,6 @@ interface ServiceEntreeInterface
 {
 
     public function getAllEntrees(): array;
+
+    public function getEntree(int $id): array;
 }

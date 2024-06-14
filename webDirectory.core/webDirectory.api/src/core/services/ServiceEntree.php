@@ -10,6 +10,11 @@ class ServiceEntree implements ServiceEntreeInterface
 
     public function getAllEntrees(): array
     {
-        return Entree::all()->toArray();
+        return Entree::with('services')->get()->toArray();
+    }
+
+    public function getEntree(int $id): array
+    {
+        return Entree::find($id)->toArray();
     }
 }

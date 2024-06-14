@@ -16,8 +16,8 @@ CREATE TABLE telephone (
 
 CREATE TABLE entree_service (
   id_entree int,
-  id_departement int,
-  PRIMARY KEY (id_entree, id_departement)
+  id_service int,
+  PRIMARY KEY (id_entree, id_service)
 );
 
 CREATE TABLE service (
@@ -36,4 +36,4 @@ ALTER TABLE telephone ADD FOREIGN KEY (id_entree) REFERENCES entree (id);
 
 ALTER TABLE entree_service ADD FOREIGN KEY (id_entree) REFERENCES entree (id);
 
-ALTER TABLE entree_service ADD FOREIGN KEY (id_departement) REFERENCES service (id);
+ALTER TABLE entree_service ADD FOREIGN KEY (id_service) REFERENCES service (id);
