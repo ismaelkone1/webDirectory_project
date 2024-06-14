@@ -4,8 +4,7 @@ namespace web\directory\api\app\actions;
 
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
-use web\directory\api\core\services\ServiceEntree;
-use web\directory\api\core\services\ServiceServices;
+use web\directory\api\core\services\entree\ServiceEntree;
 
 class EntreesAction
 {

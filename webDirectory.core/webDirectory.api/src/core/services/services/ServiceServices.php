@@ -1,6 +1,6 @@
 <?php
 
-namespace web\directory\api\core\services;
+namespace web\directory\api\core\services\services;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use web\directory\api\core\domain\Service;
