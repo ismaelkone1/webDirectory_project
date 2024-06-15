@@ -1,6 +1,6 @@
 <?php
 
-namespace web\directory\core\services\Entree;
+namespace web\directory\core\services\exception;
 
 class EntreeNotFoundException extends \Exception
 {}

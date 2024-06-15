@@ -4,7 +4,7 @@ namespace web\directory\core\services\Entree;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use web\directory\core\domain\Entree;
-use web\directory\core\services\Entree\EntreeNotFoundException;
+use web\directory\core\services\exception\EntreeNotFoundException;
 
 class ServiceEntree implements ServiceEntreeInterface
 {

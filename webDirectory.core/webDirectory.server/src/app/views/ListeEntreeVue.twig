@@ -11,29 +11,33 @@ Entrées
 			</h1>
 		</blockquote>
 	</figure>
-
-    <table class="table table-hover">
+    
+    <div class="container">
+    <table class="table table-hover" style="border 1px black" >
   <thead>
-    <tr>
-      <th scope="col">Type</th>
-      <th scope="col">Column heading</th>
-      <th scope="col">Column heading</th>
-      <th scope="col">Column heading</th>
+    <tr class="text-center">
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Service</th>
+      <th scope="col">N° bureau</th>
+      <th scope="col">Email</th>
+      <th scope="col">URL Image</th>
     </tr>
   </thead>
   <tbody>
-    <tr class="table-active">
-      <th scope="row">Active</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr>
-      <th scope="row">Default</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
+    {% for entree in entrees %}
+        <tr class="table-active text-center">
+            <th scope="row">{{ entree.id }}</th>
+            <td>{{ entree.nom }}</td>
+            <td>{{ entree.prenom }}</td>
+            <td>{{ entree.fonction }}</td>
+            <td>{{ entree.num_bureau }}</td>
+            <td>{{ entree.email }}</td>
+            <td>{{ entree.url_image }}</td>  
+        </tr>
+    {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}
