@@ -4,12 +4,12 @@ namespace web\directory\app\actions;
 
 use web\directory\core\services\authentification\AuthService;
 use web\directory\core\services\authentification\AuthServiceInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteParser;
 use Slim\Routing\RouteContext;
 
-class RegisterPostAction  extends Action
+class RegisterPostAction extends Action
 {
     private AuthServiceInterface $userService;
 
@@ -18,14 +18,17 @@ class RegisterPostAction  extends Action
         $this->userService = new AuthService();
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function __invoke(Request $request, Response $response, array $args): Response
     {
         $postData = $request->getParsedBody();
 
         if (isset($postData['createaccount'])) {
+            $Cuser_id = htmlspecialchars($postData['Cuser_id'], ENT_QUOTES, 'UTF-8');
+            $Cpassword = htmlspecialchars($postData['Cpassword'], ENT_QUOTES, 'UTF-8');
+
             $args = [
-                'mail' => $postData["Cuser_id"],
-                'mdp' => $postData["Cpassword"],
+                'mail' => $Cuser_id,
+                'mdp' => $Cpassword
             ];
 
             if ($postData["Cpassword"] !== $postData["CCpassword"]) {

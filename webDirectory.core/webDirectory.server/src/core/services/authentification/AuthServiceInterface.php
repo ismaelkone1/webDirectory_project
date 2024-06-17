@@ -2,11 +2,11 @@
 
 namespace web\directory\core\services\authentification;
 
-use web\directory\api\core\domain\Utilisateur;
+use web\directory\core\domain\Utilisateur;
 
 interface AuthServiceInterface 
 {
-    public function isAdmin($id):bool;
+    public function isSuperAdmin($id):bool;
     public function saveUser(Utilisateur $user);
     public function checkPasswordStrength(string $pass): bool;
     public function checkUsernameDB(string $username): bool;

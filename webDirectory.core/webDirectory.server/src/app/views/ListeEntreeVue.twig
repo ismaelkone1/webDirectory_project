@@ -1,0 +1,43 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+Entrées
+{% endblock %}
+
+{% block body %}
+    <figure>
+		<blockquote class="blockquote mx-4 mt-4">
+			<h1>Liste des entrées :
+			</h1>
+		</blockquote>
+	</figure>
+    
+    <div class="container table-responsive" style="max-height: 600px; overflow-y: auto;">
+    <table class="table table-hover table-striped table-bordered">
+      <thead style="position: sticky; top: 0; z-index: 1;">
+    <tr class="text-center">
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Service</th>
+      <th scope="col">N° bureau</th>
+      <th scope="col">Email</th>
+      <th scope="col">URL Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entree in entrees %}
+        <tr class="table-active text-center">
+            <th scope="row">{{ entree.id }}</th>
+            <td>{{ entree.nom }}</td>
+            <td>{{ entree.prenom }}</td>
+            <td>{{ entree.fonction }}</td>
+            <td>{{ entree.num_bureau }}</td>
+            <td>{{ entree.email }}</td>
+            <td>{{ entree.url_image }}</td>  
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

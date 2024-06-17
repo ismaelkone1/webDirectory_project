@@ -12,7 +12,7 @@ $app->addErrorMiddleware(true, false, false);
 
 $app = (require_once __DIR__ . '/../conf/routes.php')($app);
 
-ConnectionBD::init(__DIR__ . '/../conf/webDirectory.db.conf.ini.dist');
+ConnectionBD::init(__DIR__ . '/../conf/webDirectory.db.conf.ini');
 
 $twig = \Slim\Views\Twig::create(
     __DIR__ . '/../app/views',

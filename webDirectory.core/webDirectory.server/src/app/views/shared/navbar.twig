@@ -7,12 +7,18 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="/">Home
+          <a class="nav-link active" href="{{url_for('home')}}">Home
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Consulter</a>
+          <a class="nav-link" href="{{ url_for('creationEntreeGET') }}">Créer une entrée</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('creationServiceGET')}}">Consulter services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('entrees')}}">Consulter entrées</a>
         </li>
       </ul>
     </div>
