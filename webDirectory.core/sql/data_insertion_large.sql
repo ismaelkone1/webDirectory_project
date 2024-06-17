@@ -413,8 +413,8 @@ INSERT INTO entree_service (id_entree, id_service) VALUES
 (100, 2);
 
 INSERT INTO utilisateur (id, mail, mdp, role) VALUES
-(1, 'user1@example.com', 'password1', 1),
-(2, 'user2@example.com', 'password2', 2),
-(3, 'user3@example.com', 'password3', 1),
-(4, 'user4@example.com', 'password4', 3),
-(5, 'user5@example.com', 'password5', 2);
+(UUID(), 'user1@example.com', 'password1', 1),
+(UUID(), 'user2@example.com', 'password2', 2),
+(UUID(), 'user3@example.com', 'password3', 1),
+(UUID(), 'user4@example.com', 'password4', 3),
+(UUID(), 'user5@example.com', 'password5', 2);
