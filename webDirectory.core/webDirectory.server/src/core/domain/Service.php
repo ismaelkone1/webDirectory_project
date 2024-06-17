@@ -8,7 +8,7 @@ class Service extends Eloquent
 {
     protected $table = 'service';
     protected $primaryKey = 'id';
-    public $timestamp = false;
+    public $timestamps = false;
 
     public function entrees()
     {

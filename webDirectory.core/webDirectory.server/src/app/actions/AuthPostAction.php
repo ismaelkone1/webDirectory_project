@@ -25,11 +25,12 @@ class AuthPostAction  extends Action
 
         // recuperation des credentials entrees dans le formulaire
         $user_id = $postData['user_id'] ?? '';
+        $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
         $password = $postData['password'] ?? '';
+        $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
 
         // verification des credentials
-        if($this->authService->checkPasswordValid($password, $user_id))
-        {
+        if ($this->authService->checkPasswordValid($password, $user_id)) {
             // Connexion reussi
             $user = $this->authService->connectuser(['id' => $user_id]);
             $routeContext = RouteContext::fromRequest($request);
@@ -42,6 +43,5 @@ class AuthPostAction  extends Action
             $response->getBody()->write('Identifiants incorrects');
             return $response->withStatus(401)->withHeader('Content-Type', 'text/html');
         }
-
     }
 }

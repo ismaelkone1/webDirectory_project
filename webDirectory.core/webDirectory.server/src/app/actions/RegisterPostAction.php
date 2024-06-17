@@ -23,9 +23,12 @@ class RegisterPostAction  extends Action
         $postData = $request->getParsedBody();
 
         if (isset($postData['createaccount'])) {
+            $Cuser_id = htmlspecialchars($postData['Cuser_id'], ENT_QUOTES, 'UTF-8');
+            $Cpassword = htmlspecialchars($postData['Cpassword'], ENT_QUOTES, 'UTF-8');
+
             $args = [
-                'mail' => $postData["Cuser_id"],
-                'mdp' => $postData["Cpassword"],
+                'mail' => $Cuser_id,
+                'mdp' => $Cpassword
             ];
 
             if ($postData["Cpassword"] !== $postData["CCpassword"]) {
