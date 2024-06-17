@@ -22,7 +22,9 @@ CREATE TABLE entree_service (
 
 CREATE TABLE service (
   id int PRIMARY KEY AUTO_INCREMENT,
-  libelle varchar(128)
+  libelle varchar(128),
+  etage smallint,
+  description varchar(512)
 );
 
 CREATE TABLE utilisateur (
