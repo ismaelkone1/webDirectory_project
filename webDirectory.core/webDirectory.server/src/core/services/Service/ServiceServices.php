@@ -4,7 +4,7 @@ namespace web\directory\core\services\Service;
 
 use web\directory\core\domain\Service;
 use web\directory\core\services\Service\ServiceServicesInterface;
-use web\directory\core\services\Service\ServiceNotFoundException;
+use web\directory\core\services\exception\ServiceNotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServiceServices implements ServiceServicesInterface
