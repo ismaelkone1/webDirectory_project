@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:web_directory/annuaire_app.dart';
 
-void main() {
+Future<void> main() async {
   runApp(const MainApp());
 }
 
@@ -11,9 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+        body: AnnuaireApp(),
       ),
     );
   }
