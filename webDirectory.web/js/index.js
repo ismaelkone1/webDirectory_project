@@ -26,7 +26,7 @@ async function showSearchedEntrees(recherche){
 const buttonListeEntrees = document.getElementById('listeEntrees');
 buttonListeEntrees.addEventListener('click', showEntrees);
 
-const search = document.getElementById('search');
+const search = document.getElementById('autoComplete');
 search.addEventListener('input', function(){
     showSearchedEntrees(search.value);
 });

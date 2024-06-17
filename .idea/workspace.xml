@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5978fd6f-d1b3-4540-a48f-6ed1b0966de7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/autoComplete.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/lib/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/lib/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/lib/index.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +99,7 @@
       <workItem from="1718445949534" duration="161000" />
       <workItem from="1718616291852" duration="649000" />
       <workItem from="1718629694173" duration="985000" />
-      <workItem from="1718630695621" duration="1666000" />
+      <workItem from="1718630695621" duration="3332000" />
     </task>
     <servers />
   </component>
