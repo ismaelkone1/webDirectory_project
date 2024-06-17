@@ -8,5 +8,9 @@ class Utilisateur extends Eloquent
 {
     protected $table = 'utilisateur';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamp = false;
+
+    protected $fillable = ['mail', 'mdp', 'role'];
+
+
 }

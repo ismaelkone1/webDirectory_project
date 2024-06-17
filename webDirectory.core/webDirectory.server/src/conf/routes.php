@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Slim\App;
 use web\directory\app\actions\AuthGetAction;
+use web\directory\app\actions\AuthPostAction;
 use web\directory\app\actions\HomeAction;
 use web\directory\app\actions\ListeEntreeAction;
 use web\directory\app\actions\RegisterGetAction;
@@ -18,6 +19,11 @@ return function (App $app): App {
     $app->get(
         '/login',
         AuthGetAction::class
+    )->setname('login');
+
+    $app->post(
+        '/login',
+        AuthPostAction::class
     )->setname('login');
 
     $app->get(
