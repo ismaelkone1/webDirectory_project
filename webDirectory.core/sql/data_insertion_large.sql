@@ -1112,13 +1112,12 @@ VALUES (1, '5740733641'),
     (100, '1244301572'),
     (100, '5351814566');
 
-INSERT INTO
-    service (id, libelle)
-VALUES (1, 'Informatique'),
-    (2, 'Ressources Humaines'),
-    (3, 'Finance'),
-    (4, 'Marketing'),
-    (5, 'Ventes');
+INSERT INTO service (id, libelle, etage, description) VALUES
+(1,	'Informatique',	6,	"Important d'informer en informatique"),
+(2,	'Ressources Humaines',	2,	'Venez retrouver votre RH préférée'),
+(3,	'Finance',	1,	'Frauduleux les pinances'),
+(4,	'Marketing',	4,	'On va au market ingh ou quoi là'),
+(5,	'Ventes',	5,	"Ici on s'occupe des ventes, bah ouais logique");
 
 INSERT INTO
     entree_service (id_entree, id_service)
