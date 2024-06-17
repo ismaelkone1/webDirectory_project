@@ -3,8 +3,11 @@
 namespace web\directory\core\services\Entree;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use web\directory\api\core\services\entree\ServiceEntree as EntreeServiceEntree;
 use web\directory\core\domain\Entree;
 use web\directory\core\services\exception\EntreeNotFoundException;
+use web\directory\core\services\Entree\ServiceEntreeInterface;
+use web\directory\core\services\Entree_Service\ServiceEntreeService;
 
 
 class ServiceEntree implements ServiceEntreeInterface
@@ -66,8 +69,18 @@ class ServiceEntree implements ServiceEntreeInterface
                 $entree->url_image = null;
             }
 
-            $entree->save();
-            return true;
+            if ($entree->save()) {
+                $serviceEntreeService = new ServiceEntreeService();
+
+                $dataService = [
+                    'entree_id' => $entree->id,
+                    'service_id' => $data['service']
+                ];
+
+                if ($serviceEntreeService->createEntreeService($dataService)) {
+                    return true;
+                }
+            }
         } catch (ModelNotFoundException $e) {
             throw new EntreeNotFoundException("Impossible de créer l'entrée : " . $e);
         }

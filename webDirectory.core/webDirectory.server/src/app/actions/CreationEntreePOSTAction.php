@@ -18,6 +18,7 @@ class CreationEntreePOSTAction
         $fonction = htmlspecialchars($data['fonction'], ENT_QUOTES, 'UTF-8');
         $numBureau = filter_var($data['numBureau'], FILTER_SANITIZE_NUMBER_INT);
         $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+        $service = filter_var($data['service'], FILTER_SANITIZE_NUMBER_INT);
         $csrf = htmlspecialchars($data['csrf'], ENT_QUOTES, 'UTF-8');
 
         $csrf = CsrfService::check($csrf);
@@ -41,7 +42,8 @@ class CreationEntreePOSTAction
             'fonction' => $fonction,
             'numBureau' => $numBureau,
             'email' => $email,
-            'urlImage' => $urlImage
+            'urlImage' => $urlImage,
+            'service' => $service
         ];
 
         if ($serviceEntree->createEntree($data)) {

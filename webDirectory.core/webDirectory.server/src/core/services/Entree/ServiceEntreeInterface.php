@@ -9,5 +9,7 @@ interface ServiceEntreeInterface
 
     public function getEntreeById(int $id): array;
 
-    public function getServices() : array;
+    public function getServices(): array;
+
+    public function createEntree(array $data): bool;
 }
