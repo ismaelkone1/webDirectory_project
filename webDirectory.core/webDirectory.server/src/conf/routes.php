@@ -11,6 +11,8 @@ use web\directory\app\actions\RegisterGetAction;
 use web\directory\app\actions\RegisterPostAction;
 use web\directory\app\actions\CreationEntreeGETAction;
 use web\directory\app\actions\CreationEntreePOSTAction;
+use web\directory\app\actions\CreationServiceGETAction;
+use web\directory\app\actions\CreationServicePOSTAction;
 
 return function (App $app): App {
     $app->get('/', HomeAction::class)
@@ -44,6 +46,12 @@ return function (App $app): App {
 
     $app->post('/creationEntree', CreationEntreePOSTAction::class)
         ->setName('creationEntreePOST');
+
+    $app->get('/creationService',CreationServiceGETAction::class)
+        ->setName('creationServiceGET');
+    
+    $app->post('/creationService',CreationServicePOSTAction::class)
+        ->setName('creationServicePOST');
 
     return $app;
 };

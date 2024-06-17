@@ -29,4 +29,18 @@ class ServiceServices implements ServiceServicesInterface
         }
         return $service->entrees()->with('services')->get()->toArray();
     }
+
+    public function createService(array $data): bool
+    {
+        try {
+            $service = new Service();
+            $service->libelle = $data['libelle'];
+            $service->etage = $data['etage'];
+            $service->description = $data['description'];
+            $service->save();
+        } catch (ModelNotFoundException $e) {
+            throw new ServiceNotFoundException("Impossible de créer le service : " . $e);
+        }
+        return true;
+    }
 }
