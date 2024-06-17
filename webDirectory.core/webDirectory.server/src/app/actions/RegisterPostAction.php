@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteParser;
 use Slim\Routing\RouteContext;
 
-class RegisterPostAction  extends Action
+class RegisterPostAction 
 {
     private AuthServiceInterface $userService;
 
@@ -18,7 +18,7 @@ class RegisterPostAction  extends Action
         $this->userService = new AuthService();
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $postData = $request->getParsedBody();
 
