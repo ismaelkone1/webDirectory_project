@@ -12,6 +12,7 @@ class CreationEntreePOSTAction
 {
     public function __invoke(Request $rq, Response $rs): Response
     {
+        $twig = Twig::fromRequest($rq);
         $data = $rq->getParsedBody();
         $nom = htmlspecialchars($data['nom'], ENT_QUOTES, 'UTF-8');
         $prenom = htmlspecialchars($data['prenom'], ENT_QUOTES, 'UTF-8');
@@ -47,7 +48,7 @@ class CreationEntreePOSTAction
         ];
 
         if ($serviceEntree->createEntree($data)) {
-            return $rs->withStatus(302)->withHeader('Location', '/creationEntree');
+            return $twig->render($rs, 'CreationEntreeSucess.twig');
         }
     }
 
