@@ -8,6 +8,7 @@ use web\directory\core\domain\Entree;
 use web\directory\core\services\exception\EntreeNotFoundException;
 use web\directory\core\services\Entree\ServiceEntreeInterface;
 use web\directory\core\services\Entree_Service\ServiceEntreeService;
+use web\directory\core\services\Telephone\ServiceTelephone;
 
 
 class ServiceEntree implements ServiceEntreeInterface
@@ -78,7 +79,16 @@ class ServiceEntree implements ServiceEntreeInterface
                 ];
 
                 if ($serviceEntreeService->createEntreeService($dataService)) {
-                    return true;
+                    $serviceTelephone = new ServiceTelephone();
+
+                    $dataTelephone = [
+                        'entree_id' => $entree->id,
+                        'numTel' => $data['numTel']
+                    ];
+
+                    if ($serviceTelephone->createTelephone($dataTelephone)) {
+                        return true;
+                    }
                 }
             }
         } catch (ModelNotFoundException $e) {

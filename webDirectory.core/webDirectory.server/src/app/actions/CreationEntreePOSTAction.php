@@ -17,6 +17,7 @@ class CreationEntreePOSTAction
         $prenom = htmlspecialchars($data['prenom'], ENT_QUOTES, 'UTF-8');
         $fonction = htmlspecialchars($data['fonction'], ENT_QUOTES, 'UTF-8');
         $numBureau = filter_var($data['numBureau'], FILTER_SANITIZE_NUMBER_INT);
+        $numTel = filter_var($data['numTel'], FILTER_SANITIZE_NUMBER_INT);
         $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $service = filter_var($data['service'], FILTER_SANITIZE_NUMBER_INT);
         $csrf = htmlspecialchars($data['csrf'], ENT_QUOTES, 'UTF-8');
@@ -32,6 +33,7 @@ class CreationEntreePOSTAction
         }
 
         $numBureau = intval($numBureau);
+        $numTel = intval($numTel);
 
         $urlImage = null;
 
@@ -43,7 +45,8 @@ class CreationEntreePOSTAction
             'numBureau' => $numBureau,
             'email' => $email,
             'urlImage' => $urlImage,
-            'service' => $service
+            'service' => $service,
+            'numTel' => $numTel
         ];
 
         if ($serviceEntree->createEntree($data)) {
