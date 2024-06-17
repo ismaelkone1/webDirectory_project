@@ -8,7 +8,20 @@
 </head>
 <body>
 
-<div class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="btn btn-primary nav-link" id="listeEntrees">Liste des entrées</a>
+            </li>
+        </ul>
+        <div class="ms-auto">
+            <input type="text" class="form-control" id="autoComplete" placeholder="Rechercher un entrée">
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
     <div id="template">
 
     </div>
@@ -18,10 +31,12 @@
 <script id="entreeTemplate" type="text/x-handlebars-template">
     {{#each entrees}}
     <div class="entree">
-        <div class="card">
-            <div class="card-body">
+        <div class="card mb-3">
+            <div class="card-header">
                 <h2 class="card-title">{{nom}} {{prenom}}</h2>
-                <p>services : </p>
+            </div>
+            <div class="card-body">
+                <h6>Services : </h6>
                 <ul>
                     {{#each services}}
                         <li>

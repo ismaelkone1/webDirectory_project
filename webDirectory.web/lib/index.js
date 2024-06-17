@@ -3699,7 +3699,7 @@
           }
         }
       }
-      exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
+      exports.search = function search2(aNeedle, aHaystack, aCompare, aBias) {
         if (aHaystack.length === 0) {
           return -1;
         }
@@ -5758,14 +5758,55 @@
     document.getElementById("template").innerHTML = template(entree);
   }
 
-  // js/index.js
-  function showEntrees() {
+  // js/search.js
+  var entrees;
+  function searchEntrees(recherche) {
     return __async(this, null, function* () {
-      let entrees = yield loadEntrees();
-      console.log(entrees);
-      display_entree(entrees);
+      if (entrees === void 0)
+        entrees = yield loadEntrees();
+      let result = {
+        "type": "ressource",
+        "entrees": []
+      };
+      for (let entree of entrees.entrees) {
+        entree.services.forEach((service) => {
+          if (service.libelle.toLowerCase().includes(recherche.toLowerCase())) {
+            result.entrees.push(entree);
+          }
+        });
+      }
+      return result;
     });
   }
-  showEntrees();
+
+  // js/index.js
+  function sortEntrees(entrees2) {
+    entrees2.sort((a, b) => {
+      if (a.nom === b.nom) {
+        return a.prenom.localeCompare(b.prenom);
+      }
+      return a.nom.localeCompare(b.nom);
+    });
+  }
+  function showEntrees() {
+    return __async(this, null, function* () {
+      let entrees2 = yield loadEntrees();
+      sortEntrees(entrees2.entrees);
+      display_entree(entrees2);
+    });
+  }
+  function showSearchedEntrees(recherche) {
+    return __async(this, null, function* () {
+      let entrees2 = yield searchEntrees(recherche);
+      sortEntrees(entrees2.entrees);
+      display_entree(entrees2);
+    });
+  }
+  var buttonListeEntrees = document.getElementById("listeEntrees");
+  buttonListeEntrees.addEventListener("click", showEntrees);
+  var search = document.getElementById("search");
+  search.addEventListener("input", function() {
+    showSearchedEntrees(search.value);
+  });
 })();
 //# sourceMappingURL=index.js.map
