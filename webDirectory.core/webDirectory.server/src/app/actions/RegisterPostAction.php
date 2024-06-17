@@ -4,12 +4,12 @@ namespace web\directory\app\actions;
 
 use web\directory\core\services\authentification\AuthService;
 use web\directory\core\services\authentification\AuthServiceInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteParser;
 use Slim\Routing\RouteContext;
 
-class RegisterPostAction 
+class RegisterPostAction extends Action
 {
     private AuthServiceInterface $userService;
 
@@ -18,7 +18,7 @@ class RegisterPostAction
         $this->userService = new AuthService();
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function __invoke(Request $request, Response $response, array $args): Response
     {
         $postData = $request->getParsedBody();
 

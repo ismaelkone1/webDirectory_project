@@ -2,6 +2,7 @@
 
 namespace web\directory\core\services\authentification;
 
+use Exception;
 use web\directory\core\domain\Utilisateur;
 use web\directory\core\services\exception\InvalidArgumentException;
 use web\directory\core\services\authentification\AuthServiceInterface;
@@ -71,27 +72,44 @@ class AuthService implements AuthServiceInterface
 
     public function checkPasswordValid(string $pass, string $user_id): bool
     {
-        $user = Utilisateur::where('mail', $user_id)->first();
-    
-        if (!$user) {
-            return false; // Utilisateur non trouvé
+        try {
+            $user = Utilisateur::where('mail', $user_id)->first();
+
+            if ($user === null) {
+                error_log("Utilisateur non trouvé: $user_id");
+                return false;
+            }
+
+            $passwordValid = password_verify($pass, $user->mdp);
+
+            if (!$passwordValid) {
+                error_log("Mot de passe invalide pour : $user_id");
+            }
+
+            return $passwordValid;
+        } catch (\Exception $e) {
+            throw new Exception($e);
+            error_log("Erreur lors de la vérification du mot de passe pour $user_id: " . $e->getMessage());
+            return false;
         }
-    
-        return password_verify($pass, $user->mdp);
     }
     
 
-    public function connectUser(array $args): Utilisateur
+    public function connectUser(array $args): ?Utilisateur
     {
-        $user = Utilisateur::find($args['id']);
-        if ($user) {
-            $_SESSION['id'] = $user->id;
-            if ($user->role == 1) {
-                $user->role = 1;
+        try {
+            $user = Utilisateur::where('mail', $args['id'])->first(); // Utiliser where pour rechercher par email
+            if ($user) {
+                $_SESSION['id'] = $user->id;
+                return $user;
             } else {
-                $user->role = 2;
+                throw new Exception("Utilisateur non trouvé avec l'email: " . $args['id']);
             }
+        } catch (Exception $e) {
+            error_log("Erreur lors de la connexion de l'utilisateur: " . $e->getMessage());
+            return null;
         }
-        return $user;
     }
+
+
 }
