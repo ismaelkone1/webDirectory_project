@@ -1,20 +1,20 @@
-import {loadEntrees} from './entreeLoader.js';
-import {display_entree} from './entree_ui.js';
-import {searchEntrees, searchServices} from './search.js';
+import {loadEntreeRecherche, loadEntrees} from './entreeLoader.js';
+import {display_entrees} from './entree_ui.js';
+import {searchServices} from './search.js';
 import TomSelect from "tom-select";
 import {loadServices} from "./servicesLoader";
 
 //1)
 async function showEntrees(){
     let entrees = await loadEntrees();
-    display_entree(entrees);
+    display_entrees(entrees);
 }
 
 //2)
 
 async function showSearchedEntreesByServices(recherche){
     let entrees = await searchServices(recherche);
-    display_entree(entrees);
+    display_entrees(entrees);
 }
 
 const buttonListeEntrees = document.getElementById('listeEntrees');
@@ -39,11 +39,42 @@ services();
 
 //3)
 async function showSearchedEntreesByNom(recherche){
-    let entrees = await searchEntrees(recherche);
-    display_entree(entrees);
+    let entrees = await loadEntreeRecherche(recherche)
+    display_entrees(entrees);
 }
 
 const buttonSearch = document.getElementById('searchNom');
 buttonSearch.addEventListener('input', function(){
     showSearchedEntreesByNom(buttonSearch.value);
+});
+
+
+//4)
+async function showSearchedEntreesByNomService(recherche){
+    let entrees = await searchServices(recherche);
+    let entrees2 = await loadEntreeRecherche(recherche);
+
+    //On ajoute les deux listes d'entrees sans les doublons
+    let result = {
+        "type": "ressource",
+        "entrees": []
+    }
+
+    for (let entree of entrees.entrees){
+        if (!result.entrees.includes(entree)){
+            result.entrees.push(entree);
+        }
+    }
+    for (let entree of entrees2.entrees){
+        if (!result.entrees.includes(entree)){
+            result.entrees.push(entree);
+        }
+    }
+
+    display_entrees(result);
+}
+
+const buttonSearch2 = document.getElementById('searchNomService');
+buttonSearch2.addEventListener('input', function(){
+    showSearchedEntreesByNomService(buttonSearch2.value);
 });

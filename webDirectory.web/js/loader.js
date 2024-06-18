@@ -5,3 +5,9 @@ export function load( url ) {
         .then(response => response.json())
         .catch(error => console.error('Erreur lors du chargement de la ressource', error));
 }
+
+export function loadSansPointEntree( url ) {
+    return fetch(url)
+        .then(response => response.json())
+        .catch(error => console.error('Erreur lors du chargement de la ressource', error));
+}

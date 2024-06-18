@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5978fd6f-d1b3-4540-a48f-6ed1b0966de7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/servicesLoader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/domain/Entree.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/domain/Entree.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.server/src/conf/webDirectory.db.conf.ini.dist" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.server/src/conf/webDirectory.db.conf.ini.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/autoComplete.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/entreeLoader.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/entreeLoader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/js/entree_ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/entree_ui.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/loader.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/loader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/search.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/lib/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/lib/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/lib/index.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +113,10 @@
       <workItem from="1718700093590" duration="4672000" />
       <workItem from="1718712883227" duration="79000" />
       <workItem from="1718713234375" duration="1723000" />
-      <workItem from="1718715315605" duration="959000" />
+      <workItem from="1718715315605" duration="1821000" />
+      <workItem from="1718720569447" duration="1523000" />
+      <workItem from="1718722369967" duration="70000" />
+      <workItem from="1718722868279" duration="131000" />
     </task>
     <servers />
   </component>

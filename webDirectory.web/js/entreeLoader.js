@@ -4,4 +4,7 @@ async function loadEntrees(){
     return await load('/entrees');
 }
 
-export {loadEntrees};
+async function loadEntreeRecherche(recherche){
+    return await load(`/entrees/search?q=${recherche}`);
+}
+export {loadEntrees, loadEntreeRecherche};

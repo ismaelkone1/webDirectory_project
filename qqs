@@ -1,0 +1,14 @@
+.idea/workspace.xml
+webDirectory.core/webDirectory.api/src/core/domain/Entree.php
+webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php
+webDirectory.core/webDirectory.server/src/conf/webDirectory.db.conf.ini.dist
+webDirectory.web/index.html
+webDirectory.web/js/autoComplete.js
+webDirectory.web/js/entree_ui.js
+webDirectory.web/js/index.js
+webDirectory.web/js/search.js
+webDirectory.web/js/servicesLoader.js
+webDirectory.web/lib/index.js
+webDirectory.web/lib/index.js.map
+webDirectory.web/package-lock.json
+webDirectory.web/package.json
