@@ -8,9 +8,9 @@ use Slim\Views\Twig;
 use web\directory\app\utils\CsrfService;
 use web\directory\core\services\Service\ServiceServices;
 
-class CreationEntreeGETAction
+class CreationEntreeGETAction extends Action
 {
-    public function __invoke(Request $rq, Response $rs): Response
+    public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $serviceService = new ServiceServices();
         $listeService = $serviceService->getServices();

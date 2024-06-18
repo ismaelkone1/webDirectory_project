@@ -18,9 +18,9 @@ class RegisterPostAction extends Action
         $this->userService = new AuthService();
     }
 
-    public function __invoke(Request $request, Response $response, array $args): Response
+    public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $postData = $request->getParsedBody();
+        $postData = $rq->getParsedBody();
 
         if (isset($postData['createaccount'])) {
             $Cuser_id = htmlspecialchars($postData['Cuser_id'], ENT_QUOTES, 'UTF-8');
@@ -32,21 +32,21 @@ class RegisterPostAction extends Action
             ];
 
             if ($postData["Cpassword"] !== $postData["CCpassword"]) {
-                $response->getBody()->write('Les mots de passe ne correspondent pas');
-                return $response->withStatus(400)->withHeader('Content-Type', 'text/html');
+                $rs->getBody()->write('Les mots de passe ne correspondent pas');
+                return $rs->withStatus(400)->withHeader('Content-Type', 'text/html');
             }
-            $routeContext = RouteContext::fromRequest($request);
+            $routeContext = RouteContext::fromRequest($rq);
             $routeParser = $routeContext->getRouteParser();
             $url = $routeParser->urlFor('login');
             try {
                 $user = $this->userService->createUser($args);
-                return $response->withStatus(302)->withHeader('Location', $url);
+                return $rs->withStatus(302)->withHeader('Location', $url);
             } catch (\InvalidArgumentException $e) {
-                $response->getBody()->write($e->getMessage());
-                return $response->withStatus(400)->withHeader('Content-Type', 'text/html');
+                $rs->getBody()->write($e->getMessage());
+                return $rs->withStatus(400)->withHeader('Content-Type', 'text/html');
             } catch (\Exception $e) {
-                $response->getBody()->write($e->getMessage());
-                return $response->withStatus(500)->withHeader('Content-Type', 'text/html');
+                $rs->getBody()->write($e->getMessage());
+                return $rs->withStatus(500)->withHeader('Content-Type', 'text/html');
             }
         }
     }
