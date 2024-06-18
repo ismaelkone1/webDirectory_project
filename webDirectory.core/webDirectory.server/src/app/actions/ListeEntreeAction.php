@@ -7,7 +7,6 @@ use Slim\Views\Twig;
 use web\directory\core\services\Service\ServiceServices;
 use web\directory\core\services\Service\ServiceServicesInterface;
 use web\directory\core\services\Entree\ServiceEntree;
-use web\directory\core\services\Service\ServiceServices;
 
 class ListeEntreeAction extends Action 
 {
