@@ -7,11 +7,13 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 use web\directory\app\utils\CsrfService;
 use web\directory\core\services\Entree\ServiceEntree;
+use Slim\Exception\HttpNotFoundException;
 
-class CreationEntreePOSTAction
+class CreationEntreePOSTAction extends Action
 {
-    public function __invoke(Request $rq, Response $rs): Response
+    public function __invoke(Request $rq, Response $rs, array $args): Response
     {
+
         $twig = Twig::fromRequest($rq);
         $data = $rq->getParsedBody();
         $nom = htmlspecialchars($data['nom'], ENT_QUOTES, 'UTF-8');
@@ -53,6 +55,8 @@ class CreationEntreePOSTAction
         if ($serviceEntree->createEntree($data)) {
             return $twig->render($rs, 'CreationEntreeSucess.twig');
         }
+
+        return $rs->withStatus(500);
     }
 
     private function validateEmail($email): bool

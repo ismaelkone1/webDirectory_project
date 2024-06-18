@@ -1,15 +1,20 @@
 class Service {
+  int? id;
   String? libelle;
+  Map<String, dynamic>? pivot;
 
-  Service({this.libelle});
+  Service({this.id, this.libelle, this.pivot});
 
   factory Service.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-        'libelle': String libelle,
-      } =>
-        Service(libelle: libelle),
-      _ => throw const FormatException('Failed to load service.'),
-    };
+    return Service(
+      id: json['id'] as int?,
+      libelle: json['libelle'] as String?,
+      pivot: json['pivot'] as Map<String, dynamic>?,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Service(id: $id, libelle: $libelle, pivot: $pivot)';
   }
 }

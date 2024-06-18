@@ -7,9 +7,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class HomeAction extends Action
 {
-    public function __invoke(Request $request, Response $response, array $args): Response
+    public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $view = Twig::fromRequest($request);
-        return $view->render($response, 'home.twig');
+        $view = Twig::fromRequest($rq);
+        return $view->render($rs, 'home.twig');
     }
 }

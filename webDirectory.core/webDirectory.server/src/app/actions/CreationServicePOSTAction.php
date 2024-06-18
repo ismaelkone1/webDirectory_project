@@ -5,11 +5,13 @@ namespace web\directory\app\actions;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use web\directory\core\services\Service\ServiceServices;
+use Slim\Exception\HttpNotFoundException;
+use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
-class CreationServicePOSTAction
+class CreationServicePOSTAction extends Action
 {
-    public function __invoke(Request $rq, Response $rs): Response
+    public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $twig = Twig::fromRequest($rq);
         $data = $rq->getParsedBody();

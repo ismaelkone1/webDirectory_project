@@ -13,6 +13,7 @@ use web\directory\app\actions\CreationEntreeGETAction;
 use web\directory\app\actions\CreationEntreePOSTAction;
 use web\directory\app\actions\CreationServiceGETAction;
 use web\directory\app\actions\CreationServicePOSTAction;
+use web\directory\app\actions\LogoutAction;
 
 return function (App $app): App {
     $app->get('/', HomeAction::class)
@@ -37,6 +38,11 @@ return function (App $app): App {
         '/register',
         RegisterPostAction::class
     );
+
+    $app->get(
+        '/logout',
+        LogoutAction::class
+    )->setName('logout');
 
     $app->get('/entrees', ListeEntreeAction::class)
         ->setName('entrees');

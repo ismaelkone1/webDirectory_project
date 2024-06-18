@@ -25,6 +25,10 @@ $twig = \Slim\Views\Twig::create(
 
 $twig->addExtension(new \Twig\Extension\DebugExtension());
 
+
+$environment = $twig->getEnvironment();
+$environment->addGlobal('session', $_SESSION);
+
 $app->add(\Slim\Views\TwigMiddleware::create($app, $twig));
 
 return $app;

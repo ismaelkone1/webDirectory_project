@@ -7,9 +7,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class RegisterGetAction extends Action
 {
-    public function __invoke(Request $request, Response $response, array $args): Response
+    public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $view = TWig::fromRequest($request);
-        return $view->render($response, 'registerForm.twig');
+        $view = TWig::fromRequest($rq);
+        return $view->render($rs, 'registerForm.twig');
     }
 }
