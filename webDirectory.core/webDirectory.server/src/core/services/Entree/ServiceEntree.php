@@ -3,6 +3,7 @@
 namespace web\directory\core\services\Entree;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use web\directory\api\core\domain\Utilisateur;
 use web\directory\api\core\services\entree\ServiceEntree as EntreeServiceEntree;
 use web\directory\core\domain\Entree;
 use web\directory\core\services\exception\EntreeNotFoundException;
@@ -109,7 +110,7 @@ class ServiceEntree implements ServiceEntreeInterface
         return false;
     }
 
-    public function publierEntree(int $id) : Entree
+    public function publierEntree(int $id) : bool
     {
         try {
             $entree = Entree::find($id);
@@ -120,10 +121,10 @@ class ServiceEntree implements ServiceEntreeInterface
         $entree->is_published = true;
         $entree->save();
 
-        return $entree;
+        return $entree->save();
     }
     
-    public function depublierEntree(int $id) : Entree
+    public function depublierEntree(int $id) : bool
     {
         try {
             $entree = Entree::find($id);
@@ -132,18 +133,35 @@ class ServiceEntree implements ServiceEntreeInterface
         }
 
         $entree->is_published = false;
-        $entree->save();
 
-        return $entree;
+        return $entree->save();
     }
 
-    public function getEntreePublier()
+    public function getEntreePublier() : array
     {
         try {
-            return Entree::where('is_published', true)->get();
+            $entreePublie = Entree::where('is_published', true)->get();
         } catch (\Exception $e) {
             throw new EntreeNotFoundException("Impossible de dépublier l'entrée : " . $e);
         }
+        return $entreePublie;
+    }
+
+    public function getEntreesByUserId(string $userId): array
+    {
+        $user = Utilisateur::find($userId);
+
+        if(!$user){
+            throw new EntreeNotFoundException("Utilisateur non trouvé");
+        }
+
+        $entreeUser = $user->entrees;
+
+        if($entreeUser->isEmpty()){
+            throw new EntreeNotFoundException("Aucune entrée trouvé pour user");
+        }
+        return $entreeUser->toArray();
+
     }
 
 }

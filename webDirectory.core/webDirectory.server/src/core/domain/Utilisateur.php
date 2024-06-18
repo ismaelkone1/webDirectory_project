@@ -12,5 +12,9 @@ class Utilisateur extends Eloquent
 
     protected $fillable = ['mail', 'mdp', 'role'];
 
+    public function entrees()
+    {
+        return $this->hasMany(Entree::class, 'created_by', 'id');
+    }
 
 }
