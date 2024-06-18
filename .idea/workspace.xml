@@ -5,9 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5978fd6f-d1b3-4540-a48f-6ed1b0966de7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/autoComplete.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webDirectory.web/js/servicesLoader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreeAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/domain/Entree.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/domain/Entree.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/core/services/entree/ServiceEntree.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.server/src/conf/webDirectory.db.conf.ini.dist" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.server/src/conf/webDirectory.db.conf.ini.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/autoComplete.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/entree_ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/entree_ui.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webDirectory.web/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/lib/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/lib/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/lib/index.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webDirectory.web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +55,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.index.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;HugoBranch&quot;,
@@ -55,6 +68,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2023.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -100,10 +114,26 @@
       <workItem from="1718616291852" duration="649000" />
       <workItem from="1718629694173" duration="985000" />
       <workItem from="1718630695621" duration="3332000" />
+      <workItem from="1718662759156" duration="622000" />
+      <workItem from="1718700093590" duration="4672000" />
+      <workItem from="1718712883227" duration="79000" />
+      <workItem from="1718713234375" duration="1723000" />
+      <workItem from="1718715315605" duration="959000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
