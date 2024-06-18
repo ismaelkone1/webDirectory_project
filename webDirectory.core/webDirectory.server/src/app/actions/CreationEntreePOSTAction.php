@@ -8,20 +8,11 @@ use Slim\Views\Twig;
 use web\directory\app\utils\CsrfService;
 use web\directory\core\services\Entree\ServiceEntree;
 use Slim\Exception\HttpNotFoundException;
-use Slim\Routing\RouteContext;
 
 class CreationEntreePOSTAction extends Action
 {
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        if (!isset($_SESSION['id'])) 
-        {
-            // Utilisateur redirigé vers le formulaire de login s'il n'est pas authentifié
-            $routeContext = RouteContext::fromRequest($rq);
-            $routeParser = $routeContext->getRouteParser();
-            $loginUrl = $routeParser->urlFor('login'); 
-            return $rs->withStatus(302)->withHeader('Location', $loginUrl);
-        }
 
         $twig = Twig::fromRequest($rq);
         $data = $rq->getParsedBody();
