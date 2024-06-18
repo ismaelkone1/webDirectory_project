@@ -11,24 +11,24 @@ use web\directory\core\services\Entree\ServiceEntree;
 class ListeEntreeAction extends Action 
 {
     private ServiceServices $service;
+    private ServiceEntree $entree;
 
     public function __construct()
         {
+            $this->entree = new ServiceEntree();
             $this->service = new ServiceServices();
         }
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
         {
-            $queryParams = $rq->getQueryParams();
+        $queryParams = $rq->getQueryParams();
         $sortOptions = isset($queryParams['sortOptions']) ? $queryParams['sortOptions'] : 'none';
         $serviceOptions = ($sortOptions == 'none');
         
-        $servEntree = new ServiceEntree();
-            $servService = new ServiceServices();
         if($serviceOptions){
-            $entrees = $servEntree->getServices();
+            $entrees = $this->entree->getServices();
         } else {
-            $entrees = $servEntree->getEntreeByService($sortOptions);
+            $entrees = $this->entree->getEntreeByService($sortOptions);
         }
             
             $view = Twig::fromRequest($rq);
@@ -36,7 +36,7 @@ class ListeEntreeAction extends Action
                 $rs,
                 'ListeEntreeVue.twig',[
                     'entrees' => $entrees,
-                'services' => $servService->getServices(),
+                'services' => $this->service->getServices(),
                 'currentSortOption' => $sortOptions,
             ]);
         }
