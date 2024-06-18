@@ -1,44 +1,32 @@
+import 'package:web_directory/models/Service.dart';
+
 class Entree {
-  String? nom, prenom, fonction, email, urlImage;
-  int? numBureau;
+  String? nom, prenom;
+  List<Service>? services;
+  String? url;
 
-  Entree(
-      {this.nom,
-      this.prenom,
-      this.fonction,
-      this.email,
-      this.urlImage,
-      this.numBureau});
-
-  // factory Entree.fromJson(Map<String, dynamic> json) {
-  //   return switch (json) {
-  //     {
-  //       'nom': String nom,
-  //       'prenom': String prenom,
-  //       'fonction': String fonction,
-  //       'email': String email,
-  //       'urlImage': String urlImage,
-  //       'numBureau': int numBureau,
-  //     } =>
-  //       Entree(
-  //           nom: nom,
-  //           prenom: prenom,
-  //           fonction: fonction,
-  //           email: email,
-  //           urlImage: urlImage,
-  //           numBureau: numBureau),
-  //     _ => throw const FormatException('Failed to load entree.'),
-  //   };
-  // }
+  Entree({
+    this.nom,
+    this.prenom,
+    this.services,
+    this.url,
+  });
 
   factory Entree.fromJson(Map<String, dynamic> json) {
+    var list = json['services'] as List?;
+    List<Service> servicesList =
+        list != null ? list.map((i) => Service.fromJson(i)).toList() : [];
+
     return Entree(
       nom: json['nom'] as String?,
       prenom: json['prenom'] as String?,
-      fonction: json['fonction'] as String?,
-      email: json['email'] as String?,
-      urlImage: json['urlImage'] as String?,
-      numBureau: json['numBureau'] as int?,
+      services: servicesList,
+      url: json['url'] as String?,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Entree(nom: $nom, prenom: $prenom, services: $services, url: $url)';
   }
 }
