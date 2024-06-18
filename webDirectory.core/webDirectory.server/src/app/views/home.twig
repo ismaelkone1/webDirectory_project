@@ -5,12 +5,52 @@
 {% endblock %}
 
 {% block body %}
+<div class="mx-auto my-auto">
 	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<h1>Accueil</h1>
-				<p>Bienvenue sur l'accueil de l'application webDirectory.</p>
+		<a href="{{ url_for('entrees') }}" style="text-decoration: none; color: inherit;">
+			<div class="card border-primary mb-3" style="max-width: 20rem;">
+				<div class="card-body">
+					<h4 class="card-title">Consulter les entrées</h4>
+					<p class="card-text">Vous pouvez trouver ici toutes les entrées de l'annuaire</p>
+				</div>
 			</div>
-		</div>
+		</a>
+		{% if session.id is defined %}
+			<a href="{{ url_for('creationEntreeGET') }}" style="text-decoration: none; color: inherit;">
+				<div class="card border-primary mb-3" style="max-width: 20rem;">
+					<div class="card-body">
+						<h4 class="card-title">Créer une entrée</h4>
+						<p class="card-text">Vous pouvez créer une nouvelle entrée dans l'annuaire ici</p>
+					</div>
+				</div>
+			</a>
+			<a href="{{ url_for('creationServiceGET') }}" style="text-decoration: none; color: inherit;">
+				<div class="card border-primary mb-3" style="max-width: 20rem;">
+					<div class="card-body">
+						<h4 class="card-title">Créer un service</h4>
+						<p class="card-text">Vous pouvez créer un nouveau service pour les entrées de l'annuaire</p>
+					</div>
+				</div>
+			</a>
+		{% endif %}
+		{% if session.id is not defined %}
+			<a href="{{ url_for('register') }}" style="text-decoration: none; color: inherit;">
+				<div class="card border-primary mb-3" style="max-width: 20rem;">
+					<div class="card-body">
+						<h4 class="card-title">Créer un compte</h4>
+						<p class="card-text">Vous pouvez créer un compte pour accéder à plus de fonctionnalités</p>
+					</div>
+				</div>
+			</a>
+			<a href="{{ url_for('login') }}" style="text-decoration: none; color: inherit;">
+				<div class="card border-primary mb-3" style="max-width: 20rem;">
+					<div class="card-body">
+						<h4 class="card-title">Se connecter</h4>
+						<p class="card-text">Vous pouvez vous connecter pour accéder à votre compte</p>
+					</div>
+				</div>
+			</a>
+		{% endif %}
 	</div>
+</div>
 {% endblock %}

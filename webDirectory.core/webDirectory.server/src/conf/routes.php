@@ -37,7 +37,7 @@ return function (App $app): App {
     $app->post(
         '/register',
         RegisterPostAction::class
-    );
+    )->setName('register');
 
     $app->get(
         '/logout',
