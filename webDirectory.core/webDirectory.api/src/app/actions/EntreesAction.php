@@ -11,9 +11,21 @@ class EntreesAction
 
     public function __invoke(Request $request, Response $response, $args)
     {
+        $query = $request->getQueryParams();
+        $sort = $query['sort'] ?? '';
+        if ($sort === 'nom-desc') {
+            $orderBy = 'DESC';
+        } else if($sort === 'nom-asc'){
+            $orderBy = 'ASC';
+        }
+
         $serviceEntree = new ServiceEntree();
 
-        $allEntrees = $serviceEntree->getAllEntrees();
+        if(isset($query['sort'])) {
+            $allEntrees = $serviceEntree->getAllEntreesOrderByNom($orderBy);
+        } else {
+            $allEntrees = $serviceEntree->getAllEntrees();
+        }
 
         $entrees = [];
 
