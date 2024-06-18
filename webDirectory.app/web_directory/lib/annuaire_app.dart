@@ -16,7 +16,7 @@ class _AnnuaireAppState extends State<AnnuaireApp> {
   @override
   void initState() {
     super.initState();
-    futureEntrees = EntreeProvider().fetchEntree();
+    futureEntrees = EntreeProvider().fetchEntreeAlphabetique();
   }
 
   @override
