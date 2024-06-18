@@ -45,6 +45,18 @@ class ServiceEntree implements ServiceEntreeInterface
         return $tabServicesEntrees->toArray();
     }
 
+    public function getEntreeByService(String $service): array
+    {
+        try {
+            $tabEntrees = Entree::whereHas('services', function ($query) use ($service) {
+                $query->where('libelle', $service);
+            })->get();
+        } catch (ModelNotFoundException $e) {
+            throw new EntreeNotFoundException("Impossible de récupérer les entrées du service " . $service . ": " . $e);
+        }
+        return $tabEntrees->toArray();
+    }
+
     public function createEntree(array $data): bool
     {
         try {
