@@ -53,6 +53,8 @@ class CreationEntreePOSTAction
         if ($serviceEntree->createEntree($data)) {
             return $twig->render($rs, 'CreationEntreeSucess.twig');
         }
+
+        return $rs->withStatus(500);
     }
 
     private function validateEmail($email): bool
