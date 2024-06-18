@@ -16,7 +16,7 @@ class ListeEntreeAction {
         $servEntree = new ServiceEntree();
         $servService = new ServiceServices();
         if($serviceOptions){
-            $entrees = $servEntree->getEntrees();
+            $entrees = $servEntree->getServices();
         } else {
             $entrees = $servEntree->getEntreeByService($sortOptions);
         }
