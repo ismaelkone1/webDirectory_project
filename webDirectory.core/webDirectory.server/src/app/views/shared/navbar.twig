@@ -5,21 +5,39 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto mx-auto">
         <li class="nav-item">
           <a class="nav-link active" href="{{url_for('home')}}">Home
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('creationEntreeGET') }}">Créer une entrée</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('creationServiceGET')}}">Consulter services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('entrees')}}">Consulter entrées</a>
-        </li>
+          {% if session.id is defined %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('creationEntreeGET') }}">Créer une entrée</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('creationServiceGET')}}">Créer services</a>
+            </li>
+        	{% endif %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('entrees')}}">Consulter entrées</a>
+            </li>
+
+        {% if session.id is not defined %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('register')}}">Créer un Compte</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('login')}}">Se Connecter</a>
+            </li>
+          {% endif %}
+
+        	{% if session.id is defined %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('logout') }}">Se Déconnecter</a>
+					</li>
+				{% endif %}
       </ul>
     </div>
   </div>

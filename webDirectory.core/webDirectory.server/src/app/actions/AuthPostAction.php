@@ -20,10 +20,10 @@ class AuthPostAction extends Action
         $this->authService = new AuthService();
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         try {
-            $postData = $request->getParsedBody();
+            $postData = $rq->getParsedBody();
     
             // récupération des credentials entrées dans le formulaire
             $user_id = $postData['user_id'] ?? '';
@@ -38,23 +38,23 @@ class AuthPostAction extends Action
                 $user = $this->authService->connectUser(['id' => $user_id]);
                 var_dump($user);
                 if ($user) {
-                    $routeContext = RouteContext::fromRequest($request);
+                    $routeContext = RouteContext::fromRequest($rq);
                     $routeParser = $routeContext->getRouteParser();
     
                     // redirection après connexion
                     $url = $routeParser->urlFor('home');
-                    return $response->withStatus(302)->withHeader('Location', $url);
+                    return $rs->withStatus(302)->withHeader('Location', $url);
                 } else {
-                    $response->getBody()->write('Utilisateur non trouvé');
-                    return $response->withStatus(401);
+                    $rs->getBody()->write('Utilisateur non trouvé');
+                    return $rs->withStatus(401);
                 }
             } else {
-                $response->getBody()->write('Identifiants incorrects');
-                return $response->withStatus(401);
+                $rs->getBody()->write('Identifiants incorrects');
+                return $rs->withStatus(401);
             }
         } catch (\Exception $e) {
-            $response->getBody()->write('Une erreur est survenue. Veuillez réessayer plus tard.');
-            return $response->withStatus(500);
+            $rs->getBody()->write('Une erreur est survenue. Veuillez réessayer plus tard.');
+            return $rs->withStatus(500);
         }
     }
 }

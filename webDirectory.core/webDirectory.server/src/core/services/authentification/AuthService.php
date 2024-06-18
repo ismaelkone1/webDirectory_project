@@ -98,7 +98,7 @@ class AuthService implements AuthServiceInterface
     public function connectUser(array $args): ?Utilisateur
     {
         try {
-            $user = Utilisateur::where('mail', $args['id'])->first(); // Utiliser where pour rechercher par email
+            $user = Utilisateur::where('mail', $args['id'])->first();
             if ($user) {
                 $_SESSION['id'] = $user->id;
                 return $user;
