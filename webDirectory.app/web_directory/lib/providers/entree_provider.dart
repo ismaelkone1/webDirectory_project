@@ -29,8 +29,13 @@ class EntreeProvider extends ChangeNotifier {
       var entreesJson = jsonData['entrees'] as List;
       var sortedEntrees =
           entreesJson.map((entreeJson) => Entree.fromJson(entreeJson)).toList();
-      sortedEntrees.sort((a, b) => a.prenom!.compareTo(b.prenom!));
-      // sortedEntrees.sort((a, b) => a.nom!.compareTo(b.nom!));
+      sortedEntrees.sort((a, b) {
+        int compareNom = a.nom!.compareTo(b.nom!);
+        if (compareNom == 0) {
+          return a.prenom!.compareTo(b.prenom!);
+        }
+        return compareNom;
+      });
       return sortedEntrees;
     } else {
       throw Exception('Failed to load Entrees');
