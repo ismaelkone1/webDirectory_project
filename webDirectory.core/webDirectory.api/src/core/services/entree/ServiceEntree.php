@@ -40,7 +40,7 @@ class ServiceEntree implements ServiceEntreeInterface
     public function getEntree(int $id): array
     {
         try {
-            return Entree::find($id)->toArray();
+            return Entree::with(['services', 'telephones'])->findOrFail($id)->toArray();
         } catch (ModelNotFoundException $e) {
             return ['error' => $e->getMessage()];
         }

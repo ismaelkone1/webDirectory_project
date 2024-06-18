@@ -1,32 +1,80 @@
-import {loadEntrees} from './entreeLoader.js';
-import {display_entree} from './entree_ui.js';
-import {searchEntrees} from './search.js';
+import {loadEntreeRecherche, loadEntrees} from './entreeLoader.js';
+import {display_entrees} from './entree_ui.js';
+import {searchServices} from './search.js';
+import TomSelect from "tom-select";
+import {loadServices} from "./servicesLoader";
 
-function sortEntrees(entrees){
-    //On trie les entrées dans l'ordre alphabétique sur le nom ou le prenom si le nom est le meme
-    entrees.sort((a, b) => {
-        if(a.nom === b.nom){
-            return a.prenom.localeCompare(b.prenom);
-        }
-        return a.nom.localeCompare(b.nom);
-    });
-}
+//1)
 async function showEntrees(){
     let entrees = await loadEntrees();
-    sortEntrees(entrees.entrees);
-    display_entree(entrees);
+    display_entrees(entrees);
 }
 
-async function showSearchedEntrees(recherche){
-    let entrees = await searchEntrees(recherche);
-    sortEntrees(entrees.entrees);
-    display_entree(entrees);
+//2)
+
+async function showSearchedEntreesByServices(recherche){
+    let entrees = await searchServices(recherche);
+    display_entrees(entrees);
 }
 
 const buttonListeEntrees = document.getElementById('listeEntrees');
 buttonListeEntrees.addEventListener('click', showEntrees);
 
-const search = document.getElementById('autoComplete');
-search.addEventListener('input', function(){
-    showSearchedEntrees(search.value);
+async function services(){
+    let services = await loadServices();
+    new TomSelect("#searchService", {
+        options: services,
+        valueField: 'libelle',
+        labelField: 'libelle',
+        searchField: 'libelle',
+        create: false,
+        maxItems: 1,
+        persist: false,
+        onChange: async function(value){
+            showSearchedEntreesByServices(value);
+        }
+    });
+}
+services();
+
+//3)
+async function showSearchedEntreesByNom(recherche){
+    let entrees = await loadEntreeRecherche(recherche)
+    display_entrees(entrees);
+}
+
+const buttonSearch = document.getElementById('searchNom');
+buttonSearch.addEventListener('input', function(){
+    showSearchedEntreesByNom(buttonSearch.value);
+});
+
+
+//4)
+async function showSearchedEntreesByNomService(recherche){
+    let entrees = await searchServices(recherche);
+    let entrees2 = await loadEntreeRecherche(recherche);
+
+    //On ajoute les deux listes d'entrees sans les doublons
+    let result = {
+        "type": "ressource",
+        "entrees": []
+    }
+
+    for (let entree of entrees.entrees){
+        if (!result.entrees.includes(entree)){
+            result.entrees.push(entree);
+        }
+    }
+    for (let entree of entrees2.entrees){
+        if (!result.entrees.includes(entree)){
+            result.entrees.push(entree);
+        }
+    }
+
+    display_entrees(result);
+}
+
+const buttonSearch2 = document.getElementById('searchNomService');
+buttonSearch2.addEventListener('input', function(){
+    showSearchedEntreesByNomService(buttonSearch2.value);
 });

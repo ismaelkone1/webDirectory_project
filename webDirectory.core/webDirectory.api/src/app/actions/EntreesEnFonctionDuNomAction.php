@@ -24,8 +24,17 @@ class EntreesEnFonctionDuNomAction
 
         $entrees = $serviceEntree->getEntreeEnFonctionDuNom($nom);
 
+        $entrees = array_map(function($entree){
+            return [
+                'nom' => $entree['nom'],
+                'prenom' => $entree['prenom'],
+                'services' => $entree['services'],
+                'url' => 'http://localhost:20003/api/entrees/'.$entree['id']
+            ];
+        }, $entrees);
+
         $data = [ 'type' => 'resource',
-            'entree' => $entrees ];
+            'entrees' => $entrees ];
 
         $response->getBody()->write(json_encode($data));
 

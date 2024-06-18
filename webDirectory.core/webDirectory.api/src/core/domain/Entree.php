@@ -3,7 +3,6 @@
 namespace web\directory\api\core\domain;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use web\directory\core\domain\Telephone;
 
 class Entree extends Eloquent
 {
