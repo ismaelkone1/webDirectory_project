@@ -7,9 +7,9 @@ class Service {
 
   factory Service.fromJson(Map<String, dynamic> json) {
     return Service(
-      id: json['id'] as int?,
-      libelle: json['libelle'] as String?,
-      pivot: json['pivot'] as Map<String, dynamic>?,
+      id: json['id'],
+      libelle: json['libelle'],
+      pivot: json['pivot'],
     );
   }
 

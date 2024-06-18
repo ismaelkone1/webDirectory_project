@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_directory/models/Entree.dart';
+import 'package:provider/provider.dart';
 import 'package:web_directory/providers/entree_provider.dart';
 import 'package:web_directory/screens/entree_master.dart';
 
@@ -11,26 +11,61 @@ class AnnuaireApp extends StatefulWidget {
 }
 
 class _AnnuaireAppState extends State<AnnuaireApp> {
-  late Future<List<Entree>> futureEntrees;
-
-  @override
-  void initState() {
-    super.initState();
-    futureEntrees = EntreeProvider().fetchEntreeAlphabetique();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fetch Data Example',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    var entreeProvider = Provider.of<EntreeProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(120, 194, 173, 1),
+        title:
+            const Text('Annuaire - App', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Fetch Data Example'),
-        ),
-        body: EntreeMaster(futureEntrees: futureEntrees),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              width: 300,
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Recherche par nom',
+                  labelStyle: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                    ),
+                  ),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 61, 61, 61)),
+                  ),
+                ),
+                onChanged: (value) {
+                  entreeProvider.searchEntree(value);
+                },
+              ),
+            ),
+          ),
+          const Expanded(
+            child: EntreeMaster(),
+          ),
+        ],
       ),
     );
   }

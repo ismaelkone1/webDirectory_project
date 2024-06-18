@@ -18,10 +18,10 @@ class Entree {
         list != null ? list.map((i) => Service.fromJson(i)).toList() : [];
 
     return Entree(
-      nom: json['nom'] as String?,
-      prenom: json['prenom'] as String?,
+      nom: json['nom'],
+      prenom: json['prenom'],
       services: servicesList,
-      url: json['url'] as String?,
+      url: json['url'],
     );
   }
 
