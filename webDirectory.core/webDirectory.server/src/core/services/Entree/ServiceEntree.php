@@ -108,4 +108,42 @@ class ServiceEntree implements ServiceEntreeInterface
         }
         return false;
     }
+
+    public function publierEntree(int $id) : Entree
+    {
+        try {
+            $entree = Entree::find($id);
+        } catch (\Exception $e) {
+            throw new EntreeNotFoundException("Impossible de publier l'entrée : " . $e);
+        }
+
+        $entree->is_published = true;
+        $entree->save();
+
+        return $entree;
+    }
+    
+    public function depublierEntree(int $id) : Entree
+    {
+        try {
+            $entree = Entree::find($id);
+        } catch (\Exception $e) {
+            throw new EntreeNotFoundException("Impossible de publier l'entrée : " . $e);
+        }
+
+        $entree->is_published = false;
+        $entree->save();
+
+        return $entree;
+    }
+
+    public function getEntreePublier()
+    {
+        try {
+            return Entree::where('is_published', true)->get();
+        } catch (\Exception $e) {
+            throw new EntreeNotFoundException("Impossible de dépublier l'entrée : " . $e);
+        }
+    }
+
 }
