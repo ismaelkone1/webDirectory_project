@@ -20,7 +20,8 @@ class CreationEntreePOSTAction extends Action
         $prenom = htmlspecialchars($data['prenom'], ENT_QUOTES, 'UTF-8');
         $fonction = htmlspecialchars($data['fonction'], ENT_QUOTES, 'UTF-8');
         $numBureau = filter_var($data['numBureau'], FILTER_SANITIZE_NUMBER_INT);
-        $numTel = filter_var($data['numTel'], FILTER_SANITIZE_NUMBER_INT);
+        $typeTel = $data['typeTel'];
+        $numTel = htmlspecialchars($data['numTel'], ENT_QUOTES, 'UTF-8');
         $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $service = filter_var($data['service'], FILTER_SANITIZE_NUMBER_INT);
         $csrf = htmlspecialchars($data['csrf'], ENT_QUOTES, 'UTF-8');
@@ -49,7 +50,8 @@ class CreationEntreePOSTAction extends Action
             'email' => $email,
             'urlImage' => $urlImage,
             'service' => $service,
-            'numTel' => $numTel
+            'numTel' => $numTel,
+            'type' => $typeTel
         ];
 
         if ($serviceEntree->createEntree($data)) {

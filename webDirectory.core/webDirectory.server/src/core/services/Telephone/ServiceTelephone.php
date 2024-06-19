@@ -35,7 +35,8 @@ class ServiceTelephone implements ServiceTelephoneInterface
         try {
             $telephone = new Telephone();
             $telephone->id_entree = $data['entree_id'];
-            $telephone->numero = $data['numTel'];
+            $telephone->numero = '0' . $data['numTel'];
+            $telephone->type =  $data['type'];
             $telephone->save();
             return true;
         } catch (\Exception $e) {
