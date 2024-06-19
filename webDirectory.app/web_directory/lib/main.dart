@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:web_directory/annuaire_app.dart';
+import 'package:web_directory/providers/entree_provider.dart';
+import 'package:web_directory/providers/liste_entree_provider.dart';
+import 'package:web_directory/providers/service_provider.dart';
 
 Future<void> main() async {
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ListeEntreeProvider()),
+        ChangeNotifierProvider(create: (context) => ServiceProvider()),
+        ChangeNotifierProvider(create: (context) => EntreeProvider()),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -11,9 +24,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: AnnuaireApp(),
-      ),
+      title: 'Annuaire - App',
+      debugShowCheckedModeBanner: false,
+      home: AnnuaireApp(),
     );
   }
 }

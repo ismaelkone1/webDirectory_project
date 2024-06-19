@@ -1,32 +1,31 @@
-import 'package:web_directory/models/Service.dart';
-
 class Entree {
-  String? nom, prenom;
-  List<Service>? services;
-  String? url;
+  int id, numBureau;
+  String nom, prenom, fonction, email, urlImage;
 
   Entree({
-    this.nom,
-    this.prenom,
-    this.services,
-    this.url,
+    required this.id,
+    required this.nom,
+    required this.prenom,
+    required this.fonction,
+    required this.numBureau,
+    required this.email,
+    required this.urlImage,
   });
 
   factory Entree.fromJson(Map<String, dynamic> json) {
-    var list = json['services'] as List?;
-    List<Service> servicesList =
-        list != null ? list.map((i) => Service.fromJson(i)).toList() : [];
-
     return Entree(
-      nom: json['nom'] as String?,
-      prenom: json['prenom'] as String?,
-      services: servicesList,
-      url: json['url'] as String?,
+      id: json['id'],
+      nom: json['nom'],
+      prenom: json['prenom'],
+      fonction: json['fonction'],
+      numBureau: json['num_bureau'],
+      email: json['email'],
+      urlImage: json['url_image'],
     );
   }
 
   @override
   String toString() {
-    return 'Entree(nom: $nom, prenom: $prenom, services: $services, url: $url)';
+    return 'Entree(id: $id, nom: $nom, prenom: $prenom, fonction: $fonction, numBureau: $numBureau, email: $email, urlImage: $urlImage)';
   }
 }
