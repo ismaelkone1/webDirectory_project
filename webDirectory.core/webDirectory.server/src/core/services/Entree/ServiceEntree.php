@@ -45,14 +45,36 @@ class ServiceEntree implements ServiceEntreeInterface
         return $tabServicesEntrees->toArray();
     }
 
-    public function getEntreeByService(String $service): array
+    public function getEntreesByService(String $service): array
     {
         try {
-            $tabEntrees = Entree::whereHas('services', function ($query) use ($service) {
-                $query->where('libelle', $service);
+            $tabEntrees = Entree::with('services')->whereHas('services', function($query) use ($service) {
+                $query->where('libelle', '=', $service);
             })->get();
         } catch (ModelNotFoundException $e) {
             throw new EntreeNotFoundException("Impossible de récupérer les entrées du service " . $service . ": " . $e);
+        }
+        return $tabEntrees->toArray();
+    }
+
+    public function getEntreesByNom(String $nom): array
+    {
+        try {
+            $tabEntrees = Entree::with('services')->where('nom', 'like', '%' . $nom . '%')->get();
+        } catch (ModelNotFoundException $e) {
+            throw new EntreeNotFoundException("Impossible de récupérer les entrées du nom " . $nom . ": " . $e);
+        }
+        return $tabEntrees->toArray();
+    }
+
+    public function getEntreesByNomAndService(String $nom, String $service): array
+    {
+        try {
+            $tabEntrees = Entree::with('services')->where('nom', 'like', '%' . $nom . '%')->whereHas('services', function($query) use ($service) {
+                $query->where('libelle', '=', $service);
+            })->get();
+        } catch (ModelNotFoundException $e) {
+            throw new EntreeNotFoundException("Impossible de récupérer les entrées du nom " . $nom . " et du service " . $service . ": " . $e);
         }
         return $tabEntrees->toArray();
     }

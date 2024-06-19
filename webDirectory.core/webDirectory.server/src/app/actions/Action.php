@@ -8,6 +8,6 @@ use Ramsey\Collection\AbstractArray;
 
 abstract class Action 
 {
-    public abstract function __invoke(request $request, response $response, array $args) : Response;
+    public abstract function __invoke(request $rq, response $rs, array $args) : Response;
     
 }
