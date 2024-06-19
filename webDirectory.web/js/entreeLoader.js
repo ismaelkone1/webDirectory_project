@@ -7,4 +7,8 @@ async function loadEntrees(){
 async function loadEntreeRecherche(recherche){
     return await load(`/entrees/search?q=${recherche}`);
 }
-export {loadEntrees, loadEntreeRecherche};
+
+async function loadTrieEntreesNom(sens){
+    return await load('/entrees?sort=' + sens);
+}
+export {loadEntrees, loadEntreeRecherche, loadTrieEntreesNom};

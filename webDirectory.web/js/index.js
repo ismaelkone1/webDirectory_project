@@ -1,4 +1,4 @@
-import {loadEntreeRecherche, loadEntrees} from './entreeLoader.js';
+import {loadEntreeRecherche, loadEntrees, loadTrieEntreesNom} from './entreeLoader.js';
 import {display_entrees} from './entree_ui.js';
 import {searchServices} from './search.js';
 import TomSelect from "tom-select";
@@ -49,7 +49,7 @@ buttonSearch.addEventListener('input', function(){
 });
 
 
-//4)
+//5)
 async function showSearchedEntreesByNomService(recherche){
     let entrees = await searchServices(recherche);
     let entrees2 = await loadEntreeRecherche(recherche);
@@ -77,4 +77,11 @@ async function showSearchedEntreesByNomService(recherche){
 const buttonSearch2 = document.getElementById('searchNomService');
 buttonSearch2.addEventListener('input', function(){
     showSearchedEntreesByNomService(buttonSearch2.value);
+});
+
+//6)
+const selectTrieNom = document.getElementById('selectTriNom');
+selectTrieNom.addEventListener('change', async function(){
+    let entrees = await loadTrieEntreesNom(selectTrieNom.value);
+    display_entrees(entrees);
 });
