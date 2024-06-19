@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5978fd6f-d1b3-4540-a48f-6ed1b0966de7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/qqs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.core/webDirectory.api/src/app/actions/EntreesEnFonctionDuNomAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/entreeLoader.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/entreeLoader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/entree_ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/entree_ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/loader.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/loader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/js/search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/lib/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webDirectory.web/lib/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/webDirectory.web/lib/index.js.map" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,14 +73,6 @@
       <recent name="C:\Users\hugoAssal\Documents\webDirectory_project\webDirectory.core\sql" />
     </key>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PS-241.15989.102" />
-        <option value="bundled-php-predefined-ba97393d7c68-c76157a7178b-com.jetbrains.php.sharedIndexes-PS-241.15989.102" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -118,6 +100,7 @@
       <workItem from="1718720569447" duration="1523000" />
       <workItem from="1718722369967" duration="70000" />
       <workItem from="1718722868279" duration="131000" />
+      <workItem from="1718783832879" duration="886000" />
     </task>
     <servers />
   </component>
