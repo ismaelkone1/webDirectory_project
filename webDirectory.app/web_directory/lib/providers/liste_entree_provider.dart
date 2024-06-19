@@ -21,8 +21,10 @@ class ListeEntreeProvider extends ChangeNotifier {
   }
 
   Future<void> _fetchEntree() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:20003/api/entrees'));
+    // final response =
+    //     await http.get(Uri.parse('http://localhost:20003/api/entrees'));
+    final response = await http.get(
+        Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees'));
 
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
@@ -45,8 +47,10 @@ class ListeEntreeProvider extends ChangeNotifier {
   }
 
   Future<void> _fetchEntreeAlphabetique() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:20003/api/entrees'));
+    // final response =
+    //     await http.get(Uri.parse('http://localhost:20003/api/entrees'));
+    final response = await http.get(
+        Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees'));
 
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);

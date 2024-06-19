@@ -11,14 +11,17 @@ class EntreeProvider extends ChangeNotifier {
   Future<Entree?> getEntree(String url) async {
     try {
       await _fetchEntree(url);
+      print('Entree: $entree');
     } catch (e) {
-      throw Exception('Failed to load Entree');
+      throw Exception('Failed to load Entree :');
     }
     return entree;
   }
 
   Future<void> _fetchEntree(String url) async {
-    final response = await http.get(Uri.parse(url));
+    // final response = await http.get(Uri.parse('http://localhost:20003$url'));
+    final response = await http
+        .get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003$url'));
 
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
