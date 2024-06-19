@@ -9964,7 +9964,7 @@
   // js/servicesLoader.js
   function loadServices() {
     return __async(this, null, function* () {
-      return yield load("/services");
+      return yield load("/api/services");
     });
   }
 
