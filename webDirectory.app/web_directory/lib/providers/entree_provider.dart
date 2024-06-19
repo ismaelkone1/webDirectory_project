@@ -19,7 +19,9 @@ class EntreeProvider extends ChangeNotifier {
   }
 
   Future<void> _fetchEntree(String url) async {
-    final response = await http.get(Uri.parse('http://localhost:20003$url'));
+    // final response = await http.get(Uri.parse('http://localhost:20003$url'));
+    final response = await http
+        .get(Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003$url'));
 
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);

@@ -17,8 +17,10 @@ class ServiceProvider extends ChangeNotifier {
   }
 
   Future<void> _fetchService() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:20003/api/services'));
+    // final response =
+    //     await http.get(Uri.parse('http://localhost:20003/api/services'));
+    final response = await http.get(
+        Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003/api/services'));
 
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);

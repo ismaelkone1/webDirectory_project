@@ -96,9 +96,28 @@ class _EntreeDetailState extends State<EntreeDetail> {
                       ListTile(
                         leading: const Icon(Icons.phone,
                             size: 40.0, color: Colors.grey),
-                        title: Text('Téléphone : +33 ${telephone.numero}',
-                            style: const TextStyle(
-                                fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        title: GestureDetector(
+                          onTap: () async {
+                            final tel = telephone.numero ?? '';
+                            final uri = Uri(
+                              scheme: 'tel',
+                              path: tel,
+                            );
+                            try {
+                              await launchUrl(uri);
+                            } catch (e) {
+                              print('Error: $e');
+                            }
+                          },
+                          child: Text('${telephone.numero}',
+                              style: const TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                  decorationColor: Colors.blue)),
+                        ),
                       ),
                     const Divider(
                         color: Color.fromRGBO(120, 194, 173, 1), height: 20),
