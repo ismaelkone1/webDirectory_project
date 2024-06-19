@@ -3,8 +3,7 @@
 namespace web\directory\core\services\Entree;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use web\directory\api\core\domain\Utilisateur;
-use web\directory\api\core\services\entree\ServiceEntree as EntreeServiceEntree;
+use web\directory\core\domain\Utilisateur;
 use web\directory\core\domain\Entree;
 use web\directory\core\services\exception\EntreeNotFoundException;
 use web\directory\core\services\Entree\ServiceEntreeInterface;
@@ -67,6 +66,7 @@ class ServiceEntree implements ServiceEntreeInterface
             $entree->fonction = $data['fonction'];
             $entree->num_bureau = $data['numBureau'];
             $entree->email = $data['email'];
+            $entree->created_by = $data['created_by'];
 
             if (isset($_FILES['urlImage']) && $_FILES['urlImage']['error'] === UPLOAD_ERR_OK) {
                 $uploadDir = 'uploadImages/';
@@ -149,19 +149,23 @@ class ServiceEntree implements ServiceEntreeInterface
 
     public function getEntreesByUserId(string $userId): array
     {
-        $user = Utilisateur::find($userId);
-
-        if(!$user){
-            throw new EntreeNotFoundException("Utilisateur non trouvé");
+        try {
+            $entreeUser = Entree::where('created_by', $userId)->get();
+            
+            if (!$entreeUser) {
+                throw new EntreeNotFoundException("Utilisateur non trouvé");
+            }
+    
+            if ($entreeUser->isEmpty()) {
+                throw new EntreeNotFoundException("Aucune entrée trouvée pour l'utilisateur");
+            }
+    
+            return $entreeUser->toArray();
+            
+        } catch (\Exception $e) {
+            throw new EntreeNotFoundException("Erreur lors de la récupération des entrées de l'utilisateur : " . $e->getMessage());
         }
-
-        $entreeUser = $user->entrees;
-
-        if($entreeUser->isEmpty()){
-            throw new EntreeNotFoundException("Aucune entrée trouvé pour user");
-        }
-        return $entreeUser->toArray();
-
     }
+    
 
 }

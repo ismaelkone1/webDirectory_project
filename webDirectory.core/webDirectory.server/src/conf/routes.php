@@ -13,6 +13,7 @@ use web\directory\app\actions\CreationEntreeGETAction;
 use web\directory\app\actions\CreationEntreePOSTAction;
 use web\directory\app\actions\CreationServiceGETAction;
 use web\directory\app\actions\CreationServicePOSTAction;
+use web\directory\app\actions\GetUserEntreesAction;
 use web\directory\app\actions\LogoutAction;
 
 return function (App $app): App {

@@ -36,7 +36,8 @@ class AuthPostAction extends Action
                 var_dump($postData);
                 // Connexion réussie
                 $user = $this->authService->connectUser(['id' => $user_id]);
-                var_dump($user);
+                var_dump($_SESSION);
+                session_start();
                 if ($user) {
                     $routeContext = RouteContext::fromRequest($rq);
                     $routeParser = $routeContext->getRouteParser();
