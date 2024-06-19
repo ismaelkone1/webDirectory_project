@@ -3,15 +3,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:web_directory/models/Entree.dart';
+import 'package:web_directory/models/ListeEntree.dart';
 
-class EntreeProvider extends ChangeNotifier {
-  List<Entree> entrees = [];
+class ListeEntreeProvider extends ChangeNotifier {
+  List<ListeEntree> entrees = [];
   bool isSearching = false;
   bool noResultsFound = false;
   Completer<void>? _searchCompleter;
 
-  Future<List<Entree>> getEntree() async {
+  Future<List<ListeEntree>> getEntree() async {
     if (entrees.isEmpty && !isSearching) {
       entrees.clear();
       await _fetchEntree();
@@ -28,14 +28,14 @@ class EntreeProvider extends ChangeNotifier {
       var jsonData = jsonDecode(response.body);
       var entreesJson = jsonData['entrees'] as List;
       for (var entreeJson in entreesJson) {
-        entrees.add(Entree.fromJson(entreeJson));
+        entrees.add(ListeEntree.fromJson(entreeJson));
       }
     } else {
       throw Exception('Failed to load Entrees');
     }
   }
 
-  Future<List<Entree>> getEntreeAlphabetique() async {
+  Future<List<ListeEntree>> getEntreeAlphabetique() async {
     if (entrees.isEmpty && !isSearching) {
       entrees.clear();
       await _fetchEntreeAlphabetique();
@@ -52,7 +52,7 @@ class EntreeProvider extends ChangeNotifier {
       var jsonData = jsonDecode(response.body);
       var entreesJson = jsonData['entrees'] as List;
       for (var entreeJson in entreesJson) {
-        entrees.add(Entree.fromJson(entreeJson));
+        entrees.add(ListeEntree.fromJson(entreeJson));
       }
       entrees.sort((a, b) {
         int compareNom = a.nom!.compareTo(b.nom!);
@@ -64,6 +64,43 @@ class EntreeProvider extends ChangeNotifier {
     } else {
       throw Exception('Failed to load Entrees');
     }
+  }
+
+  Future<void> searchEntreeByService(String libelle) async {
+    _searchCompleter?.complete();
+    _searchCompleter = Completer<void>();
+
+    isSearching = true;
+    notifyListeners();
+
+    if (libelle.isEmpty || libelle == 'Tous') {
+      entrees.clear();
+      await _fetchEntreeAlphabetique();
+      isSearching = false;
+    } else {
+      var localCompleter = _searchCompleter;
+
+      var response = entrees.where((entree) {
+        return entree.services!.any((service) {
+          return service.libelle!.toLowerCase().contains(libelle.toLowerCase());
+        });
+      }).toList();
+
+      if (localCompleter != _searchCompleter) {
+        return;
+      }
+
+      if (response.isEmpty) {
+        noResultsFound = true;
+      } else {
+        noResultsFound = false;
+      }
+
+      entrees = response;
+    }
+
+    isSearching = false;
+    notifyListeners();
   }
 
   Future<void> searchEntree(String search) async {

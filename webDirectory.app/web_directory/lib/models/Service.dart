@@ -14,6 +14,16 @@ class Service {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! Service) return false;
+    return id == other.id && libelle == other.libelle;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ libelle.hashCode;
+
+  @override
   String toString() {
     return 'Service(id: $id, libelle: $libelle, pivot: $pivot)';
   }

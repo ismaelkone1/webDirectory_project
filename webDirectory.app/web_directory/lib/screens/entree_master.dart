@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:web_directory/models/Entree.dart';
-import 'package:web_directory/providers/entree_provider.dart';
+import 'package:web_directory/models/ListeEntree.dart';
+import 'package:web_directory/providers/liste_entree_provider.dart';
 import 'package:web_directory/screens/entree_preview.dart';
 import 'package:provider/provider.dart';
 
@@ -16,12 +16,12 @@ class _EntreeMasterState extends State<EntreeMaster> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EntreeProvider>(
+    return Consumer<ListeEntreeProvider>(
       builder: (context, entreeProvider, child) {
         if (entreeProvider.isSearching) {
           return const Center(child: CircularProgressIndicator());
         }
-        return FutureBuilder<List<Entree>>(
+        return FutureBuilder<List<ListeEntree>>(
           future: entreeProvider.getEntreeAlphabetique(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -41,8 +41,8 @@ class _EntreeMasterState extends State<EntreeMaster> {
               return ListView.builder(
                   itemCount: entreeProvider.entrees.length,
                   itemBuilder: (context, index) {
-                    Entree entree = entreeProvider.entrees[index];
-                    return EntreePreview(entree: entree);
+                    ListeEntree listeEntree = entreeProvider.entrees[index];
+                    return EntreePreview(listeEntree: listeEntree);
                   });
             }
           },
