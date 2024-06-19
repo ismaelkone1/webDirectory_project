@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_directory/models/ListeEntree.dart';
+import 'package:web_directory/screens/entree_detail.dart';
 
 class EntreePreview extends StatefulWidget {
   const EntreePreview({super.key, required this.listeEntree});
@@ -14,6 +15,7 @@ class _EntreePreviewState extends State<EntreePreview> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color.fromARGB(255, 147, 206, 189),
       child: ListTile(
         title: Text(
             '${widget.listeEntree.nom ?? 'Pas de nom'} ${widget.listeEntree.prenom ?? ''}'),
@@ -26,12 +28,12 @@ class _EntreePreviewState extends State<EntreePreview> {
         ),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => EntreeDetail(entree: widget.entree),
-          //   ),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EntreeDetail(url: widget.listeEntree.url!),
+            ),
+          );
         },
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_directory/annuaire_app.dart';
+import 'package:web_directory/providers/entree_provider.dart';
 import 'package:web_directory/providers/liste_entree_provider.dart';
 import 'package:web_directory/providers/service_provider.dart';
 
@@ -10,6 +11,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => ListeEntreeProvider()),
         ChangeNotifierProvider(create: (context) => ServiceProvider()),
+        ChangeNotifierProvider(create: (context) => EntreeProvider()),
       ],
       child: const MainApp(),
     ),
