@@ -127,7 +127,8 @@ class ServiceEntree implements ServiceEntreeInterface
 
                     $dataTelephone = [
                         'entree_id' => $entree->id,
-                        'numTel' => $data['numTel']
+                        'numTel' => $data['numTel'],
+                        'type' => $data['type']
                     ];
 
                     if ($serviceTelephone->createTelephone($dataTelephone)) {

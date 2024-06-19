@@ -32,9 +32,14 @@
 				<label for="numBureau">Numéro de bureau</label>
 				<input type="number" class="form-control" id="numBureau" name="numBureau" required>
 			</div>
-			<div class="form-group mt-2">
-				<label for="numTel">Numéro de téléphone</label>
-				<input type="number" class="form-control" id="numTel" name="numTel" required>
+			<label for="numTel">Numéro de téléphone</label>
+			<div class="form-group mt-2 d-flex">
+				<select class="form-control" id="typeTel" name="typeTel">
+					<option value="Portable">Portable</option>
+					<option value="Fixe">Fixe</option>
+					<option value="Fax">Bureau</option>
+				</select>
+				<input type="text" class="form-control" id="numTel" name="numTel" pattern="^0[345679][0-9]{8}$" placeholder="N° Tel" required oninvalid="this.setCustomValidity('Format du numéro: 0XXXXXXXXX.')">
 			</div>
 			<div class="form-group mt-2">
 				<label for="email">Email</label>
