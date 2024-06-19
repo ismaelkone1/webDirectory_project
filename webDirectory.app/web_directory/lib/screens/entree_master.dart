@@ -1,35 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:web_directory/models/Entree.dart';
+import 'package:web_directory/models/ListeEntree.dart';
+import 'package:web_directory/providers/liste_entree_provider.dart';
 import 'package:web_directory/screens/entree_preview.dart';
+import 'package:provider/provider.dart';
 
 class EntreeMaster extends StatefulWidget {
-  const EntreeMaster({super.key, required this.futureEntrees});
-
-  final Future<List<Entree>> futureEntrees;
+  const EntreeMaster({super.key});
 
   @override
-  _EntreeMasterState createState() => _EntreeMasterState();
+  State<EntreeMaster> createState() => _EntreeMasterState();
 }
 
 class _EntreeMasterState extends State<EntreeMaster> {
+  _EntreeMasterState();
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FutureBuilder<List<Entree>>(
-        future: widget.futureEntrees,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('Erreur: ${snapshot.error}');
-          } else if (snapshot.hasData) {
-            List<Entree>? entrees = snapshot.data;
-            return EntreePreview(entrees: entrees);
-          } else {
-            return const Text('Aucune donnée reçue');
-          }
-        },
-      ),
+    return Consumer<ListeEntreeProvider>(
+      builder: (context, entreeProvider, child) {
+        if (entreeProvider.isSearching) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return FutureBuilder<List<ListeEntree>>(
+          future: entreeProvider.getEntreeAlphabetique(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData ||
+                snapshot.data!.isEmpty ||
+                entreeProvider.noResultsFound) {
+              return const Center(
+                  child: Text(
+                'Pas d\'entrées à afficher',
+                style: TextStyle(fontSize: 24),
+                textAlign: TextAlign.center,
+              ));
+            } else {
+              return ListView.builder(
+                  itemCount: entreeProvider.entrees.length,
+                  itemBuilder: (context, index) {
+                    ListeEntree listeEntree = entreeProvider.entrees[index];
+                    return EntreePreview(listeEntree: listeEntree);
+                  });
+            }
+          },
+        );
+      },
     );
   }
 }

@@ -1,1 +1,1 @@
-export var pointEntree =  'http://localhost:20003/api';
+export var pointEntree =  'http://localhost:20003';

@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 use Slim\Routing\RouteContext;
+use web\directory\app\utils\CsrfService;
 
 class CreationServiceGETAction extends Action
 {
@@ -23,7 +24,8 @@ class CreationServiceGETAction extends Action
         $view = Twig::fromRequest($rq);
         return $view->render(
             $rs,
-            'createService.twig'
-        );
+            'createService.twig', [
+            'csrf' => CsrfService::generate()
+            ]);
     }
 }

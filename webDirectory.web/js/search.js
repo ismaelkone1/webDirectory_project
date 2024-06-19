@@ -2,7 +2,7 @@ import {loadEntrees} from "./entreeLoader";
 
 let entrees;
 
-export async function searchEntrees(recherche){
+export async function searchServices(recherche){
     if (entrees === undefined)
         entrees = await loadEntrees();
 
@@ -19,3 +19,4 @@ export async function searchEntrees(recherche){
     }
     return result;
 }
+

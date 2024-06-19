@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:web_directory/models/Entree.dart';
-import 'package:web_directory/providers/entree_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:web_directory/partials/service_dropdown.dart';
+import 'package:web_directory/partials/service_search_bar.dart';
+import 'package:web_directory/providers/liste_entree_provider.dart';
+import 'package:web_directory/providers/service_provider.dart';
 import 'package:web_directory/screens/entree_master.dart';
 
 class AnnuaireApp extends StatefulWidget {
@@ -11,26 +14,35 @@ class AnnuaireApp extends StatefulWidget {
 }
 
 class _AnnuaireAppState extends State<AnnuaireApp> {
-  late Future<List<Entree>> futureEntrees;
-
-  @override
-  void initState() {
-    super.initState();
-    futureEntrees = EntreeProvider().fetchEntreeAlphabetique();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fetch Data Example',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    var entreeProvider = Provider.of<ListeEntreeProvider>(context);
+    var serviceProvider = Provider.of<ServiceProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(120, 194, 173, 1),
+        title:
+            const Text('Annuaire - App', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Fetch Data Example'),
-        ),
-        body: EntreeMaster(futureEntrees: futureEntrees),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(2),
+            child: ServiceSearchBar(entreeProvider: entreeProvider),
+          ),
+          Container(
+            padding: const EdgeInsets.all(2),
+            child: ServiceDropdown(
+                entreeProvider: entreeProvider,
+                serviceProvider: serviceProvider),
+          ),
+          const Divider(color: Colors.grey, height: 20),
+          const Expanded(
+            child: EntreeMaster(),
+          ),
+        ],
       ),
     );
   }

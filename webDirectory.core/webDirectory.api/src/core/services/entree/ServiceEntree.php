@@ -25,6 +25,14 @@ class ServiceEntree implements ServiceEntreeInterface
         }
     }
 
+    public function getAllEntreesOrderByNom($sort) : array {
+        try {
+            return Entree::with('services')->orderBy($sort[0], $sort[1])->get()->toArray();
+        } catch (ModelNotFoundException $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
+
     /**
      * @param int $id
      * @return array
@@ -32,7 +40,7 @@ class ServiceEntree implements ServiceEntreeInterface
     public function getEntree(int $id): array
     {
         try {
-            return Entree::find($id)->toArray();
+            return Entree::with(['services', 'telephones'])->findOrFail($id)->toArray();
         } catch (ModelNotFoundException $e) {
             return ['error' => $e->getMessage()];
         }

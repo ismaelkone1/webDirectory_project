@@ -8,7 +8,7 @@ use Slim\Views\Twig;
 use web\directory\core\services\Service\ServiceServices;
 use web\directory\core\services\Entree\ServiceEntree;
 
-class ListeEntreeAction extends Action 
+class ListeEntreeAction extends Action
 {
     private ServiceServices $service;
     private ServiceEntree $entree;
@@ -18,8 +18,13 @@ class ListeEntreeAction extends Action
         $this->entree = new ServiceEntree();
         $this->service = new ServiceServices();
     }
+    {
+        $this->entree = new ServiceEntree();
+        $this->service = new ServiceServices();
+    }
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
+    {
     {
         $queryParams = $rq->getQueryParams();
         $sortOptions = isset($queryParams['sortOptions']) ? $queryParams['sortOptions'] : 'none';
@@ -31,7 +36,7 @@ class ListeEntreeAction extends Action
             $userId = $_SESSION['id'];
             $entrees = $this->entree->getEntreesByUserId($userId);
         } else {
-            $entrees = $this->entree->getEntreeByService($sortOptions);
+            $entrees = $this->entree->getEntrees();    
         }
 
         // Ajouter une option de tri pour l'utilisateur connecté si un utilisateur est connecté
