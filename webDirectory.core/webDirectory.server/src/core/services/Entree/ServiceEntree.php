@@ -18,7 +18,7 @@ class ServiceEntree implements ServiceEntreeInterface
     public function getEntrees(): array
     {
         try {
-            $tabEntrees = Entree::all();
+            $tabEntrees = Entree::with('services')->with('telephones')->get();
         } catch (ModelNotFoundException $e) {
             throw new EntreeNotFoundException("Impossible de récupérer les entrées : " . $e);
         }
@@ -45,10 +45,20 @@ class ServiceEntree implements ServiceEntreeInterface
         return $tabServicesEntrees->toArray();
     }
 
+    public function getTelephones() : array 
+    {
+        try {
+            $tabTelephones = Entree::with('telephones')->get();
+        } catch (ModelNotFoundException $e) {
+            throw new EntreeNotFoundException("Impossible de récupérer les téléphones : " . $e);
+        }
+        return $tabTelephones->toArray();
+    }
+
     public function getEntreesByService(String $service): array
     {
         try {
-            $tabEntrees = Entree::with('services')->whereHas('services', function($query) use ($service) {
+            $tabEntrees = Entree::with('telephones')->with('services')->whereHas('services', function($query) use ($service) {
                 $query->where('libelle', '=', $service);
             })->get();
         } catch (ModelNotFoundException $e) {
@@ -60,7 +70,7 @@ class ServiceEntree implements ServiceEntreeInterface
     public function getEntreesByNom(String $nom): array
     {
         try {
-            $tabEntrees = Entree::with('services')->where('nom', 'like', '%' . $nom . '%')->get();
+            $tabEntrees = Entree::with('telephones')->with('services')->where('nom', 'like', '%' . $nom . '%')->get();
         } catch (ModelNotFoundException $e) {
             throw new EntreeNotFoundException("Impossible de récupérer les entrées du nom " . $nom . ": " . $e);
         }
@@ -70,7 +80,7 @@ class ServiceEntree implements ServiceEntreeInterface
     public function getEntreesByNomAndService(String $nom, String $service): array
     {
         try {
-            $tabEntrees = Entree::with('services')->where('nom', 'like', '%' . $nom . '%')->whereHas('services', function($query) use ($service) {
+            $tabEntrees = Entree::with('telephones')->with('services')->where('nom', 'like', '%' . $nom . '%')->whereHas('services', function($query) use ($service) {
                 $query->where('libelle', '=', $service);
             })->get();
         } catch (ModelNotFoundException $e) {

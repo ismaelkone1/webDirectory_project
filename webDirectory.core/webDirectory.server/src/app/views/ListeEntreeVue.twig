@@ -37,12 +37,15 @@
 					<th scope="col">Fonction</th>
 					<th scope="col">N° bureau</th>
 					<th scope="col">Email</th>
+					<th scope="col">Type n° tel</th>
+					<th scope="col">N° Tel</th>
 					<th scope="col">URL Image</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for entree in entrees %}
 					{% for service in entree.services %}
+						{% for telephone in entree.telephones %}
 						<tr class="table-active text-center">
 							<th scope="row">{{ entree.id }}</th>
 							<td>{{ entree.nom }}</td>
@@ -51,8 +54,11 @@
 							<td>{{ entree.fonction }}</td>
 							<td>{{ entree.num_bureau }}</td>
 							<td>{{ entree.email }}</td>
+							<td>{{ telephone.type }}</td>
+							<td>{{ telephone.numero }}</td>
 							<td>{{ entree.url_image }}</td>
 						</tr>
+						{% endfor %}
 					{% endfor %}
 				{% endfor %}
 			</tbody>

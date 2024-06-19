@@ -33,7 +33,7 @@ class ListeEntreeAction extends Action
         } else if ($serviceOptions && !$servicesName) {
             $entrees = $this->entree->getEntreesByNom($queryParams['searchByName']);
         } else {
-            $entrees = $this->entree->getServices();    
+            $entrees = $this->entree->getEntrees();    
         }
         
 
