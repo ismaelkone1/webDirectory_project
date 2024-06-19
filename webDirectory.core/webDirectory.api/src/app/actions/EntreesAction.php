@@ -13,16 +13,14 @@ class EntreesAction
     {
         $query = $request->getQueryParams();
         $sort = $query['sort'] ?? '';
-        if ($sort === 'nom-desc') {
-            $orderBy = 'DESC';
-        } else if($sort === 'nom-asc'){
-            $orderBy = 'ASC';
-        }
+
+        //On sépare le sort en deux parties
+        $sort = explode('-', $sort);
 
         $serviceEntree = new ServiceEntree();
 
         if(isset($query['sort'])) {
-            $allEntrees = $serviceEntree->getAllEntreesOrderByNom($orderBy);
+            $allEntrees = $serviceEntree->getAllEntreesOrderByNom($sort);
         } else {
             $allEntrees = $serviceEntree->getAllEntrees();
         }

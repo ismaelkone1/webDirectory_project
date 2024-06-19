@@ -25,9 +25,9 @@ class ServiceEntree implements ServiceEntreeInterface
         }
     }
 
-    public function getAllEntreesOrderByNom($order) : array {
+    public function getAllEntreesOrderByNom($sort) : array {
         try {
-            return Entree::with('services')->orderBy('nom', $order)->get()->toArray();
+            return Entree::with('services')->orderBy($sort[0], $sort[1])->get()->toArray();
         } catch (ModelNotFoundException $e) {
             return ['error' => $e->getMessage()];
         }
