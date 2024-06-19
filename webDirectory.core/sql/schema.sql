@@ -11,7 +11,8 @@ CREATE TABLE entree (
 CREATE TABLE telephone (
   id int PRIMARY KEY AUTO_INCREMENT,
   id_entree int,
-  numero char(10)
+  numero char(10),
+  type varchar(15)
 );
 
 CREATE TABLE entree_service (
