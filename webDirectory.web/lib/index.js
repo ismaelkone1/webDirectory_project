@@ -9901,7 +9901,7 @@
   }
   function loadTrieEntreesNom(sens) {
     return __async(this, null, function* () {
-      return yield load("/api/entrees?sort=nom-" + sens);
+      return yield load("/api/entrees?sort=" + sens);
     });
   }
 
