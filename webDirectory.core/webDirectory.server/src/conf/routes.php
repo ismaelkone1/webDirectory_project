@@ -15,6 +15,7 @@ use web\directory\app\actions\CreationServiceGETAction;
 use web\directory\app\actions\CreationServicePOSTAction;
 use web\directory\app\actions\GetUserEntreesAction;
 use web\directory\app\actions\LogoutAction;
+use web\directory\app\actions\DetailsEntreeAction;
 
 return function (App $app): App {
     $app->get('/', HomeAction::class)
@@ -59,6 +60,9 @@ return function (App $app): App {
     
     $app->post('/creationService',CreationServicePOSTAction::class)
         ->setName('creationServicePOST');
+
+    $app->get('/entrees/{id}/details', DetailsEntreeAction::class)
+        ->setName(('detail_entree'));
 
     return $app;
 };

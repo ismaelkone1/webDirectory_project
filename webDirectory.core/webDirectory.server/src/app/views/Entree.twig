@@ -1,0 +1,49 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+Détails Entrée - {{ entree.nom }} {{ entree.prenom }}
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h1>{{ entree.nom }} {{ entree.prenom }}</h1>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">Fonction : {{ entree.fonction }}</li>
+        <li class="list-group-item">N° Bureau : {{ entree.num_bureau }}</li>
+        <li class="list-group-item">Email : {{ entree.email }}</li>
+        {% if entree.url_image is not null %}
+          <li class="list-group-item">
+            <img src="{{ entree.url_image }}" alt="Image de {{ entree.nom }} {{ entree.prenom }}" class="img-thumbnail">
+          </li>
+        {% endif %}
+        <li class="list-group-item">Services : 
+          {% if entree.services.isEmpty() %}
+            Aucun service associé
+          {% else %}
+            <ul>
+              {% for service in entree.services %}
+                <li>{{ service.libelle }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+        <li class="list-group-item">Téléphones :
+          {% if entree.telephones.isEmpty() %}
+            Aucun téléphone associé
+          {% else %}
+            <ul>
+              {% for telephone in entree.telephones %}
+                <li>{{ telephone.numero }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
