@@ -9902,6 +9902,11 @@
       return yield load(`/entrees/search?q=${recherche}`);
     });
   }
+  function loadTrieEntreesNom(sens) {
+    return __async(this, null, function* () {
+      return yield load("/entrees?sort=nom-" + sens);
+    });
+  }
 
   // js/entree_ui.js
   var import_handlebars = __toESM(require_handlebars());
@@ -9917,6 +9922,9 @@
   }
   function display_entrees(entrees2) {
     sortEntrees(entrees2.entrees);
+    display_entreesWithoutSort(entrees2);
+  }
+  function display_entreesWithoutSort(entrees2) {
     document.getElementById("template").innerHTML = template(entrees2);
     document.querySelectorAll(".entree").forEach((entree) => {
       entree.addEventListener("click", () => __async(this, null, function* () {
@@ -10032,6 +10040,13 @@
   var buttonSearch2 = document.getElementById("searchNomService");
   buttonSearch2.addEventListener("input", function() {
     showSearchedEntreesByNomService(buttonSearch2.value);
+  });
+  var selectTrieNom = document.getElementById("selectTriNom");
+  selectTrieNom.addEventListener("change", function() {
+    return __async(this, null, function* () {
+      let entrees2 = yield loadTrieEntreesNom(selectTrieNom.value);
+      display_entreesWithoutSort(entrees2);
+    });
   });
 })();
 /*! Bundled license information:

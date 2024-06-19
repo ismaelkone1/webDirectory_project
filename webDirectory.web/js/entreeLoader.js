@@ -9,6 +9,6 @@ async function loadEntreeRecherche(recherche){
 }
 
 async function loadTrieEntreesNom(sens){
-    return await load('/entrees?sort=' + sens);
+    return await load('/entrees?sort=nom-' + sens);
 }
 export {loadEntrees, loadEntreeRecherche, loadTrieEntreesNom};

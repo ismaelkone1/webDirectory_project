@@ -16,6 +16,10 @@ function sortEntrees(entrees){
 
 export function display_entrees(entrees) {
     sortEntrees(entrees.entrees);
+    display_entreesWithoutSort(entrees);
+}
+
+export function display_entreesWithoutSort(entrees){
     document.getElementById('template').innerHTML = template(entrees);
     document.querySelectorAll('.entree').forEach(entree => {
         entree.addEventListener('click', async () => {
