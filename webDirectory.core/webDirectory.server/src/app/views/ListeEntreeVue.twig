@@ -1,0 +1,59 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+Entrées
+{% endblock %}
+
+{% block body %}
+    <figure>
+		<blockquote class="blockquote mx-4 mt-4">
+			<h1>Liste des entrées :</h1>
+		</blockquote>
+	</figure>
+  <form method="get" action="{{url_for('entrees')}}" id="sortForm" class="d-flex align-items-center justify-content-end">
+		<div class="form-group">
+			<select class="form-control" id="sortOptions" name="sortOptions">
+          <option value="none" {% if currentSortOption == 'none' %}selected{% endif %}>Aucun</option>
+				{% for service in services %}
+          <option value="{{ service.libelle }}" {% if currentSortOption == service.libelle %}selected{% endif %}>{{ service.libelle }}</option>
+        {% endfor %}
+			</select>
+		</div>
+		<button type="submit" class="btn btn-primary">Trier</button>
+	</form>
+
+  <hr>
+    
+    <div class="container table-responsive" style="max-height: 600px; overflow-y: auto;">
+    <table class="table table-hover table-striped table-bordered">
+      <thead style="position: sticky; top: 0; z-index: 1;">
+    <tr class="text-center">
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Service</th>
+      <th scope="col">Fonction</th>
+      <th scope="col">N° bureau</th>
+      <th scope="col">Email</th>
+      <th scope="col">URL Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entree in entrees %}
+      {% for service in entree.services %}
+        <tr class="table-active text-center">
+            <th scope="row">{{ entree.id }}</th>
+            <td>{{ entree.nom }}</td>
+            <td>{{ entree.prenom }}</td>
+            <td>{{ service.libelle }}</td>
+            <td>{{ entree.fonction }}</td>
+            <td>{{ entree.num_bureau }}</td>
+            <td>{{ entree.email }}</td>
+            <td>{{ entree.url_image }}</td>  
+        </tr>
+        {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

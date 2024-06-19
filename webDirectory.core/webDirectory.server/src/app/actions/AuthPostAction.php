@@ -2,15 +2,16 @@
 
 namespace web\directory\app\actions;
 
-use PSr\Http\Message\ResponseInterface;
-use web\directory\core\services\authentification\AuthService;
+use Exception;
 use web\directory\core\services\authentification\AuthServiceInterface;
-use Psr\Http\Message\ResponseInterfaceé;
+use web\directory\core\services\authentification\AuthService;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteParser;
 use Slim\Routing\RouteContext;
+use web\directory\app\actions\Action;
 
-class AuthPostAction  extends Action
+class AuthPostAction extends Action
 {
     private AuthServiceInterface $authService;
 
@@ -19,29 +20,41 @@ class AuthPostAction  extends Action
         $this->authService = new AuthService();
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $postData = $request->getParsedBody();
-
-        // recuperation des credentials entrees dans le formulaire
-        $user_id = $postData['user_id'] ?? '';
-        $password = $postData['password'] ?? '';
-
-        // verification des credentials
-        if($this->authService->checkPasswordValid($password, $user_id))
-        {
-            // Connexion reussi
-            $user = $this->authService->connectuser(['id' => $user_id]);
-            $routeContext = RouteContext::fromRequest($request);
-            $routeParser = $routeContext->getRouteParser();
-
-            // redirection après connexion
-            $url = $routeParser->urlFor('home');
-            return $response->withStatus(302)->withHeader('Location', $url);
-        } else {
-            $response->getBody()->write('Identifiants incorrects');
-            return $response->withStatus(401)->withHeader('Content-Type', 'text/html');
+        try {
+            $postData = $rq->getParsedBody();
+    
+            // récupération des credentials entrées dans le formulaire
+            $user_id = $postData['user_id'] ?? '';
+            $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
+            $password = $postData['password'] ?? '';
+            $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
+    
+            // vérification des credentials
+            if ($this->authService->checkPasswordValid($password, $user_id)) {
+                var_dump($postData);
+                // Connexion réussie
+                $user = $this->authService->connectUser(['id' => $user_id]);
+                var_dump($user);
+                if ($user) {
+                    $routeContext = RouteContext::fromRequest($rq);
+                    $routeParser = $routeContext->getRouteParser();
+    
+                    // redirection après connexion
+                    $url = $routeParser->urlFor('home');
+                    return $rs->withStatus(302)->withHeader('Location', $url);
+                } else {
+                    $rs->getBody()->write('Utilisateur non trouvé');
+                    return $rs->withStatus(401);
+                }
+            } else {
+                $rs->getBody()->write('Identifiants incorrects');
+                return $rs->withStatus(401);
+            }
+        } catch (\Exception $e) {
+            $rs->getBody()->write('Une erreur est survenue. Veuillez réessayer plus tard.');
+            return $rs->withStatus(500);
         }
-
     }
 }

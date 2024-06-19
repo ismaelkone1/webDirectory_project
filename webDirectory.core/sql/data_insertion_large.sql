@@ -1,4 +1,3 @@
-
 INSERT INTO entree (id, nom, prenom, fonction, num_bureau, email, url_image) VALUES
 (1, 'Marie', 'Martin', 'Analyste', 150, 'marie.martin@example.com', 'http://example.com/image1.jpg'),
 (2, 'Lucie', 'Simon', 'Directeur', 158, 'lucie.simon@example.com', 'http://example.com/image2.jpg'),
@@ -303,12 +302,12 @@ INSERT INTO telephone (id_entree, numero) VALUES
 (100, '1244301572'),
 (100, '5351814566');
 
-INSERT INTO service (id, libelle) VALUES
-(1, 'Informatique'),
-(2, 'Ressources Humaines'),
-(3, 'Finance'),
-(4, 'Marketing'),
-(5, 'Ventes');
+INSERT INTO service (id, libelle, etage, description) VALUES
+(1, 'Informatique',2,'Ici ça informe'),
+(2, 'Ressources Humaines',0,'Ici ça ressource'),
+(3, 'Finance',1,'Ici ça finance'),
+(4, 'Marketing',3,'Ici ça market'),
+(5, 'Ventes',4,'Ici ça vend');
 
 INSERT INTO entree_service (id_entree, id_service) VALUES
 (1, 3),

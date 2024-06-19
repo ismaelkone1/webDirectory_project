@@ -1,20 +1,43 @@
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">AAAH NU ÈRE</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">AAAH NU ÈRE</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav me-auto mx-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="/">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
+          <a class="nav-link" href="{{url_for('home')}}">Accueil</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Consulter</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+				<li class="nav-item">
+					<a class="nav-link" href="{{url_for('entrees')}}">Consulter entrées</a>
+				</li>
+				{% if session.id is defined %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('creationEntreeGET') }}">Créer une entrée</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{url_for('creationServiceGET')}}">Créer services</a>
+					</li>
+				{% endif %}
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				{% if session.id is not defined %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{url_for('register')}}">Créer un Compte</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{url_for('login')}}">Se Connecter</a>
+					</li>
+				{% endif %}
+
+				{% if session.id is defined %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('logout') }}">Se Déconnecter</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
 </nav>
+

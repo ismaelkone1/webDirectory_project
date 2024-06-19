@@ -1,0 +1,27 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+    CreationService - Annuaire
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h2 class="text-center">Créer un service</h2>
+        <form action="/creationService" method="post">
+            <div class="form-group mt-2">
+                <label for="libelle">Libellé</label>
+                <input type="text" class="form-control" id="libelle" name="libelle" placeholder="Libellé du service" required>
+            </div>
+            <div class="form-group mt-2">
+                <label for="etage">Étage</label>
+                <input type="number" class="form-control" id="etage" name="etage" value="1" min="1" max="15">
+            </div>
+            <div class="form-group mt-2">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" placeholder="Description du service" required></textarea>
+            </div>
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <button type="submit" class="btn btn-primary mt-3">Créer le service</button>
+        </form>
+    </div>
+{% endblock %}

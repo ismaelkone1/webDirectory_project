@@ -8,7 +8,7 @@ class Telephone extends Eloquent
 {
     protected $table = 'telephone';
     protected $primaryKey = 'id';
-    public $timestamp = false;
+    public $timestamps = false;
 
     public function entree()
     {

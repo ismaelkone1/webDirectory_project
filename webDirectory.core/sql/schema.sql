@@ -22,15 +22,20 @@ CREATE TABLE entree_service (
 
 CREATE TABLE service (
   id int PRIMARY KEY AUTO_INCREMENT,
-  libelle varchar(128)
+  libelle varchar(128),
+  etage smallint,
+  description varchar(512)
 );
 
 CREATE TABLE utilisateur (
   id VARCHAR(40) PRIMARY KEY,
-  mail varchar(128),
-  mdp varchar(512),
-  role int
+  mail VARCHAR(128),
+  mdp VARCHAR(512),
+  role INT,
+  activation_token VARCHAR(128),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 ALTER TABLE telephone ADD FOREIGN KEY (id_entree) REFERENCES entree (id);
 
