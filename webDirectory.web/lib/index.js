@@ -9881,30 +9881,27 @@
   });
 
   // js/config.js
-  var pointEntree = "http://localhost:20003/api";
+  var pointEntree = "http://localhost:20003";
 
   // js/loader.js
   function load(url) {
     return fetch(`${pointEntree}${url}`).then((response) => response.json()).catch((error) => console.error("Erreur lors du chargement de la ressource", error));
   }
-  function loadSansPointEntree(url) {
-    return fetch(url).then((response) => response.json()).catch((error) => console.error("Erreur lors du chargement de la ressource", error));
-  }
 
   // js/entreeLoader.js
   function loadEntrees() {
     return __async(this, null, function* () {
-      return yield load("/entrees");
+      return yield load("/api/entrees");
     });
   }
   function loadEntreeRecherche(recherche) {
     return __async(this, null, function* () {
-      return yield load(`/entrees/search?q=${recherche}`);
+      return yield load(`/api/entrees/search?q=${recherche}`);
     });
   }
   function loadTrieEntreesNom(sens) {
     return __async(this, null, function* () {
-      return yield load("/entrees?sort=nom-" + sens);
+      return yield load("/api/entrees?sort=nom-" + sens);
     });
   }
 
@@ -9929,7 +9926,7 @@
     document.querySelectorAll(".entree").forEach((entree) => {
       entree.addEventListener("click", () => __async(this, null, function* () {
         const url = entree.dataset.url;
-        entree = yield loadSansPointEntree(url);
+        entree = yield load(url);
         display_entree(entree);
       }));
     });

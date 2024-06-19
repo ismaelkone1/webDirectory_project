@@ -21,13 +21,12 @@ class ServicesEntreeAction
 
         $entrees = $serviceServices->getEntreesDuService($args['id']);
 
-        //TODO : Modifier l'url une fois le serveur déployé
         $entrees = array_map(function($entree) {
             return [
                 'nom' => $entree['nom'],
                 'prenom' => $entree['prenom'],
                 'services' => $entree['services'],
-                'url' => 'http://localhost:20003/api/entrees/'.$entree['id']
+                'url' => '/api/entrees/'.$entree['id']
             ];
         }, $entrees);
 

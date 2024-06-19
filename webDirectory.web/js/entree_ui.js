@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import {loadSansPointEntree} from "./loader";
+import {load} from "./loader";
 
 const source = document.getElementById('entreesTemplate').innerHTML;
 const template = Handlebars.compile(source);
@@ -24,7 +24,7 @@ export function display_entreesWithoutSort(entrees){
     document.querySelectorAll('.entree').forEach(entree => {
         entree.addEventListener('click', async () => {
             const url = entree.dataset.url;
-            entree = await loadSansPointEntree(url);
+            entree = await load(url);
             display_entree(entree);
         });
     });

@@ -27,13 +27,12 @@ class EntreesAction
 
         $entrees = [];
 
-        //TODO : Modifier l'url une fois le serveur déployé
         foreach ($allEntrees as $key => $entree) {
             $entrees[$key] = [
                 'nom' => $entree['nom'],
                 'prenom' => $entree['prenom'],
                 'services' => $entree['services'],
-                'url' => 'http://localhost:20003/api/entrees/'.$entree['id']
+                'url' => '/api/entrees/'.$entree['id']
             ];
         }
 
