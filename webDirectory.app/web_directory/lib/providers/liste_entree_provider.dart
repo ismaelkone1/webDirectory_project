@@ -11,11 +11,13 @@ class ListeEntreeProvider extends ChangeNotifier {
   bool noResultsFound = false;
   Completer<void>? _searchCompleter;
   String rechercheNom = '';
-  String rechercheService = '';
+  int rechercheService = -1;
   String rechercheSort = '';
 
   Future<List<ListeEntree>> getEntreeAlphabetiqueASC() async {
+    print('getEntreeAlphabetiqueASC');
     if (entrees.isEmpty && !isSearching) {
+      print('fetchEntreeAlphabetiqueASC');
       entrees.clear();
       await _fetchEntreeAlphabetiqueASC();
     }
@@ -47,170 +49,164 @@ class ListeEntreeProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> searchEntreeByService(String libelle) async {
+  Future<void> searchEntreeByServiceAPI(int id) async {
+    if (rechercheNom.isNotEmpty) {
+      searchByEntreeService(rechercheNom, id);
+      return;
+    }
+
     _searchCompleter?.complete();
     _searchCompleter = Completer<void>();
 
     isSearching = true;
     notifyListeners();
 
-    if (libelle.isEmpty || libelle == 'Tous') {
+    if (id == -1) {
       entrees.clear();
       await _fetchEntreeAlphabetiqueASC();
       isSearching = false;
+      noResultsFound = false;
     } else {
       var localCompleter = _searchCompleter;
 
-      if (rechercheNom.isNotEmpty) {
-        print('rechercheNom: $rechercheNom');
-      }
-
       entrees.clear();
-      await _fetchEntreeAlphabetiqueASC();
+      final response = await http.get(Uri.parse(
+          'http://docketu.iutnc.univ-lorraine.fr:20003/api/services/$id/entrees'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
 
-      var response = entrees.where((entree) {
-        return entree.services!.any((service) {
-          return service.libelle!.toLowerCase().contains(libelle.toLowerCase());
-        });
-      }).toList();
+      if (response.statusCode == 200) {
+        for (var entreeJson in entreesJson) {
+          entrees.add(ListeEntree.fromJson(entreeJson));
+        }
+        switchSort();
+      } else {
+        throw Exception('Failed to load Entrees');
+      }
 
       if (localCompleter != _searchCompleter) {
         return;
       }
 
-      if (response.isEmpty) {
+      if (entreesJson.isEmpty) {
         noResultsFound = true;
       } else {
         noResultsFound = false;
       }
-
-      entrees = response;
     }
 
     isSearching = false;
     notifyListeners();
   }
 
-  // Future<void> searchEntreeByServiceAPI(int id) async {
-  //   _searchCompleter?.complete();
-  //   _searchCompleter = Completer<void>();
+  Future<void> searchEntreeAPI(String search) async {
+    if (rechercheService != -1) {
+      searchByEntreeService(search, rechercheService);
+      return;
+    }
 
-  //   isSearching = true;
-  //   notifyListeners();
-
-  //   if (id == -1) {
-  //     entrees.clear();
-  //     await _fetchEntreeAlphabetiqueASC();
-  //     isSearching = false;
-  //   } else {
-  //     var localCompleter = _searchCompleter;
-
-  //     entrees.clear();
-  //     final response = await http.get(Uri.parse(
-  //         'http://docketu.iutnc.univ-lorraine.fr:20003/api/services/$id/entrees'));
-
-  //     if (response.statusCode == 200) {
-  //       var jsonData = jsonDecode(response.body);
-  //       var entreesJson = jsonData['entrees'] as List;
-  //       for (var entreeJson in entreesJson) {
-  //         entrees.add(ListeEntree.fromJson(entreeJson));
-  //       }
-  //     } else {
-  //       throw Exception('Failed to load Entrees');
-  //     }
-
-  //     if (localCompleter != _searchCompleter) {
-  //       return;
-  //     }
-
-  //     if (response.body.isEmpty) {
-  //       noResultsFound = true;
-  //     } else {
-  //       noResultsFound = false;
-  //     }
-  //   }
-
-  //   isSearching = false;
-  //   notifyListeners();
-  // }
-
-  Future<void> searchEntree(String search) async {
     _searchCompleter?.complete();
     _searchCompleter = Completer<void>();
 
     isSearching = true;
-    notifyListeners();
 
     if (search.isEmpty) {
       entrees.clear();
-      await _fetchEntreeAlphabetiqueASC();
       isSearching = false;
+      noResultsFound = false;
     } else {
       var localCompleter = _searchCompleter;
 
-      var response = entrees.where((entree) {
-        return entree.nom!.toLowerCase().contains(search.toLowerCase());
-      }).toList();
+      entrees.clear();
+      final response = await http.get(Uri.parse(
+          'http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees/search?q=$search'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
+
+      if (response.statusCode == 200) {
+        for (var entreeJson in entreesJson) {
+          entrees.add(ListeEntree.fromJson(entreeJson));
+        }
+        switchSort();
+      } else {
+        throw Exception('Failed to load Entrees');
+      }
 
       if (localCompleter != _searchCompleter) {
         return;
       }
 
-      if (response.isEmpty) {
+      if (entreesJson.isEmpty) {
         noResultsFound = true;
       } else {
         noResultsFound = false;
       }
-
-      entrees = response;
     }
 
     isSearching = false;
     notifyListeners();
   }
 
-  // Future<void> searchEntreeAPI(String search) async {
-  //   _searchCompleter?.complete();
-  //   _searchCompleter = Completer<void>();
+  Future<void> searchByEntreeService(String search, int id) async {
+    _searchCompleter?.complete();
+    _searchCompleter = Completer<void>();
 
-  //   isSearching = true;
-  //   notifyListeners();
+    print('search: $search, id: $id');
 
-  //   if (search.isEmpty) {
-  //     entrees.clear();
-  //     await _fetchEntreeAlphabetiqueASC();
-  //     isSearching = false;
-  //   } else {
-  //     var localCompleter = _searchCompleter;
+    isSearching = true;
+    notifyListeners();
 
-  //     entrees.clear();
-  //     final response = await http.get(Uri.parse(
-  //         'http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees/search?q=$search'));
+    if (search.isEmpty || id == -1) {
+      entrees.clear();
+      if (search.isEmpty) {
+        await searchEntreeByServiceAPI(id);
+      } else {
+        await searchEntreeAPI(search);
+      }
+      isSearching = false;
+      noResultsFound = false;
+    } else {
+      var localCompleter = _searchCompleter;
 
-  //     if (response.statusCode == 200) {
-  //       var jsonData = jsonDecode(response.body);
-  //       var entreesJson = jsonData['entrees'] as List;
-  //       for (var entreeJson in entreesJson) {
-  //         entrees.add(ListeEntree.fromJson(entreeJson));
-  //       }
-  //     } else {
-  //       throw Exception('Failed to load Entrees');
-  //     }
+      entrees.clear();
+      final response = await http.get(Uri.parse(
+          'http://docketu.iutnc.univ-lorraine.fr:20003/api/services/$id/entrees?q=$search'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
 
-  //     if (localCompleter != _searchCompleter) {
-  //       return;
-  //     }
+      if (response.statusCode == 200) {
+        for (var entreeJson in entreesJson) {
+          entrees.add(ListeEntree.fromJson(entreeJson));
+        }
+        switchSort();
+      } else {
+        throw Exception('Failed to load Entrees');
+      }
 
-  //     if (response.body.isEmpty) {
-  //       noResultsFound = true;
-  //     } else {
-  //       noResultsFound = false;
-  //     }
-  //   }
+      if (localCompleter != _searchCompleter) {
+        return;
+      }
 
-  //   isSearching = false;
-  //   notifyListeners();
-  // }
+      if (entreesJson.isEmpty) {
+        noResultsFound = true;
+      } else {
+        noResultsFound = false;
+      }
+    }
+
+    isSearching = false;
+    notifyListeners();
+  }
+
+  void switchSort() {
+    if (rechercheSort == 'ASC') {
+      rechercheSort = 'DESC';
+      sortEntreeByDESC();
+    } else {
+      rechercheSort = 'ASC';
+      sortEntreeByASC();
+    }
+  }
 
   Future<void> sortEntreeByASC() async {
     entrees.sort((a, b) {
