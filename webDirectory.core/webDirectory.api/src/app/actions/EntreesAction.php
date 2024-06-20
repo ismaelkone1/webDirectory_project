@@ -41,7 +41,7 @@ class EntreesAction
 
         $response->getBody()->write(json_encode($data));
 
-        //On mett dans le header "Access-Control-Allow-Origin: *"
+        //On met dans le header "Access-Control-Allow-Origin: *"
         return
             $response->withHeader('Content-Type','application/json')
                 ->withHeader('Access-Control-Allow-Origin', '*')
