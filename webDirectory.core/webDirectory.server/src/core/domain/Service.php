@@ -9,6 +9,12 @@ class Service extends Eloquent
     protected $table = 'service';
     protected $primaryKey = 'id';
     public $timestamps = false;
+    protected $fillable = ['libelle', 'etage', 'description', 'created_by'];
+    
+    public function utilisateur()
+    {
+        return $this->belongsTo(Utilisateur::class, 'created_by');
+    }
 
     public function entrees()
     {
