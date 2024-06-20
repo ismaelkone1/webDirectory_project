@@ -15,7 +15,9 @@ class ListeEntreeProvider extends ChangeNotifier {
   String rechercheSort = '';
 
   Future<List<ListeEntree>> getEntreeAlphabetiqueASC() async {
+    print('getEntreeAlphabetiqueASC');
     if (entrees.isEmpty && !isSearching) {
+      print('fetchEntreeAlphabetiqueASC');
       entrees.clear();
       await _fetchEntreeAlphabetiqueASC();
     }
@@ -63,16 +65,17 @@ class ListeEntreeProvider extends ChangeNotifier {
       entrees.clear();
       await _fetchEntreeAlphabetiqueASC();
       isSearching = false;
+      noResultsFound = false;
     } else {
       var localCompleter = _searchCompleter;
 
       entrees.clear();
       final response = await http.get(Uri.parse(
           'http://docketu.iutnc.univ-lorraine.fr:20003/api/services/$id/entrees'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
 
       if (response.statusCode == 200) {
-        var jsonData = jsonDecode(response.body);
-        var entreesJson = jsonData['entrees'] as List;
         for (var entreeJson in entreesJson) {
           entrees.add(ListeEntree.fromJson(entreeJson));
         }
@@ -85,7 +88,7 @@ class ListeEntreeProvider extends ChangeNotifier {
         return;
       }
 
-      if (response.body.isEmpty) {
+      if (entreesJson.isEmpty) {
         noResultsFound = true;
       } else {
         noResultsFound = false;
@@ -106,22 +109,21 @@ class ListeEntreeProvider extends ChangeNotifier {
     _searchCompleter = Completer<void>();
 
     isSearching = true;
-    notifyListeners();
 
     if (search.isEmpty) {
       entrees.clear();
-      await _fetchEntreeAlphabetiqueASC();
       isSearching = false;
+      noResultsFound = false;
     } else {
       var localCompleter = _searchCompleter;
 
       entrees.clear();
       final response = await http.get(Uri.parse(
           'http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees/search?q=$search'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
 
       if (response.statusCode == 200) {
-        var jsonData = jsonDecode(response.body);
-        var entreesJson = jsonData['entrees'] as List;
         for (var entreeJson in entreesJson) {
           entrees.add(ListeEntree.fromJson(entreeJson));
         }
@@ -134,7 +136,7 @@ class ListeEntreeProvider extends ChangeNotifier {
         return;
       }
 
-      if (response.body.isEmpty) {
+      if (entreesJson.isEmpty) {
         noResultsFound = true;
       } else {
         noResultsFound = false;
@@ -154,20 +156,25 @@ class ListeEntreeProvider extends ChangeNotifier {
     isSearching = true;
     notifyListeners();
 
-    if (search.isEmpty && id == -1) {
+    if (search.isEmpty || id == -1) {
       entrees.clear();
-      await searchEntreeByServiceAPI(id);
+      if (search.isEmpty) {
+        await searchEntreeByServiceAPI(id);
+      } else {
+        await searchEntreeAPI(search);
+      }
       isSearching = false;
+      noResultsFound = false;
     } else {
       var localCompleter = _searchCompleter;
 
       entrees.clear();
       final response = await http.get(Uri.parse(
           'http://docketu.iutnc.univ-lorraine.fr:20003/api/services/$id/entrees?q=$search'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
 
       if (response.statusCode == 200) {
-        var jsonData = jsonDecode(response.body);
-        var entreesJson = jsonData['entrees'] as List;
         for (var entreeJson in entreesJson) {
           entrees.add(ListeEntree.fromJson(entreeJson));
         }
@@ -180,7 +187,7 @@ class ListeEntreeProvider extends ChangeNotifier {
         return;
       }
 
-      if (response.body.isEmpty) {
+      if (entreesJson.isEmpty) {
         noResultsFound = true;
       } else {
         noResultsFound = false;

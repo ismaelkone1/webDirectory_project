@@ -23,13 +23,13 @@ class _SortDropdownState extends State<SortDropdown> {
           onChanged: (String? newValue) {
             if (newValue != null) {
               setState(() {
+                widget.entreeProvider.rechercheSort = newValue;
                 _currentSort = newValue;
                 if (newValue == 'ASC') {
                   widget.entreeProvider.sortEntreeByASC();
                 } else {
                   widget.entreeProvider.sortEntreeByDESC();
                 }
-                widget.entreeProvider.rechercheSort = newValue;
               });
             }
           },
