@@ -1,6 +1,6 @@
 import {loadEntreeRecherche, loadEntrees, loadTrieEntreesNom} from './entreeLoader.js';
 import {display_entrees, display_entreesWithoutSort} from './entree_ui.js';
-import {searchServices} from './search.js';
+import {loadSearchedServices} from './search.js';
 import TomSelect from "tom-select";
 import {loadServices} from "./servicesLoader";
 
@@ -12,8 +12,8 @@ async function showEntrees(){
 
 //2)
 
-async function showSearchedEntreesByServices(recherche){
-    let entrees = await searchServices(recherche);
+async function showSearchedEntreesByServices(id){
+    let entrees = await loadSearchedServices(id);
     display_entrees(entrees);
 }
 
@@ -24,7 +24,7 @@ async function services(){
     let services = await loadServices();
     new TomSelect("#searchService", {
         options: services,
-        valueField: 'libelle',
+        valueField: 'id',
         labelField: 'libelle',
         searchField: 'libelle',
         create: false,
@@ -51,7 +51,7 @@ buttonSearch.addEventListener('input', function(){
 
 //5)
 async function showSearchedEntreesByNomService(recherche){
-    let entrees = await searchServices(recherche);
+    let entrees = await loadSearchedServices(recherche);
     let entrees2 = await loadEntreeRecherche(recherche);
 
     //On ajoute les deux listes d'entrees sans les doublons
@@ -61,10 +61,9 @@ async function showSearchedEntreesByNomService(recherche){
     }
 
     for (let entree of entrees.entrees){
-        if (!result.entrees.includes(entree)){
             result.entrees.push(entree);
-        }
     }
+
     for (let entree of entrees2.entrees){
         if (!result.entrees.includes(entree)){
             result.entrees.push(entree);
