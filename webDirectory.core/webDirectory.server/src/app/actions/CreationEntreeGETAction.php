@@ -22,8 +22,6 @@ class CreationEntreeGETAction extends Action
             return $rs->withStatus(302)->withHeader('Location', $loginUrl);
         }
 
-        var_dump($_SESSION['id']);
-
         $serviceService = new ServiceServices();
         $listeService = $serviceService->getServices();
         $csrf = CsrfService::generate();
