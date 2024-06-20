@@ -107,7 +107,7 @@ class ServiceEntree implements ServiceEntreeInterface
                     mkdir($uploadDir, 0777, true);
                 }
                 if (move_uploaded_file($_FILES['urlImage']['tmp_name'], $uploadFile)) {
-                    $entree->url_image = 'http://localhost:8000/' . $_FILES['urlImage']['name'];
+                    $entree->url_image = 'http://localhost:20003/api/image?name=' . $_FILES['urlImage']['name'];
                 } else {
                     throw new \Exception("Échec du téléchargement de l'image");
                 }
@@ -143,7 +143,7 @@ class ServiceEntree implements ServiceEntreeInterface
         return false;
     }
 
-    public function publierEntree(int $id) : bool
+    public function publierEntree(int $id): bool
     {
         try {
             $entree = Entree::find($id);
@@ -156,8 +156,8 @@ class ServiceEntree implements ServiceEntreeInterface
 
         return $entree->save();
     }
-    
-    public function depublierEntree(int $id) : bool
+
+    public function depublierEntree(int $id): bool
     {
         try {
             $entree = Entree::find($id);
@@ -170,7 +170,7 @@ class ServiceEntree implements ServiceEntreeInterface
         return $entree->save();
     }
 
-    public function getEntreePublier() : array
+    public function getEntreePublier(): array
     {
         try {
             $entreePublie = Entree::where('is_published', true)->get();
@@ -184,13 +184,12 @@ class ServiceEntree implements ServiceEntreeInterface
     {
         try {
             $entreeUser = Entree::where('created_by', $userId)->get();
-            
+
             if (!$entreeUser) {
                 throw new EntreeNotFoundException("Utilisateur non trouvé");
             }
-    
+
             return $entreeUser->toArray();
-            
         } catch (\Exception $e) {
             throw new EntreeNotFoundException("Erreur lors de la récupération des entrées de l'utilisateur : " . $e->getMessage());
         }
@@ -230,7 +229,4 @@ class ServiceEntree implements ServiceEntreeInterface
             return false;
         }
     }
-
-    
-
 }

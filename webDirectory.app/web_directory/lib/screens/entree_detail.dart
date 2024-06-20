@@ -38,7 +38,7 @@ class _EntreeDetailState extends State<EntreeDetail> {
                 child: Column(
                   children: [
                     if (entree.urlImage.isNotEmpty)
-                      Image.network('http://localhost:3000/${entree.urlImage}',
+                      Image.network(entree.urlImage,
                           width: 100, height: 100, fit: BoxFit.cover),
                     const SizedBox(height: 20),
                     ListTile(

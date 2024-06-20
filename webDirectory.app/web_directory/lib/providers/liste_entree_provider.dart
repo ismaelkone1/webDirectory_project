@@ -25,7 +25,7 @@ class ListeEntreeProvider extends ChangeNotifier {
 
   Future<void> _fetchEntreeAlphabetiqueASC() async {
     // final response =
-    //     await http.get(Uri.parse('http://localhost:20003/api/entrees'));
+    // await http.get(Uri.parse('http://localhost:20003/api/entrees'));
     final response = await http.get(
         Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees'));
 
