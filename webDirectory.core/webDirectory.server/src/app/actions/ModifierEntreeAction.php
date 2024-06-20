@@ -23,7 +23,13 @@ class ModifierEntreeAction extends Action
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $data = $rq->getParsedBody();
+
         $entreeId = $args['id'];
+
+        //Si le dernier élément service du tableau est vide, on le supprime
+        if ($data['services'][count($data['services']) - 1] == '') {
+            array_pop($data['services']);
+        }
 
         try {
             // Appeler la méthode ModifierEntree du service
@@ -34,7 +40,7 @@ class ModifierEntreeAction extends Action
             }
 
             // Rediriger vers la page des détails de l'entrée
-            return $rs->withHeader('Location', '/entree/details/' . $entreeId)->withStatus(302);
+            return $rs->withHeader('Location', '/entrees/' . $entreeId . '/details')->withStatus(302);
         } catch (\Exception $e) {
             // Gérer les erreurs
             error_log("Erreur lors de la modification de l'entrée : " . $e->getMessage());

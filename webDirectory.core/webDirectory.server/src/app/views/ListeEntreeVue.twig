@@ -34,7 +34,7 @@ Entrées
                 <th scope="col">Id</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prenom</th>
-                <th scope="col">Service</th>
+                <th scope="col">Services</th>
                 <th scope="col">Fonction</th>
                 <th scope="col">N° bureau</th>
                 <th scope="col">Email</th>
@@ -43,31 +43,21 @@ Entrées
         </thead>
         <tbody>
             {% for entree in entrees %}
-                {% if entree.services is not empty %}
-                    {% for service in entree.services %}
-                        <tr class="table-active text-center">
-                            <th scope="row"><a href="{{ url_for('details_entree', {id: entree.id}) }}">{{ entree.id }}</a></th>
-                            <td>{{ entree.nom }}</td>
-                            <td>{{ entree.prenom }}</td>
-                            <td>{{ service.libelle }}</td>
-                            <td>{{ entree.fonction }}</td>
-                            <td>{{ entree.num_bureau }}</td>
-                            <td>{{ entree.email }}</td>
-                            <td>{{ entree.url_image }}</td>  
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr class="table-active text-center">
-                        <th scope="row"><a href="{{ url_for('details_entree', {id: entree.id}) }}">{{ entree.id }}</a></th>
-                        <td>{{ entree.nom }}</td>
-                        <td>{{ entree.prenom }}</td>
-                        <td>Non spécifié</td>
-                        <td>{{ entree.fonction }}</td>
-                        <td>{{ entree.num_bureau }}</td>
-                        <td>{{ entree.email }}</td>
-                        <td>{{ entree.url_image }}</td>  
-                    </tr>
-                {% endif %}
+                <tr class="table-active text-center">
+                    <th scope="row"><a href="{{ url_for('details_entree', {id: entree.id}) }}">{{ entree.id }}</a></th>
+                    <td>{{ entree.nom }}</td>
+                    <td>{{ entree.prenom }}</td>
+                    <td> {% if entree.services is not empty %}
+                            {% for service in entree.services %}
+                                {{ service.libelle }}{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>{{ entree.fonction }}</td>
+                    <td>{{ entree.num_bureau }}</td>
+                    <td>{{ entree.email }}</td>
+                    <td>{{ entree.url_image }}</td>
+                </tr>
             {% endfor %}
         </tbody>
     </table>
