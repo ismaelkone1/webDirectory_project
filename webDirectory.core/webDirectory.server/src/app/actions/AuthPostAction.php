@@ -7,9 +7,9 @@ use web\directory\core\services\authentification\AuthServiceInterface;
 use web\directory\core\services\authentification\AuthService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Routing\RouteParser;
 use Slim\Routing\RouteContext;
 use web\directory\app\actions\Action;
+use Slim\Views\Twig;
 
 class AuthPostAction extends Action
 {
@@ -23,6 +23,7 @@ class AuthPostAction extends Action
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         try {
+            $twig = Twig::fromRequest($rq);
             $postData = $rq->getParsedBody();
     
             // récupération des credentials entrées dans le formulaire
@@ -33,10 +34,8 @@ class AuthPostAction extends Action
     
             // vérification des credentials
             if ($this->authService->checkPasswordValid($password, $user_id)) {
-                var_dump($postData);
                 // Connexion réussie
                 $user = $this->authService->connectUser(['id' => $user_id]);
-                var_dump($user);
                 if ($user) {
                     $routeContext = RouteContext::fromRequest($rq);
                     $routeParser = $routeContext->getRouteParser();
@@ -44,16 +43,15 @@ class AuthPostAction extends Action
                     // redirection après connexion
                     $url = $routeParser->urlFor('home');
                     return $rs->withStatus(302)->withHeader('Location', $url);
-                } else {
-                    $rs->getBody()->write('Utilisateur non trouvé');
-                    return $rs->withStatus(401);
                 }
             } else {
-                $rs->getBody()->write('Identifiants incorrects');
-                return $rs->withStatus(401);
+                return $twig->render($rs,'authFormulaire.twig',
+                    [
+                        'error' => 1,
+                    ]);
             }
-        } catch (\Exception $e) {
-            $rs->getBody()->write('Une erreur est survenue. Veuillez réessayer plus tard.');
+        } catch (Exception $e) {
+            $rs->getBody()->write('Une erreur est survenue. Veuillez réessayer plus tard : ' . $e->getMessage());
             return $rs->withStatus(500);
         }
     }

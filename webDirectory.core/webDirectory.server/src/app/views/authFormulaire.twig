@@ -1,7 +1,7 @@
 {% extends 'base.twig' %}
 
 {% block body %}
-<div class="container" style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+<div class="container" style="display: flex; justify-content: center; align-items: center; height: 80vh; flex-direction : column;">
     <div class="login-form" style="width: 100%; max-width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
         <h1 style="text-align: center;">Connexion</h1>
         <form url="login" method="post">
@@ -22,5 +22,8 @@
             </div>
         </form>
     </div>
+    {% if error == 1 %}
+        <div class="alert alert-danger mt-2">Identifiants incorrects, veuillez vous reconnecter.</div>
+    {% endif %}
 </div>
 {% endblock %}
