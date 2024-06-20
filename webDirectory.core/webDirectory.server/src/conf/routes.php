@@ -18,6 +18,9 @@ use web\directory\app\actions\LogoutAction;
 use web\directory\app\actions\DetailsEntreeAction;
 use web\directory\app\actions\GererPublicationAction;
 use web\directory\app\actions\ModifierEntreeAction;
+use web\directory\app\actions\GestionAdminAction;
+use \web\directory\app\actions\DetailUserAction;
+use \web\directory\app\actions\CreateUserAction;
 
 return function (App $app): App {
     $app->get('/', HomeAction::class)
@@ -71,6 +74,16 @@ return function (App $app): App {
 
     $app->post('/entree/modifier/{id}', ModifierEntreeAction::class)
         ->setName('modifier_entree');
+
+    $app->get('/gestion_admin', GestionAdminAction::class)
+        ->setName('gestion_admin');
+
+    $app->get('/user/{id}', DetailUserAction::class)
+        ->setName('user_details');
+
+    $app->post('/create_user', CreateUserAction::class)
+        ->setName('create_user');
+
 
     return $app;
 };

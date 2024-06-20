@@ -3,6 +3,7 @@
 namespace web\directory\core\services\authentification;
 
 use Exception;
+use Illuminate\Container\Util;
 use web\directory\core\domain\Utilisateur;
 use web\directory\core\services\exception\InvalidArgumentException;
 use web\directory\core\services\authentification\AuthServiceInterface;
@@ -101,6 +102,7 @@ class AuthService implements AuthServiceInterface
             $user = Utilisateur::where('mail', $args['id'])->first();
             if ($user) {
                 $_SESSION['id'] = $user->id;
+                $_SESSION['role'] = $user->role;
                 return $user;
             } else {
                 throw new Exception("Utilisateur non trouvé avec l'email: " . $args['id']);
@@ -111,5 +113,25 @@ class AuthService implements AuthServiceInterface
         }
     }
 
+    public function getUsers(): array
+    {
+        try {
+            $users = Utilisateur::where('role', '<>', '1')->get();
+            return $users->toArray();
+        } catch (\Exception $e) {
+            error_log("Erreur lors de la récupération des utilisateurs: " . $e->getMessage());
+            return [];
+        }
+    }
 
+    public function getUsersById($id): ?Utilisateur
+    {
+        try {
+            return Utilisateur::find($id);
+        } catch (\Exception $e) {
+            error_log("Erreur lors de la récupération de l'utilisateur : " . $e->getMessage());
+            return null;
+        }
+    }
+    
 }
