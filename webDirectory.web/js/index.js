@@ -12,8 +12,11 @@ async function showEntrees(){
 
 //2)
 
-async function showSearchedEntreesByServices(id){
+async function showSearchedEntreesByServices(id, nom= ""){
     let entrees = await loadSearchedServices(id);
+    if(nom !== ""){
+        entrees.entrees = entrees.entrees.filter(entree => entree.nom === nom);
+    }
     display_entrees(entrees);
 }
 
@@ -31,51 +34,25 @@ async function services(){
         maxItems: 1,
         persist: false,
         onChange: async function(value){
-            showSearchedEntreesByServices(value);
+            showSearchedEntreesByServices(value, buttonSearch.value);
         }
     });
 }
 services();
 
 //3)
-async function showSearchedEntreesByNom(recherche){
+async function showSearchedEntreesByNom(recherche, idService = ""){
     let entrees = await loadEntreeRecherche(recherche)
+    //Si idService est un entier, on filtre les entrées pour ne garder que celles qui ont le service correspondant
+    if(idService !== ""){
+        entrees.entrees = entrees.entrees.filter(entree => entree.services.some(service => parseInt(service.id) === parseInt(idService)));
+    }
     display_entrees(entrees);
 }
 
 const buttonSearch = document.getElementById('searchNom');
 buttonSearch.addEventListener('input', function(){
-    showSearchedEntreesByNom(buttonSearch.value);
-});
-
-
-//5)
-async function showSearchedEntreesByNomService(recherche){
-    let entrees = await loadSearchedServices(recherche);
-    let entrees2 = await loadEntreeRecherche(recherche);
-
-    //On ajoute les deux listes d'entrees sans les doublons
-    let result = {
-        "type": "ressource",
-        "entrees": []
-    }
-
-    for (let entree of entrees.entrees){
-            result.entrees.push(entree);
-    }
-
-    for (let entree of entrees2.entrees){
-        if (!result.entrees.includes(entree)){
-            result.entrees.push(entree);
-        }
-    }
-
-    display_entrees(result);
-}
-
-const buttonSearch2 = document.getElementById('searchNomService');
-buttonSearch2.addEventListener('input', function(){
-    showSearchedEntreesByNomService(buttonSearch2.value);
+    showSearchedEntreesByNom(buttonSearch.value, document.getElementById('searchService').value);
 });
 
 //6)

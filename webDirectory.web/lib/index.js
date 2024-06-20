@@ -9961,9 +9961,12 @@
       display_entrees(entrees);
     });
   }
-  function showSearchedEntreesByServices(id) {
+  function showSearchedEntreesByServices(id, nom = "") {
     return __async(this, null, function* () {
       let entrees = yield loadSearchedServices(id);
+      if (nom !== "") {
+        entrees.entrees = entrees.entrees.filter((entree) => entree.nom === nom);
+      }
       display_entrees(entrees);
     });
   }
@@ -9982,45 +9985,25 @@
         persist: false,
         onChange: function(value) {
           return __async(this, null, function* () {
-            showSearchedEntreesByServices(value);
+            showSearchedEntreesByServices(value, buttonSearch.value);
           });
         }
       });
     });
   }
   services();
-  function showSearchedEntreesByNom(recherche) {
+  function showSearchedEntreesByNom(recherche, idService = "") {
     return __async(this, null, function* () {
       let entrees = yield loadEntreeRecherche(recherche);
+      if (idService !== "") {
+        entrees.entrees = entrees.entrees.filter((entree) => entree.services.some((service) => parseInt(service.id) === parseInt(idService)));
+      }
       display_entrees(entrees);
     });
   }
   var buttonSearch = document.getElementById("searchNom");
   buttonSearch.addEventListener("input", function() {
-    showSearchedEntreesByNom(buttonSearch.value);
-  });
-  function showSearchedEntreesByNomService(recherche) {
-    return __async(this, null, function* () {
-      let entrees = yield loadSearchedServices(recherche);
-      let entrees2 = yield loadEntreeRecherche(recherche);
-      let result = {
-        "type": "ressource",
-        "entrees": []
-      };
-      for (let entree of entrees.entrees) {
-        result.entrees.push(entree);
-      }
-      for (let entree of entrees2.entrees) {
-        if (!result.entrees.includes(entree)) {
-          result.entrees.push(entree);
-        }
-      }
-      display_entrees(result);
-    });
-  }
-  var buttonSearch2 = document.getElementById("searchNomService");
-  buttonSearch2.addEventListener("input", function() {
-    showSearchedEntreesByNomService(buttonSearch2.value);
+    showSearchedEntreesByNom(buttonSearch.value, document.getElementById("searchService").value);
   });
   var selectTrieNom = document.getElementById("selectTriNom");
   selectTrieNom.addEventListener("change", function() {
