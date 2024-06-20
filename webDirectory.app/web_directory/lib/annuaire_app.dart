@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_directory/partials/service_dropdown.dart';
 import 'package:web_directory/partials/service_search_bar.dart';
+import 'package:web_directory/partials/sort_dropdown.dart';
 import 'package:web_directory/providers/liste_entree_provider.dart';
 import 'package:web_directory/providers/service_provider.dart';
 import 'package:web_directory/screens/entree_master.dart';
@@ -39,6 +40,7 @@ class _AnnuaireAppState extends State<AnnuaireApp> {
                 serviceProvider: serviceProvider),
           ),
           const Divider(color: Colors.grey, height: 20),
+          SortDropdown(entreeProvider: entreeProvider),
           const Expanded(
             child: EntreeMaster(),
           ),

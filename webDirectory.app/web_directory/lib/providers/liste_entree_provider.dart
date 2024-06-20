@@ -37,16 +37,16 @@ class ListeEntreeProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<ListeEntree>> getEntreeAlphabetique() async {
+  Future<List<ListeEntree>> getEntreeAlphabetiqueASC() async {
     if (entrees.isEmpty && !isSearching) {
       entrees.clear();
-      await _fetchEntreeAlphabetique();
+      await _fetchEntreeAlphabetiqueASC();
     }
 
     return entrees;
   }
 
-  Future<void> _fetchEntreeAlphabetique() async {
+  Future<void> _fetchEntreeAlphabetiqueASC() async {
     // final response =
     //     await http.get(Uri.parse('http://localhost:20003/api/entrees'));
     final response = await http.get(
@@ -79,10 +79,13 @@ class ListeEntreeProvider extends ChangeNotifier {
 
     if (libelle.isEmpty || libelle == 'Tous') {
       entrees.clear();
-      await _fetchEntreeAlphabetique();
+      await _fetchEntreeAlphabetiqueASC();
       isSearching = false;
     } else {
       var localCompleter = _searchCompleter;
+
+      entrees.clear();
+      await _fetchEntreeAlphabetiqueASC();
 
       var response = entrees.where((entree) {
         return entree.services!.any((service) {
@@ -116,7 +119,7 @@ class ListeEntreeProvider extends ChangeNotifier {
 
     if (search.isEmpty) {
       entrees.clear();
-      await _fetchEntreeAlphabetique();
+      await _fetchEntreeAlphabetiqueASC();
       isSearching = false;
     } else {
       var localCompleter = _searchCompleter;
@@ -139,6 +142,28 @@ class ListeEntreeProvider extends ChangeNotifier {
     }
 
     isSearching = false;
+    notifyListeners();
+  }
+
+  Future<void> sortEntreeByASC() async {
+    entrees.sort((a, b) {
+      int compareNom = a.nom!.compareTo(b.nom!);
+      if (compareNom == 0) {
+        return a.prenom!.compareTo(b.prenom!);
+      }
+      return compareNom;
+    });
+    notifyListeners();
+  }
+
+  Future<void> sortEntreeByDESC() async {
+    entrees.sort((a, b) {
+      int compareNom = b.nom!.compareTo(a.nom!);
+      if (compareNom == 0) {
+        return b.prenom!.compareTo(a.prenom!);
+      }
+      return compareNom;
+    });
     notifyListeners();
   }
 }
