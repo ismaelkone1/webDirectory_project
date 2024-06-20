@@ -1,47 +1,56 @@
 {% extends 'base.twig' %}
 
 {% block title %}
-Détails de l'Entrée
+    Détails de l'Entrée
 {% endblock %}
 
 {% block body %}
-<figure>
-    <blockquote class="blockquote mx-4 mt-4">
-        <h1>Détails de l'Entrée :</h1>
-    </blockquote>
-</figure>
+    <figure>
+        <blockquote class="blockquote mx-4 mt-4">
+            <h1>Détails de l'Entrée :</h1>
+        </blockquote>
+    </figure>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <p><strong>Nom :</strong> {{ entree.nom }}</p>
-            <p><strong>Prénom :</strong> {{ entree.prenom }}</p>
-            <p><strong>Service :</strong> {% if entree.services is not empty %}{{ entree.services[0].libelle }}{% else %}Non spécifié{% endif %}</p>
-            <p><strong>Fonction :</strong> {{ entree.fonction }}</p>
-            <p><strong>N° Bureau :</strong> {{ entree.num_bureau }}</p>
-            <p><strong>Email :</strong> {{ entree.email }}</p>
-        </div>
-        <div class="col-md-6">
-            {% if entree.url_image %}
-                <img src="{{ entree.url_image }}" class="img-fluid" alt="Image de {{ entree.nom }} {{ entree.prenom }}">
-            {% else %}
-                <p>Aucune image disponible</p>
-            {% endif %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <form action="{{ url_for('modifier_entree', { id: entree.id }) }}" method="POST">
+                    <p><strong>Nom :</strong> <input type="text" name="nom" value="{{ entree.nom }}"></p>
+                    <p><strong>Prénom :</strong> <input type="text" name="prenom" value="{{ entree.prenom }}"></p>
+                    <p><strong>Service :</strong> 
+                        <select name="service">
+                            {% for service in services %}
+                                <option value="{{ service.id }}" {% if entree.services[0].id == service.id %}selected{% endif %}>{{ service.libelle }}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    <p><strong>Fonction :</strong> <input type="text" name="fonction" value="{{ entree.fonction }}"></p>
+                    <p><strong>N° Bureau :</strong> <input type="text" name="num_bureau" value="{{ entree.num_bureau }}"></p>
+                    <p><strong>Email :</strong> <input type="text" name="email" value="{{ entree.email }}"></p>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                {% if entree.url_image %}
+                    <img src="{{ entree.url_image }}" class="img-fluid" alt="Image de {{ entree.nom }} {{ entree.prenom }}">
+                {% else %}
+                    <p>Aucune image disponible</p>
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <a href="{{ url_for('entrees') }}" class="btn btn-secondary">Retour à la liste</a>
-        </div>
-        <div class="col-md-6 d-flex justify-content-end">
-            <a href="{{ url_for('gerer_publication', { id: entree.id, action: entree.is_published ? 'depublier' : 'publier' }) }}" class="btn {{ entree.is_published ? 'btn-danger' : 'btn-success' }}">
-                {{ entree.is_published ? 'Dépublier' : 'Publier' }}
-            </a>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{ url_for('entrees') }}" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <a href="{{ url_for('gerer_publication', { id: entree.id, action: entree.is_published ? 'depublier' : 'publier' }) }}" class="btn {{ entree.is_published ? 'btn-danger' : 'btn-success' }}">
+                    {{ entree.is_published ? 'Dépublier' : 'Publier' }}
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

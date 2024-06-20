@@ -23,4 +23,7 @@ interface ServiceEntreeInterface
 
     public function getEntreesByService(String $service): array;
 
+    public function modifierEntree(int $id, array $data): bool;
+
+
 }

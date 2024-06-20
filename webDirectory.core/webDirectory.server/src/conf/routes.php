@@ -68,5 +68,8 @@ return function (App $app): App {
     $app->get('/entree/{id}/{action:publier|depublier}', GererPublicationAction::class)
         ->setName('gerer_publication');  
 
+    $app->post('/modifierEntree',GererPublicationAction::class)
+        ->setName('modifier_entree');
+
     return $app;
 };

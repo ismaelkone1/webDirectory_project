@@ -4,7 +4,6 @@ namespace web\directory\app\actions;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Views\Twig;
 use web\directory\core\services\Entree\ServiceEntreeInterface;
 use web\directory\core\services\Entree\ServiceEntree;
 use Slim\Routing\RouteContext;
@@ -24,33 +23,37 @@ class GererPublicationAction extends Action
         $action = $args['action'] ?? null;
 
         if (!$id || !$action) {
-            return $rs->withStatus(400);
+            return $rs->withStatus(400); // Retourner un statut 400 en cas de paramètres manquants
         }
 
-        if ($action === 'publier') {
-            $result = $this->serviceEntree->publierEntree($id);
-        } elseif ($action === 'depublier') {
-            $result = $this->serviceEntree->depublierEntree($id);
-        } else {
-            return $rs->withStatus(400);
-        }
+        try {
+            if ($action === 'publier') {
+                $result = $this->serviceEntree->publierEntree($id);
+            } elseif ($action === 'depublier') {
+                $result = $this->serviceEntree->depublierEntree($id);
+            } elseif ($action === 'modifier') {
+                // Récupérer les données de la requête POST par exemple
+                $requestData = $rq->getParsedBody();
 
-        // Préparer le message à afficher en fonction de l'action
-        $message = '';
-        if ($action === 'publier' && $result) {
-            $message = 'Entrée publiée avec succès !';
-        } elseif ($action === 'depublier' && $result) {
-            $message = 'Entrée dépubliée avec succès !';
-        } else {
-            $message = 'Action réalisée avec succès !';
-        }
+                // Appeler la méthode pour modifier l'entrée
+                $result = $this->serviceEntree->modifierEntree($id, $requestData);
+            } else {
+                return $rs->withStatus(400); // Gérer les cas où l'action n'est ni "publier", "depublier" ni "modifier"
+            }
 
-        // Rendre le template PublicationSuccess.twig avec le message approprié
-        $view = Twig::fromRequest($rq);
-        return $view->render(
-            $rs,
-            'PublicationSuccess.twig',
-            ['message' => $message, 'action' => $action]  // Passer 'action' à Twig pour la condition
-        );
+            if (!$result) {
+                // Redirection vers une page d'erreur ou traitement spécifique à l'erreur
+                return $rs->withStatus(400); // Exemple de statut 400 pour une erreur générique
+            }
+
+            // Rediriger vers la liste des entrées avec un message de succès
+            $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
+            return $rs->withHeader('Location', $routeParser->urlFor('liste_entree'))
+                      ->withStatus(302);
+
+        } catch (\Exception $e) {
+            // Gérer toute autre exception non prévue ici
+            return $rs->withStatus(500); // Erreur interne du serveur
+        }
     }
 }

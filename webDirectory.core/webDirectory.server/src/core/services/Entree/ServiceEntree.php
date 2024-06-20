@@ -189,16 +189,48 @@ class ServiceEntree implements ServiceEntreeInterface
                 throw new EntreeNotFoundException("Utilisateur non trouvé");
             }
     
-            if ($entreeUser->isEmpty()) {
-                throw new EntreeNotFoundException("Aucune entrée trouvée pour l'utilisateur");
-            }
-    
             return $entreeUser->toArray();
             
         } catch (\Exception $e) {
             throw new EntreeNotFoundException("Erreur lors de la récupération des entrées de l'utilisateur : " . $e->getMessage());
         }
     }
+
+    /**
+     * Met à jour les informations d'une entrée existante.
+     *
+     * @param int $id L'ID de l'entrée à modifier.
+     * @param array $data Les nouvelles données de l'entrée à mettre à jour.
+     * @return bool True si la mise à jour réussit, sinon false.
+     * @throws EntreeNotFoundException Si l'entrée n'est pas trouvée.
+     */
+    public function modifierEntree(int $id, array $data): bool
+    {
+        try {
+            $entree = Entree::find($id);
+            if (!$entree) {
+                throw new EntreeNotFoundException("Entrée non trouvée pour l'ID : $id");
+            }
+
+            // Vérifiez ici les autorisations si nécessaire, par exemple :
+            // if ($entree->created_by !== $_SESSION['id']) {
+            //     throw new EntreeNotFoundException("Vous n'êtes pas autorisé à modifier cette entrée.");
+            // }
+
+            // Mettez à jour les champs nécessaires
+            $entree->nom = $data['nom'] ?? $entree->nom;
+            $entree->prenom = $data['prenom'] ?? $entree->prenom;
+            $entree->fonction = $data['fonction'] ?? $entree->fonction;
+            $entree->num_bureau = $data['num_bureau'] ?? $entree->num_bureau;
+            $entree->email = $data['email'] ?? $entree->email;
+            $entree->url_image = $data['url_image'] ?? $entree->url_image;
+
+            return $entree->save();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
     
 
 }
