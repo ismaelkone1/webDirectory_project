@@ -9881,11 +9881,24 @@
   });
 
   // js/config.js
-  var pointEntree = "http://docketu.iutnc.univ-lorraine.fr:20003";
+  var pointEntree = "http://localhost:20003";
 
   // js/loader.js
+  var controller = new AbortController();
+  var { signal } = controller;
   function load(url) {
-    return fetch(`${pointEntree}${url}`).then((response) => response.json()).catch((error) => console.error("Erreur lors du chargement de la ressource", error));
+    if (controller) {
+      controller.abort();
+    }
+    controller = new AbortController();
+    signal = controller.signal;
+    return fetch(`${pointEntree}${url}`, { signal }).then((response) => response.json()).catch((error) => {
+      if (error.name === "AbortError") {
+        console.log("Fetch aborted");
+      } else {
+        console.error("Erreur lors du chargement de la ressource", error);
+      }
+    });
   }
 
   // js/entreeLoader.js
@@ -9899,9 +9912,19 @@
       return yield load(`/api/entrees/search?q=${recherche}`);
     });
   }
-  function loadTrieEntreesNom(sens) {
+  function loadTrieEntrees(sens) {
     return __async(this, null, function* () {
-      return yield load("/api/entrees?sort=" + sens);
+      let search = document.getElementById("searchNom");
+      let idService = document.getElementById("searchService");
+      if (search.value === "" && idService.value === "") {
+        return yield load("/api/entrees?sort=" + sens);
+      } else if (search.value === "") {
+        return yield load("/api/services/" + idService.value + "/entrees?sort=" + sens);
+      } else if (idService.value === "") {
+        return yield load("/api/entrees/search?q=" + search.value + "&sort=" + sens);
+      } else {
+        return yield load("/api/services/" + idService.value + "/entrees?q=" + search.value + "&sort=" + sens);
+      }
     });
   }
   function loadEntreesDuServiceEnFonctionDuNom(idService, recherche) {
@@ -9914,19 +9937,7 @@
   var import_handlebars = __toESM(require_handlebars());
   var source = document.getElementById("entreesTemplate").innerHTML;
   var template = import_handlebars.default.compile(source);
-  function sortEntrees(entrees) {
-    entrees.sort((a, b) => {
-      if (a.nom === b.nom) {
-        return a.prenom.localeCompare(b.prenom);
-      }
-      return a.nom.localeCompare(b.nom);
-    });
-  }
   function display_entrees(entrees) {
-    sortEntrees(entrees.entrees);
-    display_entreesWithoutSort(entrees);
-  }
-  function display_entreesWithoutSort(entrees) {
     document.getElementById("template").innerHTML = template(entrees);
     document.querySelectorAll(".entree").forEach((entree) => {
       entree.addEventListener("click", () => __async(this, null, function* () {
@@ -10020,8 +10031,8 @@
   var selectTrieNom = document.getElementById("selectTriNom");
   selectTrieNom.addEventListener("change", function() {
     return __async(this, null, function* () {
-      let entrees = yield loadTrieEntreesNom(selectTrieNom.value);
-      display_entreesWithoutSort(entrees);
+      let entrees = yield loadTrieEntrees(selectTrieNom.value);
+      display_entrees(entrees);
     });
   });
 })();

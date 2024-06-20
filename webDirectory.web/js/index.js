@@ -2,9 +2,9 @@ import {
     loadEntreeRecherche,
     loadEntrees,
     loadEntreesDuServiceEnFonctionDuNom,
-    loadTrieEntreesNom
+    loadTrieEntrees
 } from './entreeLoader.js';
-import {display_entrees, display_entreesWithoutSort} from './entree_ui.js';
+import {display_entrees} from './entree_ui.js';
 import {loadSearchedServices} from './search.js';
 import TomSelect from "tom-select";
 import {loadServices} from "./servicesLoader";
@@ -74,6 +74,6 @@ buttonSearch.addEventListener('input', function(){
 //6)
 const selectTrieNom = document.getElementById('selectTriNom');
 selectTrieNom.addEventListener('change', async function(){
-    let entrees = await loadTrieEntreesNom(selectTrieNom.value);
-    display_entreesWithoutSort(entrees);
+    let entrees = await loadTrieEntrees(selectTrieNom.value);
+    display_entrees(entrees);
 });

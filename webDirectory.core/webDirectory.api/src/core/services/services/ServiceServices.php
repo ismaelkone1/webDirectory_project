@@ -50,4 +50,33 @@ class ServiceServices implements ServiceServicesInterface
             return ['error' => $e->getMessage()];
         }
     }
+
+    public function getEntreesDuServiceEnFonctionDuNomOrder(mixed $id, mixed $nom, array $sort)
+    {
+        try {
+            $service = Service::with('entrees')->find($id);
+
+            return $service->entrees()->with('services')
+                ->where('is_published', true) // Add condition for published entries
+                ->where('nom', 'like', '%' . $nom . '%')
+                ->orderBy($sort[0], $sort[1])
+                ->get()->toArray();
+        } catch (ModelNotFoundException $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    public function getEntreesDuServiceOrder(mixed $id, array $sort)
+    {
+        try {
+            $service = Service::with('entrees')->find($id);
+
+            return $service->entrees()->with('services')
+                ->where('is_published', true) // Add condition for published entries
+                ->orderBy($sort[0], $sort[1])
+                ->get()->toArray();
+        } catch (ModelNotFoundException $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
 }

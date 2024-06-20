@@ -79,4 +79,18 @@ class ServiceEntree implements ServiceEntreeInterface
             return ['error' => $e->getMessage()];
         }
     }
+
+    public function getEntreeEnFonctionDuNomOrder(mixed $nom, array $sort)
+    {
+        try {
+            return Entree::where('nom', 'like', '%' . $nom . '%')
+                ->where('is_published', true) // Add condition for published entries
+                ->with('services')
+                ->orderBy($sort[0], $sort[1])
+                ->get()
+                ->toArray();
+        } catch (ModelNotFoundException $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
 }
