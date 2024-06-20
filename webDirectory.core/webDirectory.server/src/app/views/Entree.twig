@@ -14,19 +14,42 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
-                <form action="{{ url_for('modifier_entree', { id: entree.id }) }}" method="POST">
-                    <p><strong>Nom :</strong> <input type="text" name="nom" value="{{ entree.nom }}"></p>
-                    <p><strong>Prénom :</strong> <input type="text" name="prenom" value="{{ entree.prenom }}"></p>
-                    <p><strong>Service :</strong> 
-                        <select name="service">
-                            {% for service in services %}
-                                <option value="{{ service.id }}" {% if entree.services[0].id == service.id %}selected{% endif %}>{{ service.libelle }}</option>
+                <form action="{{ url_for('modifier_entree', { id: entree.id }) }}" method="POST" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="nom" class="form-label"><strong>Nom :</strong></label>
+                        <input type="text" class="form-control" id="nom" name="nom" value="{{ entree.nom }}" required>
+                        <div class="invalid-feedback">Veuillez entrer un nom.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="prenom" class="form-label"><strong>Prénom :</strong></label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" value="{{ entree.prenom }}" required>
+                        <div class="invalid-feedback">Veuillez entrer un prénom.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="service" class="form-label"><strong>Service :</strong></label>
+                        <select class="form-control" id="service" name="service">
+                            {% for service in listeService %}
+                                <option value="{{ service.id }}" {% if service.id == entree.service %} selected {% endif %}>{{ service.libelle }}</option>
                             {% endfor %}
                         </select>
-                    </p>
-                    <p><strong>Fonction :</strong> <input type="text" name="fonction" value="{{ entree.fonction }}"></p>
-                    <p><strong>N° Bureau :</strong> <input type="text" name="num_bureau" value="{{ entree.num_bureau }}"></p>
-                    <p><strong>Email :</strong> <input type="text" name="email" value="{{ entree.email }}"></p>
+                        <div class="invalid-feedback">Veuillez sélectionner un service.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fonction" class="form-label"><strong>Fonction :</strong></label>
+                        <input type="text" class="form-control" id="fonction" name="fonction" value="{{ entree.fonction }}" required>
+                        <div class="invalid-feedback">Veuillez entrer une fonction.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="num_bureau" class="form-label"><strong>N° Bureau :</strong></label>
+                        <input type="text" class="form-control" id="num_bureau" name="num_bureau" value="{{ entree.num_bureau }}" required>
+                        <div class="invalid-feedback">Veuillez entrer un numéro de bureau.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label"><strong>Email :</strong></label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ entree.email }}" required>
+                        <div class="invalid-feedback">Veuillez entrer un email valide.</div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                 </form>
             </div>
