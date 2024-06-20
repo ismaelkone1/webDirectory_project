@@ -12,6 +12,8 @@ dependencies:
   http: ^1.2.1
   provider: ^6.1.2
   url_launcher: ^6.0.20
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
