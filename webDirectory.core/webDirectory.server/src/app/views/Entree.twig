@@ -73,6 +73,11 @@
                     {{ entree.is_published ? 'Dépublier' : 'Publier' }}
                 </a>
             </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <form action="{{ url_for('supprimer_entree', { id: entree.id }) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette entrée ?');">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                </form>
+            </div>
         </div>
     </div>
 

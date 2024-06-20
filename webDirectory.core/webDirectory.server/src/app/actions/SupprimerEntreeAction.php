@@ -19,12 +19,14 @@ class SupprimerEntreeAction extends Action
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $entreeId = $args['id'];
+        var_dump($entreeId);
 
         try {
             // Appeler la méthode supprimerEntree du service
-            $success = $this->serviceEntree->supprimerEntree($entreeId);
+            $success = $this->serviceEntree->supprimerEntree(intval($entreeId));
 
             if (!$success) {
+                var_dump($success);
                 return $rs->withStatus(500);
             }
 
