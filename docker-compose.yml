@@ -49,6 +49,7 @@ services:
     volumes:
       - ./webDirectory.core/webDirectory.api/public:/var/www/html
       - ./webDirectory.core/webDirectory.api/src:/var/www/src
+      - ./webDirectory.core/webDirectory.server/public/uploadImages:/var/www/uploadImages
     working_dir: /var/www/src
     networks:
       - webDirectory.net
