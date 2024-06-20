@@ -48,7 +48,7 @@ class GererPublicationAction extends Action
 
             // Rediriger vers la liste des entrées avec un message de succès
             $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
-            return $rs->withHeader('Location', $routeParser->urlFor('liste_entree'))
+            return $rs->withHeader('Location', $routeParser->urlFor('entrees'))
                       ->withStatus(302);
 
         } catch (\Exception $e) {
