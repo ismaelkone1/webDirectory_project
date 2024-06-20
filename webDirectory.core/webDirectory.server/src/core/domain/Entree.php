@@ -9,6 +9,12 @@ class Entree extends Eloquent
     protected $table = 'entree';
     protected $primaryKey = 'id';
     public $timestamps = false;
+    protected $fillable = ['nom', 'prenom', 'fonction', 'num_bureau', 'email', 'url_image', 'is_published', 'created_by'];
+
+    public function utilisateur()
+    {
+        return $this->belongsTo(Utilisateur::class, 'created_by');
+    }
 
     public function telephones()
     {

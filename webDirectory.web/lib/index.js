@@ -9909,20 +9909,20 @@
   var import_handlebars = __toESM(require_handlebars());
   var source = document.getElementById("entreesTemplate").innerHTML;
   var template = import_handlebars.default.compile(source);
-  function sortEntrees(entrees2) {
-    entrees2.sort((a, b) => {
+  function sortEntrees(entrees) {
+    entrees.sort((a, b) => {
       if (a.nom === b.nom) {
         return a.prenom.localeCompare(b.prenom);
       }
       return a.nom.localeCompare(b.nom);
     });
   }
-  function display_entrees(entrees2) {
-    sortEntrees(entrees2.entrees);
-    display_entreesWithoutSort(entrees2);
+  function display_entrees(entrees) {
+    sortEntrees(entrees.entrees);
+    display_entreesWithoutSort(entrees);
   }
-  function display_entreesWithoutSort(entrees2) {
-    document.getElementById("template").innerHTML = template(entrees2);
+  function display_entreesWithoutSort(entrees) {
+    document.getElementById("template").innerHTML = template(entrees);
     document.querySelectorAll(".entree").forEach((entree) => {
       entree.addEventListener("click", () => __async(this, null, function* () {
         const url = entree.dataset.url;
@@ -9938,23 +9938,9 @@
   }
 
   // js/search.js
-  var entrees;
-  function searchServices(recherche) {
+  function loadSearchedServices(id) {
     return __async(this, null, function* () {
-      if (entrees === void 0)
-        entrees = yield loadEntrees();
-      let result = {
-        "type": "ressource",
-        "entrees": []
-      };
-      for (let entree of entrees.entrees) {
-        entree.services.forEach((service) => {
-          if (service.libelle.toLowerCase().includes(recherche.toLowerCase())) {
-            result.entrees.push(entree);
-          }
-        });
-      }
-      return result;
+      return yield load("/api/services/" + id + "/entrees");
     });
   }
 
@@ -9971,14 +9957,17 @@
   // js/index.js
   function showEntrees() {
     return __async(this, null, function* () {
-      let entrees2 = yield loadEntrees();
-      display_entrees(entrees2);
+      let entrees = yield loadEntrees();
+      display_entrees(entrees);
     });
   }
-  function showSearchedEntreesByServices(recherche) {
+  function showSearchedEntreesByServices(id, nom = "") {
     return __async(this, null, function* () {
-      let entrees2 = yield searchServices(recherche);
-      display_entrees(entrees2);
+      let entrees = yield loadSearchedServices(id);
+      if (nom !== "") {
+        entrees.entrees = entrees.entrees.filter((entree) => entree.nom === nom);
+      }
+      display_entrees(entrees);
     });
   }
   var buttonListeEntrees = document.getElementById("listeEntrees");
@@ -9988,7 +9977,7 @@
       let services2 = yield loadServices();
       new import_tom_select.default("#searchService", {
         options: services2,
-        valueField: "libelle",
+        valueField: "id",
         labelField: "libelle",
         searchField: "libelle",
         create: false,
@@ -9996,53 +9985,31 @@
         persist: false,
         onChange: function(value) {
           return __async(this, null, function* () {
-            showSearchedEntreesByServices(value);
+            showSearchedEntreesByServices(value, buttonSearch.value);
           });
         }
       });
     });
   }
   services();
-  function showSearchedEntreesByNom(recherche) {
+  function showSearchedEntreesByNom(recherche, idService = "") {
     return __async(this, null, function* () {
-      let entrees2 = yield loadEntreeRecherche(recherche);
-      display_entrees(entrees2);
+      let entrees = yield loadEntreeRecherche(recherche);
+      if (idService !== "") {
+        entrees.entrees = entrees.entrees.filter((entree) => entree.services.some((service) => parseInt(service.id) === parseInt(idService)));
+      }
+      display_entrees(entrees);
     });
   }
   var buttonSearch = document.getElementById("searchNom");
   buttonSearch.addEventListener("input", function() {
-    showSearchedEntreesByNom(buttonSearch.value);
-  });
-  function showSearchedEntreesByNomService(recherche) {
-    return __async(this, null, function* () {
-      let entrees2 = yield searchServices(recherche);
-      let entrees22 = yield loadEntreeRecherche(recherche);
-      let result = {
-        "type": "ressource",
-        "entrees": []
-      };
-      for (let entree of entrees2.entrees) {
-        if (!result.entrees.includes(entree)) {
-          result.entrees.push(entree);
-        }
-      }
-      for (let entree of entrees22.entrees) {
-        if (!result.entrees.includes(entree)) {
-          result.entrees.push(entree);
-        }
-      }
-      display_entrees(result);
-    });
-  }
-  var buttonSearch2 = document.getElementById("searchNomService");
-  buttonSearch2.addEventListener("input", function() {
-    showSearchedEntreesByNomService(buttonSearch2.value);
+    showSearchedEntreesByNom(buttonSearch.value, document.getElementById("searchService").value);
   });
   var selectTrieNom = document.getElementById("selectTriNom");
   selectTrieNom.addEventListener("change", function() {
     return __async(this, null, function* () {
-      let entrees2 = yield loadTrieEntreesNom(selectTrieNom.value);
-      display_entreesWithoutSort(entrees2);
+      let entrees = yield loadTrieEntreesNom(selectTrieNom.value);
+      display_entreesWithoutSort(entrees);
     });
   });
 })();
