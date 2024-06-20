@@ -10,19 +10,30 @@ class EntreesEnFonctionDuNomAction
 {
     public function __invoke(Request $request, Response $response, $args)
     {
+        $query = $request->getQueryParams();
         $serviceEntree = new ServiceEntree();
 
         //On récupere le nom dans le GET
-        if (!isset($request->getQueryParams()['q'])) {
+        if (!isset($query['q'])) {
             $response->getBody()->write(json_encode(['error' => 'q is required']));
             return
                 $response->withHeader('Content-Type','application/json')
                     ->withStatus(400);
         }
 
-        $nom = $request->getQueryParams()['q'];
+        $nom = $query['q'];
 
-        $entrees = $serviceEntree->getEntreeEnFonctionDuNom($nom);
+        $sort = $query['sort'] ?? '';
+
+        //On sépare le sort en deux parties
+        $sort = explode('-', $sort);
+
+        if (isset($query['sort'])) {
+            $entrees = $serviceEntree->getEntreeEnFonctionDuNomOrderByNom($nom, $sort);
+        } else {
+            $entrees = $serviceEntree->getEntreeEnFonctionDuNom($nom);
+        }
+
 
         $entrees = array_map(function($entree){
             return [

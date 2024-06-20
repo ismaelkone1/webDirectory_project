@@ -9881,7 +9881,7 @@
   });
 
   // js/config.js
-  var pointEntree = "http://localhost:20003";
+  var pointEntree = "http://docketu.iutnc.univ-lorraine.fr:20003";
 
   // js/loader.js
   function load(url) {
@@ -9902,6 +9902,11 @@
   function loadTrieEntreesNom(sens) {
     return __async(this, null, function* () {
       return yield load("/api/entrees?sort=" + sens);
+    });
+  }
+  function loadEntreesDuServiceEnFonctionDuNom(idService, recherche) {
+    return __async(this, null, function* () {
+      return yield load(`/api/services/${idService}/entrees?q=${recherche}`);
     });
   }
 
@@ -9963,9 +9968,13 @@
   }
   function showSearchedEntreesByServices(id, nom = "") {
     return __async(this, null, function* () {
-      let entrees = yield loadSearchedServices(id);
-      if (nom !== "") {
-        entrees.entrees = entrees.entrees.filter((entree) => entree.nom === nom);
+      let entrees;
+      if (id === "") {
+        entrees = yield loadEntrees();
+      } else if (nom === "") {
+        entrees = yield loadSearchedServices(id);
+      } else {
+        entrees = yield loadEntreesDuServiceEnFonctionDuNom(id, nom);
       }
       display_entrees(entrees);
     });
@@ -9975,6 +9984,7 @@
   function services() {
     return __async(this, null, function* () {
       let services2 = yield loadServices();
+      services2.services.unshift({ id: "", libelle: "Tous les services" });
       new import_tom_select.default("#searchService", {
         options: services2,
         valueField: "id",
@@ -9994,9 +10004,11 @@
   services();
   function showSearchedEntreesByNom(recherche, idService = "") {
     return __async(this, null, function* () {
-      let entrees = yield loadEntreeRecherche(recherche);
-      if (idService !== "") {
-        entrees.entrees = entrees.entrees.filter((entree) => entree.services.some((service) => parseInt(service.id) === parseInt(idService)));
+      let entrees;
+      if (idService === "") {
+        entrees = yield loadEntreeRecherche(recherche);
+      } else {
+        entrees = yield loadEntreesDuServiceEnFonctionDuNom(parseInt(idService), recherche);
       }
       display_entrees(entrees);
     });

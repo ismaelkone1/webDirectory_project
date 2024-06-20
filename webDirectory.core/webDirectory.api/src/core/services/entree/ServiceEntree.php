@@ -30,7 +30,7 @@ class ServiceEntree implements ServiceEntreeInterface
      * @param array $sort ['column', 'direction']
      * @return array
      */
-    public function getAllEntreesOrderByNom(array $sort): array
+    public function getAllEntreesOrder(array $sort): array
     {
         try {
             return Entree::with('services')

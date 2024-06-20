@@ -1,4 +1,9 @@
-import {loadEntreeRecherche, loadEntrees, loadTrieEntreesNom} from './entreeLoader.js';
+import {
+    loadEntreeRecherche,
+    loadEntrees,
+    loadEntreesDuServiceEnFonctionDuNom,
+    loadTrieEntreesNom
+} from './entreeLoader.js';
 import {display_entrees, display_entreesWithoutSort} from './entree_ui.js';
 import {loadSearchedServices} from './search.js';
 import TomSelect from "tom-select";
@@ -13,9 +18,16 @@ async function showEntrees(){
 //2)
 
 async function showSearchedEntreesByServices(id, nom= ""){
-    let entrees = await loadSearchedServices(id);
-    if(nom !== ""){
-        entrees.entrees = entrees.entrees.filter(entree => entree.nom === nom);
+    let entrees;
+
+    if (id === ""){
+        entrees = await loadEntrees();
+    }
+    else if (nom === ""){
+        entrees = await loadSearchedServices(id);
+    }
+    else{
+        entrees = await loadEntreesDuServiceEnFonctionDuNom(id, nom);
     }
     display_entrees(entrees);
 }
@@ -25,6 +37,8 @@ buttonListeEntrees.addEventListener('click', showEntrees);
 
 async function services(){
     let services = await loadServices();
+    //On ajout en option le service "Tous les services"
+    services.services.unshift({id: "", libelle: "Tous les services"});
     new TomSelect("#searchService", {
         options: services,
         valueField: 'id',
@@ -42,10 +56,12 @@ services();
 
 //3)
 async function showSearchedEntreesByNom(recherche, idService = ""){
-    let entrees = await loadEntreeRecherche(recherche)
-    //Si idService est un entier, on filtre les entrées pour ne garder que celles qui ont le service correspondant
-    if(idService !== ""){
-        entrees.entrees = entrees.entrees.filter(entree => entree.services.some(service => parseInt(service.id) === parseInt(idService)));
+    let entrees;
+    if (idService === ""){
+        entrees = await loadEntreeRecherche(recherche);
+    }
+    else{
+        entrees = await loadEntreesDuServiceEnFonctionDuNom(parseInt(idService), recherche);
     }
     display_entrees(entrees);
 }
