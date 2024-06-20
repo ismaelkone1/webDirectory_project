@@ -9881,7 +9881,7 @@
   });
 
   // js/config.js
-  var pointEntree = "http://localhost:20003";
+  var pointEntree = "http://docketu.iutnc.univ-lorraine.fr:20003";
 
   // js/loader.js
   var controller = new AbortController();
