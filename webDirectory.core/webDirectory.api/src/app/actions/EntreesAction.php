@@ -20,7 +20,7 @@ class EntreesAction
         $serviceEntree = new ServiceEntree();
 
         if(isset($query['sort'])) {
-            $allEntrees = $serviceEntree->getAllEntreesOrderByNom($sort);
+            $allEntrees = $serviceEntree->getAllEntreesOrder($sort);
         } else {
             $allEntrees = $serviceEntree->getAllEntrees();
         }

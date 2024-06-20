@@ -26,6 +26,13 @@
 </nav>
 
 <div class="container mt-5">
+    <div id="template">
+        <h1 class="text-center mt-5">Bienvenue sur WebDirectory</h1>
+    </div>
+</div>
+
+
+<script id="entreesTemplate" type="text/x-handlebars-template">
     <select id="selectTriNom" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
         <option value="nom-asc">Tri par Nom (A-Z)</option>
         <option value="nom-desc">Tri par Nom (Z-A)</option>
@@ -38,12 +45,6 @@
         <option value="email-asc">Tri par Email (A-Z)</option>
         <option value="email-desc">Tri par Email (Z-A)</option>
     </select>
-    <div id="template">
-    </div>
-</div>
-
-
-<script id="entreesTemplate" type="text/x-handlebars-template">
     {{#each entrees}}
     <div class="entree" data-url="{{url}}" onmouseover="this.style.cursor='pointer'; this.style.backgroundColor='#f5f5f5';" onmouseout="this.style.backgroundColor='';">
         <div class="card mb-3">
