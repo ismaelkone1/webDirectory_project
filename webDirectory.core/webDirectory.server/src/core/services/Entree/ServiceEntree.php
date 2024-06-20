@@ -45,7 +45,7 @@ class ServiceEntree implements ServiceEntreeInterface
         return $tabServicesEntrees->toArray();
     }
 
-    public function getTelephones() : array 
+    public function getTelephones(): array
     {
         try {
             $tabTelephones = Entree::with('telephones')->get();
@@ -58,7 +58,7 @@ class ServiceEntree implements ServiceEntreeInterface
     public function getEntreesByService(String $service): array
     {
         try {
-            $tabEntrees = Entree::with('telephones')->with('services')->whereHas('services', function($query) use ($service) {
+            $tabEntrees = Entree::with('telephones')->with('services')->whereHas('services', function ($query) use ($service) {
                 $query->where('libelle', '=', $service);
             })->get();
         } catch (ModelNotFoundException $e) {
@@ -80,7 +80,7 @@ class ServiceEntree implements ServiceEntreeInterface
     public function getEntreesByNomAndService(String $nom, String $service): array
     {
         try {
-            $tabEntrees = Entree::with('telephones')->with('services')->where('nom', 'like', '%' . $nom . '%')->whereHas('services', function($query) use ($service) {
+            $tabEntrees = Entree::with('telephones')->with('services')->where('nom', 'like', '%' . $nom . '%')->whereHas('services', function ($query) use ($service) {
                 $query->where('libelle', '=', $service);
             })->get();
         } catch (ModelNotFoundException $e) {
@@ -106,7 +106,7 @@ class ServiceEntree implements ServiceEntreeInterface
                     mkdir($uploadDir, 0777, true);
                 }
                 if (move_uploaded_file($_FILES['urlImage']['tmp_name'], $uploadFile)) {
-                    $entree->url_image = $uploadFile;
+                    $entree->url_image = 'http://localhost:8000/' . $_FILES['urlImage']['name'];
                 } else {
                     throw new \Exception("Échec du téléchargement de l'image");
                 }

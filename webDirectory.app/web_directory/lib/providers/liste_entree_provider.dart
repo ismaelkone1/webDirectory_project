@@ -11,32 +11,6 @@ class ListeEntreeProvider extends ChangeNotifier {
   bool noResultsFound = false;
   Completer<void>? _searchCompleter;
 
-  Future<List<ListeEntree>> getEntree() async {
-    if (entrees.isEmpty && !isSearching) {
-      entrees.clear();
-      await _fetchEntree();
-    }
-
-    return entrees;
-  }
-
-  Future<void> _fetchEntree() async {
-    // final response =
-    //     await http.get(Uri.parse('http://localhost:20003/api/entrees'));
-    final response = await http.get(
-        Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees'));
-
-    if (response.statusCode == 200) {
-      var jsonData = jsonDecode(response.body);
-      var entreesJson = jsonData['entrees'] as List;
-      for (var entreeJson in entreesJson) {
-        entrees.add(ListeEntree.fromJson(entreeJson));
-      }
-    } else {
-      throw Exception('Failed to load Entrees');
-    }
-  }
-
   Future<List<ListeEntree>> getEntreeAlphabetiqueASC() async {
     if (entrees.isEmpty && !isSearching) {
       entrees.clear();
@@ -110,6 +84,49 @@ class ListeEntreeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Future<void> searchEntreeByServiceAPI(int id) async {
+  //   _searchCompleter?.complete();
+  //   _searchCompleter = Completer<void>();
+
+  //   isSearching = true;
+  //   notifyListeners();
+
+  //   if (id == -1) {
+  //     entrees.clear();
+  //     await _fetchEntreeAlphabetiqueASC();
+  //     isSearching = false;
+  //   } else {
+  //     var localCompleter = _searchCompleter;
+
+  //     entrees.clear();
+  //     final response = await http.get(Uri.parse(
+  //         'http://docketu.iutnc.univ-lorraine.fr:20003/api/services/$id/entrees'));
+
+  //     if (response.statusCode == 200) {
+  //       var jsonData = jsonDecode(response.body);
+  //       var entreesJson = jsonData['entrees'] as List;
+  //       for (var entreeJson in entreesJson) {
+  //         entrees.add(ListeEntree.fromJson(entreeJson));
+  //       }
+  //     } else {
+  //       throw Exception('Failed to load Entrees');
+  //     }
+
+  //     if (localCompleter != _searchCompleter) {
+  //       return;
+  //     }
+
+  //     if (response.body.isEmpty) {
+  //       noResultsFound = true;
+  //     } else {
+  //       noResultsFound = false;
+  //     }
+  //   }
+
+  //   isSearching = false;
+  //   notifyListeners();
+  // }
+
   Future<void> searchEntree(String search) async {
     _searchCompleter?.complete();
     _searchCompleter = Completer<void>();
@@ -145,6 +162,49 @@ class ListeEntreeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Future<void> searchEntreeAPI(String search) async {
+  //   _searchCompleter?.complete();
+  //   _searchCompleter = Completer<void>();
+
+  //   isSearching = true;
+  //   notifyListeners();
+
+  //   if (search.isEmpty) {
+  //     entrees.clear();
+  //     await _fetchEntreeAlphabetiqueASC();
+  //     isSearching = false;
+  //   } else {
+  //     var localCompleter = _searchCompleter;
+
+  //     entrees.clear();
+  //     final response = await http.get(Uri.parse(
+  //         'http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees/search?q=$search'));
+
+  //     if (response.statusCode == 200) {
+  //       var jsonData = jsonDecode(response.body);
+  //       var entreesJson = jsonData['entrees'] as List;
+  //       for (var entreeJson in entreesJson) {
+  //         entrees.add(ListeEntree.fromJson(entreeJson));
+  //       }
+  //     } else {
+  //       throw Exception('Failed to load Entrees');
+  //     }
+
+  //     if (localCompleter != _searchCompleter) {
+  //       return;
+  //     }
+
+  //     if (response.body.isEmpty) {
+  //       noResultsFound = true;
+  //     } else {
+  //       noResultsFound = false;
+  //     }
+  //   }
+
+  //   isSearching = false;
+  //   notifyListeners();
+  // }
+
   Future<void> sortEntreeByASC() async {
     entrees.sort((a, b) {
       int compareNom = a.nom!.compareTo(b.nom!);
@@ -153,6 +213,7 @@ class ListeEntreeProvider extends ChangeNotifier {
       }
       return compareNom;
     });
+
     notifyListeners();
   }
 
@@ -164,6 +225,7 @@ class ListeEntreeProvider extends ChangeNotifier {
       }
       return compareNom;
     });
+
     notifyListeners();
   }
 }

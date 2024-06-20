@@ -42,6 +42,7 @@ class _ServiceDropdownState extends State<ServiceDropdown> {
               });
               if (value != null) {
                 widget.entreeProvider.searchEntreeByService(value.libelle!);
+                // widget.entreeProvider.searchEntreeByServiceAPI(value.id!);
               }
             },
             hint: const Text('Sélectionner un service'),

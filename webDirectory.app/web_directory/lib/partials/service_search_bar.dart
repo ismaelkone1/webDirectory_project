@@ -42,6 +42,7 @@ class ServiceSearchBar extends StatelessWidget {
           ),
           onChanged: (value) {
             entreeProvider.searchEntree(value);
+            // entreeProvider.searchEntreeAPI(value);
           },
         ),
       ),
