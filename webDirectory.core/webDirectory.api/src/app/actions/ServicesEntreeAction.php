@@ -12,6 +12,7 @@ class ServicesEntreeAction
     public function __invoke(Request $request, Response $response, $args)
     {
         $serviceServices = new ServiceServices();
+        $query = $request->getQueryParams();
 
         if (!isset($args['id'])) {
             $response->getBody()->write(json_encode(['error' => 'id is required']));
@@ -20,14 +21,25 @@ class ServicesEntreeAction
                 ->withStatus(400);
         }
 
-        if (!isset($request->getQueryParams()['q'])) {
+        $sort = $query['sort'] ?? '';
+
+        //On sépare le sort en deux parties
+        $sort = explode('-', $sort);
+
+        if (!isset($query['q']) && !isset($query['sort'])) {
             $entrees = $serviceServices->getEntreesDuService($args['id']);
         }
-        else {
-            $nom = $request->getQueryParams()['q'];
+        else if (!isset($query['q'])) {
+            $entrees = $serviceServices->getEntreesDuServiceOrder($args['id'], $sort);
+        }
+        else if (!isset($query['sort'])) {
+            $nom = $query['q'];
             $entrees = $serviceServices->getEntreesDuServiceEnFonctionDuNom($args['id'], $nom);
         }
-
+        else {
+            $nom = $query['q'];
+            $entrees = $serviceServices->getEntreesDuServiceEnFonctionDuNomOrder($args['id'], $nom, $sort);
+        }
 
         $entrees = array_map(function ($entree) {
             return [

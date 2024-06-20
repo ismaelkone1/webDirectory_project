@@ -29,11 +29,10 @@ class EntreesEnFonctionDuNomAction
         $sort = explode('-', $sort);
 
         if (isset($query['sort'])) {
-            $entrees = $serviceEntree->getEntreeEnFonctionDuNomOrderByNom($nom, $sort);
+            $entrees = $serviceEntree->getEntreeEnFonctionDuNomOrder($nom, $sort);
         } else {
             $entrees = $serviceEntree->getEntreeEnFonctionDuNom($nom);
         }
-
 
         $entrees = array_map(function($entree){
             return [
