@@ -88,5 +88,9 @@ return function (App $app): App {
     $app->get('/user{id}', DeleteUserAction::class)
         ->setName('delete_user');
 
+        // Exemple de routeur avec Slim
+
+$app->post('/entree/supprimer/{id}', \web\directory\app\actions\SupprimerEntreeAction::class)->setName('supprimer_entree');
+
     return $app;
 };
