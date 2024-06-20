@@ -22,6 +22,7 @@ use web\directory\app\actions\GestionAdminAction;
 use \web\directory\app\actions\DetailUserAction;
 use \web\directory\app\actions\CreateUserAction;
 use \web\directory\app\actions\DeleteUserAction;
+use \web\directory\app\actions\SupprimerEntreeAction;
 
 return function (App $app): App {
     $app->get('/', HomeAction::class)
@@ -87,6 +88,9 @@ return function (App $app): App {
 
     $app->get('/user{id}', DeleteUserAction::class)
         ->setName('delete_user');
+
+    $app->post('/entree/supprimer/{id}', SupprimerEntreeAction::class)
+        ->setName('supprimer_entree');
 
     return $app;
 };

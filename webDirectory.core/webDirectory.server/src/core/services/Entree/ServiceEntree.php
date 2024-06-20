@@ -3,6 +3,7 @@
 namespace web\directory\core\services\Entree;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Ramsey\Uuid\Type\Integer;
 use web\directory\core\domain\Utilisateur;
 use web\directory\core\domain\Entree;
 use web\directory\core\services\exception\EntreeNotFoundException;
@@ -192,24 +193,61 @@ class ServiceEntree implements ServiceEntreeInterface
         }
     }
 
-    public function modifierEntree(int $id, array $data): bool
+    public function modifierEntree(int $entreeId, array $data): bool
     {
         try {
-            $entree = Entree::find($id);
+            // Récupérer l'entrée par son ID
+            $entree = Entree::with('services')->find($entreeId);
             if (!$entree) {
-                throw new EntreeNotFoundException("Entrée non trouvée pour l'ID : $id");
+                error_log('Entrée non trouvée');
+                return false;
+            }
+            //On transforme le tableau de services en tableau d'entiers
+            $data['services'] = array_map('intval', $data['services']);
+
+            // Mettre à jour les champs de l'entrée
+            $entree->nom = $data['nom'];
+            $entree->prenom = $data['prenom'];
+            $entree->services()->sync($data['services']);
+            $entree->fonction = $data['fonction'];
+            $entree->num_bureau = $data['num_bureau'];
+            $entree->email = $data['email'];
+
+            // Enregistrer les modifications
+            $entree->save();
+
+            return true;
+        } catch (\Exception $e) {
+            // Gérer les erreurs
+            error_log("Erreur lors de la modification de l'entrée : " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function supprimerEntree(int $entreeId): bool
+    {
+        try {
+            // Récupérer l'entrée par son ID
+            $entree = Entree::find($entreeId);
+
+            if (!$entree) {
+                error_log('Entrée non trouvée');
+                return false;
             }
 
-            // Mettez à jour les champs nécessaires
-            $entree->nom = $data['nom'] ?? $entree->nom;
-            $entree->prenom = $data['prenom'] ?? $entree->prenom;
-            $entree->fonction = $data['fonction'] ?? $entree->fonction;
-            $entree->num_bureau = $data['numBureau'] ?? $entree->num_bureau;
-            $entree->email = $data['email'] ?? $entree->email;
-            $entree->url_image = $data['urlImage'] ?? $entree->url_image;
+            // Supprimer les services associés à l'entrée
+            $entree->services()->detach();
+            $entree->telephones()->delete();
 
-            return $entree->save();
+
+            // Supprimer l'entrée
+            $entree->delete();
+            error_log('Suppression de l\'entrée réussie');
+
+            return true;
         } catch (\Exception $e) {
+            // Gérer les erreurs
+            error_log("Erreur lors de la suppression de l'entrée : " . $e->getMessage());
             return false;
         }
     }

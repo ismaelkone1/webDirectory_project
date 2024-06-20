@@ -23,7 +23,10 @@ interface ServiceEntreeInterface
 
     public function getEntreesByService(String $service): array;
 
-    public function modifierEntree(int $id, array $data): bool;
+    public function modifierEntree(int $entreeId, array $data): bool;
+
+    public function supprimerEntree(int $entreeId): bool;
+
 
 
 }

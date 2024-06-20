@@ -4,100 +4,47 @@ namespace web\directory\app\actions;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Views\Twig;
-use web\directory\app\utils\CsrfService;
+use web\directory\core\services\Entree\ServiceEntreeInterface;
 use web\directory\core\services\Entree\ServiceEntree;
-use Slim\Exception\HttpNotFoundException;
+use web\directory\core\services\authentification\AuthService;
+use web\directory\core\services\authentification\AuthServiceInterface;
 
 class ModifierEntreeAction extends Action
 {
-    public function __invoke(Request $rq, Response $rs, array $args): Response
+    private AuthServiceInterface $authService;
+    private ServiceEntreeInterface $serviceEntree;
+
+    public function __construct()
     {
-        $twig = Twig::fromRequest($rq);
-        $data = $rq->getParsedBody();
-        $id = (int) $args['id'];
-        
-        // Initialisation des valeurs par défaut pour éviter les erreurs "Undefined array key"
-        $nom = $data['nom'] ?? '';
-        $prenom = $data['prenom'] ?? '';
-        $fonction = $data['fonction'] ?? '';
-        $numBureau = $data['numBureau'] ?? '';
-        $typeTel = $data['typeTel'] ?? '';
-        $numTel = $data['numTel'] ?? '';
-        $email = $data['email'] ?? '';
-        $service = $data['service'] ?? '';
-        $csrf = $data['csrf'] ?? '';
-
-        // Validation CSRF
-        $csrf = CsrfService::check($csrf);
-
-        if (!$csrf) {
-            return $rs->withStatus(403);
-        }
-
-        // Validation Email
-        if ($this->validateEmail($email) === false) {
-            return $rs->withStatus(400)->withHeader('Location', '/modifierEntree/' . $id);
-        }
-
-        $numBureau = intval($numBureau);
-        $numTel = intval($numTel);
-
-        $urlImage = null;
-
-        // Gestion de l'upload d'image (si nécessaire)
-        if (isset($_FILES['urlImage']) && $_FILES['urlImage']['error'] === UPLOAD_ERR_OK) {
-            $fileTmpPath = $_FILES['urlImage']['tmp_name'];
-            $fileName = $_FILES['urlImage']['name'];
-            $fileSize = $_FILES['urlImage']['size'];
-            $fileType = $_FILES['urlImage']['type'];
-            $fileNameCmps = explode(".", $fileName);
-            $fileExtension = strtolower(end($fileNameCmps));
-            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-
-            $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
-            if (in_array($fileExtension, $allowedfileExtensions)) {
-                $uploadFileDir = './uploads/';
-                $dest_path = $uploadFileDir . $newFileName;
-                if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                    $urlImage = $dest_path;
-                }
-            }
-        }
-
-        $serviceEntree = new ServiceEntree();
-        
-        // Vérification si l'entrée appartient à l'utilisateur
-        $entree = $serviceEntree->getEntreeById($id);
-        if ($entree['created_by'] !== $_SESSION['id']) {
-            return $twig->render($rs, 'Erreur.twig', ['message' => 'Vous n\'êtes pas autorisé à modifier cette entrée.']);
-        }
-
-        $data = [
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'fonction' => $fonction,
-            'numBureau' => $numBureau,
-            'email' => $email,
-            'urlImage' => $urlImage,
-            'service' => $service,
-            'numTel' => $numTel,
-            'type' => $typeTel,
-            'created_by' => $_SESSION['id']
-        ];
-
-        if ($serviceEntree->modifierEntree($id, $data)) {
-            return $twig->render($rs, 'PublicationSuccess.twig');
-        }
-
-        return $rs->withStatus(500);
+        $this->authService = new AuthService();
+        $this->serviceEntree = new ServiceEntree();
     }
 
-    private function validateEmail($email): bool
+    public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/@/', $email) && preg_match('/\./', $email)) {
-            return true;
+        $data = $rq->getParsedBody();
+
+        $entreeId = $args['id'];
+
+        //Si le dernier élément service du tableau est vide, on le supprime
+        if ($data['services'][count($data['services']) - 1] == '') {
+            array_pop($data['services']);
         }
-        return false;
+
+        try {
+            // Appeler la méthode ModifierEntree du service
+            $success = $this->serviceEntree->modifierEntree($entreeId, $data);
+
+            if (!$success) {
+                return $rs->withStatus(500);
+            }
+
+            // Rediriger vers la page des détails de l'entrée
+            return $rs->withHeader('Location', '/entrees/' . $entreeId . '/details')->withStatus(302);
+        } catch (\Exception $e) {
+            // Gérer les erreurs
+            error_log("Erreur lors de la modification de l'entrée : " . $e->getMessage());
+            return $rs->withStatus(500);
+        }
     }
 }
