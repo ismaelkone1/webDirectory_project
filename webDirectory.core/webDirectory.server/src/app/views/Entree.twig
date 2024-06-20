@@ -85,13 +85,10 @@
                 <a href="{{ url_for('gerer_publication', { id: entree.id, action: entree.is_published ? 'depublier' : 'publier' }) }}" class="btn {{ entree.is_published ? 'btn-danger' : 'btn-success' }}">
                     {{ entree.is_published ? 'Dépublier' : 'Publier' }}
                 </a>
-            </div>
-            <div class="col-md-6 d-flex justify-content-end">
-                <form action="{{ url_for('supprimer_entree', { id: entree.id }) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette entrée ?');">
+                <form action="{{ url_for('supprimer_entree', { id: entree.id }) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette entrée ?');" class="ms-2">
                     <button type="submit" class="btn btn-danger">Supprimer</button>
                 </form>
             </div>
         </div>
     </div>
-
 {% endblock %}
