@@ -33,10 +33,8 @@ class AuthPostAction extends Action
     
             // vérification des credentials
             if ($this->authService->checkPasswordValid($password, $user_id)) {
-                var_dump($postData);
                 // Connexion réussie
                 $user = $this->authService->connectUser(['id' => $user_id]);
-                var_dump($_SESSION);
                 session_start();
                 if ($user) {
                     $routeContext = RouteContext::fromRequest($rq);

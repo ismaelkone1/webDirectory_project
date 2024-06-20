@@ -10,11 +10,8 @@ use web\directory\core\services\Entree\ServiceEntreeInterface;
 use web\directory\core\services\Entree_Service\ServiceEntreeService;
 use web\directory\core\services\Telephone\ServiceTelephone;
 
-
 class ServiceEntree implements ServiceEntreeInterface
 {
-
-
     public function getEntrees(): array
     {
         try {
@@ -45,7 +42,7 @@ class ServiceEntree implements ServiceEntreeInterface
         return $tabServicesEntrees->toArray();
     }
 
-    public function getTelephones(): array
+    public function getTelephones(): array 
     {
         try {
             $tabTelephones = Entree::with('telephones')->get();
@@ -55,7 +52,7 @@ class ServiceEntree implements ServiceEntreeInterface
         return $tabTelephones->toArray();
     }
 
-    public function getEntreesByService(String $service): array
+    public function getEntreesByService(string $service): array
     {
         try {
             $tabEntrees = Entree::with('telephones')->with('services')->whereHas('services', function ($query) use ($service) {
@@ -67,7 +64,7 @@ class ServiceEntree implements ServiceEntreeInterface
         return $tabEntrees->toArray();
     }
 
-    public function getEntreesByNom(String $nom): array
+    public function getEntreesByNom(string $nom): array
     {
         try {
             $tabEntrees = Entree::with('telephones')->with('services')->where('nom', 'like', '%' . $nom . '%')->get();
@@ -77,7 +74,7 @@ class ServiceEntree implements ServiceEntreeInterface
         return $tabEntrees->toArray();
     }
 
-    public function getEntreesByNomAndService(String $nom, String $service): array
+    public function getEntreesByNomAndService(string $nom, string $service): array
     {
         try {
             $tabEntrees = Entree::with('telephones')->with('services')->where('nom', 'like', '%' . $nom . '%')->whereHas('services', function ($query) use ($service) {
@@ -156,7 +153,7 @@ class ServiceEntree implements ServiceEntreeInterface
 
         return $entree->save();
     }
-
+    
     public function depublierEntree(int $id): bool
     {
         try {
@@ -195,14 +192,6 @@ class ServiceEntree implements ServiceEntreeInterface
         }
     }
 
-    /**
-     * Met à jour les informations d'une entrée existante.
-     *
-     * @param int $id L'ID de l'entrée à modifier.
-     * @param array $data Les nouvelles données de l'entrée à mettre à jour.
-     * @return bool True si la mise à jour réussit, sinon false.
-     * @throws EntreeNotFoundException Si l'entrée n'est pas trouvée.
-     */
     public function modifierEntree(int $id, array $data): bool
     {
         try {
@@ -211,18 +200,13 @@ class ServiceEntree implements ServiceEntreeInterface
                 throw new EntreeNotFoundException("Entrée non trouvée pour l'ID : $id");
             }
 
-            // Vérifiez ici les autorisations si nécessaire, par exemple :
-            // if ($entree->created_by !== $_SESSION['id']) {
-            //     throw new EntreeNotFoundException("Vous n'êtes pas autorisé à modifier cette entrée.");
-            // }
-
             // Mettez à jour les champs nécessaires
             $entree->nom = $data['nom'] ?? $entree->nom;
             $entree->prenom = $data['prenom'] ?? $entree->prenom;
             $entree->fonction = $data['fonction'] ?? $entree->fonction;
-            $entree->num_bureau = $data['num_bureau'] ?? $entree->num_bureau;
+            $entree->num_bureau = $data['numBureau'] ?? $entree->num_bureau;
             $entree->email = $data['email'] ?? $entree->email;
-            $entree->url_image = $data['url_image'] ?? $entree->url_image;
+            $entree->url_image = $data['urlImage'] ?? $entree->url_image;
 
             return $entree->save();
         } catch (\Exception $e) {

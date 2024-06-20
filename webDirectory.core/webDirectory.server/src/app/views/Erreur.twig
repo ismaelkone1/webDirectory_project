@@ -1,0 +1,24 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+    Erreur
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Une erreur est survenue</h4>
+                    <p>{{ message }}</p>
+                    <hr>
+                    <p class="mb-0">Veuillez contacter l'administrateur si le problème persiste.</p>
+                </div>
+                <div class="mt-4">
+                    <a href="{{ url_for('home') }}" class="btn btn-primary">Retour à l'accueil</a>
+                    <a href="{{ url_for('entrees') }}" class="btn btn-secondary">Retour à la liste des entrées</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

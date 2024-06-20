@@ -13,4 +13,8 @@ interface AuthServiceInterface
     public function createUser(array $args): utilisateur;
     public function checkPasswordValid(string $pass, string $username):bool;
     public function connectUser(array $args);
+    public function getUsers(): array;
+    public function getUsersByID(string $id): ?Utilisateur;
+    public function deleteUserByID(string $id): void;
+
 }

@@ -46,7 +46,7 @@ Entrées
                 {% if entree.services is not empty %}
                     {% for service in entree.services %}
                         <tr class="table-active text-center">
-                            <th scope="row"><a href="{{ url_for('detail_entree', {id: entree.id}) }}">{{ entree.id }}</a></th>
+                            <th scope="row"><a href="{{ url_for('details_entree', {id: entree.id}) }}">{{ entree.id }}</a></th>
                             <td>{{ entree.nom }}</td>
                             <td>{{ entree.prenom }}</td>
                             <td>{{ service.libelle }}</td>
@@ -58,7 +58,7 @@ Entrées
                     {% endfor %}
                 {% else %}
                     <tr class="table-active text-center">
-                        <th scope="row"><a href="{{ url_for('detail_entree', {id: entree.id}) }}">{{ entree.id }}</a></th>
+                        <th scope="row"><a href="{{ url_for('details_entree', {id: entree.id}) }}">{{ entree.id }}</a></th>
                         <td>{{ entree.nom }}</td>
                         <td>{{ entree.prenom }}</td>
                         <td>Non spécifié</td>
