@@ -29,7 +29,9 @@ class ServiceServices implements ServiceServicesInterface
         try {
             $service = Service::with('entrees')->find($id);
 
-            return $service->entrees()->with('services')->get()->toArray();
+            return $service->entrees()->with('services')
+                ->where('is_published', true) // Add condition for published entries
+                ->get()->toArray();
         } catch (ModelNotFoundException $e) {
             return ['error' => $e->getMessage()];
 
