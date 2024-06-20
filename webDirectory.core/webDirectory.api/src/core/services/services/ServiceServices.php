@@ -32,7 +32,26 @@ class ServiceServices implements ServiceServicesInterface
             return $service->entrees()->with('services')->get()->toArray();
         } catch (ModelNotFoundException $e) {
             return ['error' => $e->getMessage()];
+        }
+    }
 
+    /**
+     * @param int $id
+     * @param string $sort
+     * @return array
+     */
+    public function getEntreesDuServiceSort(int $id, string $sort): array
+    {
+        try {
+            if ($sort == 'nom-asc') {
+                $service = Service::with('entrees')->find($id)->entrees()->orderBy('nom', 'asc')->get();
+            } else if ($sort == 'nom-desc') {
+                $service = Service::with('entrees')->find($id)->entrees()->orderBy('nom', 'desc')->get();
+            }
+
+            return $service->entrees()->with('services')->get()->toArray();
+        } catch (ModelNotFoundException $e) {
+            return ['error' => $e->getMessage()];
         }
     }
 }

@@ -10,6 +10,9 @@ class ListeEntreeProvider extends ChangeNotifier {
   bool isSearching = false;
   bool noResultsFound = false;
   Completer<void>? _searchCompleter;
+  String rechercheNom = '';
+  String rechercheService = '';
+  String rechercheSort = '';
 
   Future<List<ListeEntree>> getEntreeAlphabetiqueASC() async {
     if (entrees.isEmpty && !isSearching) {
@@ -57,6 +60,10 @@ class ListeEntreeProvider extends ChangeNotifier {
       isSearching = false;
     } else {
       var localCompleter = _searchCompleter;
+
+      if (rechercheNom.isNotEmpty) {
+        print('rechercheNom: $rechercheNom');
+      }
 
       entrees.clear();
       await _fetchEntreeAlphabetiqueASC();

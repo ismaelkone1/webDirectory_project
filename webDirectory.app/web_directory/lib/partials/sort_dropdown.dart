@@ -29,6 +29,7 @@ class _SortDropdownState extends State<SortDropdown> {
                 } else {
                   widget.entreeProvider.sortEntreeByDESC();
                 }
+                widget.entreeProvider.rechercheSort = newValue;
               });
             }
           },
