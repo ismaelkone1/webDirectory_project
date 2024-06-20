@@ -20,7 +20,14 @@ class ServicesEntreeAction
                 ->withStatus(400);
         }
 
-        $entrees = $serviceServices->getEntreesDuService($args['id']);
+        if (!isset($request->getQueryParams()['q'])) {
+            $entrees = $serviceServices->getEntreesDuService($args['id']);
+        }
+        else {
+            $nom = $request->getQueryParams()['q'];
+            $entrees = $serviceServices->getEntreesDuServiceEnFonctionDuNom($args['id'], $nom);
+        }
+
 
         $entrees = array_map(function ($entree) {
             return [
