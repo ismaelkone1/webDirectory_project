@@ -104,12 +104,12 @@ class ServiceEntree implements ServiceEntreeInterface
                 $uploadDir = 'uploadImages/';
                 $uploadFile = $uploadDir . basename($_FILES['urlImage']['name']);
                 if (!file_exists($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
+                    mkdir($uploadDir, 0755, true);
                 }
                 if (move_uploaded_file($_FILES['urlImage']['tmp_name'], $uploadFile)) {
-                    $entree->url_image = 'http://localhost:20003/api/image?name=' . $_FILES['urlImage']['name'];
+                    $entree->url_image = 'http://docketu.iutnc.univ-lorraine.fr:20003/api/image?name=' . $_FILES['urlImage']['name'];
                 } else {
-                    throw new \Exception("Échec du téléchargement de l'image");
+                    throw new EntreeNotFoundException("Impossible de déplacer le fichier");
                 }
             } else {
                 $entree->url_image = null;

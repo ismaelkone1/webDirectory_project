@@ -15,9 +15,7 @@ class ListeEntreeProvider extends ChangeNotifier {
   String rechercheSort = '';
 
   Future<List<ListeEntree>> getEntreeAlphabetiqueASC() async {
-    print('getEntreeAlphabetiqueASC');
     if (entrees.isEmpty && !isSearching) {
-      print('fetchEntreeAlphabetiqueASC');
       entrees.clear();
       await _fetchEntreeAlphabetiqueASC();
     }
@@ -150,8 +148,6 @@ class ListeEntreeProvider extends ChangeNotifier {
   Future<void> searchByEntreeService(String search, int id) async {
     _searchCompleter?.complete();
     _searchCompleter = Completer<void>();
-
-    print('search: $search, id: $id');
 
     isSearching = true;
     notifyListeners();

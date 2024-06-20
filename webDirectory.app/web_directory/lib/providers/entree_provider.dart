@@ -11,7 +11,6 @@ class EntreeProvider extends ChangeNotifier {
   Future<Entree?> getEntree(String url) async {
     try {
       await _fetchEntree(url);
-      print('Entree: $entree');
     } catch (e) {
       throw Exception('Failed to load Entree :');
     }
