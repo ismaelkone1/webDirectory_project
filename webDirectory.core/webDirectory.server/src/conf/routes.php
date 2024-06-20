@@ -17,6 +17,7 @@ use web\directory\app\actions\GetUserEntreesAction;
 use web\directory\app\actions\LogoutAction;
 use web\directory\app\actions\DetailsEntreeAction;
 use web\directory\app\actions\GererPublicationAction;
+use web\directory\app\actions\ModifierEntreeAction;
 
 return function (App $app): App {
     $app->get('/', HomeAction::class)
@@ -63,12 +64,12 @@ return function (App $app): App {
         ->setName('creationServicePOST');
 
     $app->get('/entrees/{id}/details', DetailsEntreeAction::class)
-        ->setName(('detail_entree'));
+        ->setName(('details_entree'));
     
     $app->get('/entree/{id}/{action:publier|depublier}', GererPublicationAction::class)
         ->setName('gerer_publication');  
 
-    $app->post('/modifierEntree',GererPublicationAction::class)
+    $app->post('/entree/modifier/{id}', ModifierEntreeAction::class)
         ->setName('modifier_entree');
 
     return $app;
