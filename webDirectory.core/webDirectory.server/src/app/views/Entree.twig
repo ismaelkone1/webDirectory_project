@@ -1,49 +1,47 @@
 {% extends 'base.twig' %}
 
 {% block title %}
-Détails Entrée - {{ entree.nom }} {{ entree.prenom }}
+Détails de l'Entrée
 {% endblock %}
 
 {% block body %}
+<figure>
+    <blockquote class="blockquote mx-4 mt-4">
+        <h1>Détails de l'Entrée :</h1>
+    </blockquote>
+</figure>
+
 <div class="container mt-4">
-  <div class="card">
-    <div class="card-header">
-      <h1>{{ entree.nom }} {{ entree.prenom }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Nom :</strong> {{ entree.nom }}</p>
+            <p><strong>Prénom :</strong> {{ entree.prenom }}</p>
+            <p><strong>Service :</strong> {% if entree.services is not empty %}{{ entree.services[0].libelle }}{% else %}Non spécifié{% endif %}</p>
+            <p><strong>Fonction :</strong> {{ entree.fonction }}</p>
+            <p><strong>N° Bureau :</strong> {{ entree.num_bureau }}</p>
+            <p><strong>Email :</strong> {{ entree.email }}</p>
+        </div>
+        <div class="col-md-6">
+            {% if entree.url_image %}
+                <img src="{{ entree.url_image }}" class="img-fluid" alt="Image de {{ entree.nom }} {{ entree.prenom }}">
+            {% else %}
+                <p>Aucune image disponible</p>
+            {% endif %}
+        </div>
     </div>
-    <div class="card-body">
-      <ul class="list-group">
-        <li class="list-group-item">Fonction : {{ entree.fonction }}</li>
-        <li class="list-group-item">N° Bureau : {{ entree.num_bureau }}</li>
-        <li class="list-group-item">Email : {{ entree.email }}</li>
-        {% if entree.url_image is not null %}
-          <li class="list-group-item">
-            <img src="{{ entree.url_image }}" alt="Image de {{ entree.nom }} {{ entree.prenom }}" class="img-thumbnail">
-          </li>
-        {% endif %}
-        <li class="list-group-item">Services : 
-          {% if entree.services.isEmpty() %}
-            Aucun service associé
-          {% else %}
-            <ul>
-              {% for service in entree.services %}
-                <li>{{ service.libelle }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </li>
-        <li class="list-group-item">Téléphones :
-          {% if entree.telephones.isEmpty() %}
-            Aucun téléphone associé
-          {% else %}
-            <ul>
-              {% for telephone in entree.telephones %}
-                <li>{{ telephone.numero }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </li>
-      </ul>
-    </div>
-  </div>
 </div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{ url_for('entrees') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <a href="{{ url_for('gerer_publication', { id: entree.id, action: entree.is_published ? 'depublier' : 'publier' }) }}" class="btn {{ entree.is_published ? 'btn-danger' : 'btn-success' }}">
+                {{ entree.is_published ? 'Dépublier' : 'Publier' }}
+            </a>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

@@ -5,13 +5,14 @@ CREATE TABLE entree (
   fonction varchar(128),
   num_bureau int,
   email varchar(64),
-  url_image varchar(512)
+  url_image varchar(512),
+  created_by VARCHAR(40)
 );
 
 CREATE TABLE telephone (
   id int PRIMARY KEY AUTO_INCREMENT,
   id_entree int,
-    numero char(10),
+  numero char(10),
   type varchar(15)
 );
 

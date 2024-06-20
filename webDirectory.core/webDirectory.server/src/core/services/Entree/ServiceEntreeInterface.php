@@ -21,5 +21,6 @@ interface ServiceEntreeInterface
 
     public function getEntreesByUserId(string $userId) : array;
 
+    public function getEntreesByService(String $service): array;
 
 }
