@@ -21,6 +21,7 @@ use web\directory\app\actions\ModifierEntreeAction;
 use web\directory\app\actions\GestionAdminAction;
 use \web\directory\app\actions\DetailUserAction;
 use \web\directory\app\actions\CreateUserAction;
+use \web\directory\app\actions\DeleteUserAction;
 
 return function (App $app): App {
     $app->get('/', HomeAction::class)
@@ -84,6 +85,8 @@ return function (App $app): App {
     $app->post('/create_user', CreateUserAction::class)
         ->setName('create_user');
 
+    $app->get('/user{id}', DeleteUserAction::class)
+        ->setName('delete_user');
 
     return $app;
 };

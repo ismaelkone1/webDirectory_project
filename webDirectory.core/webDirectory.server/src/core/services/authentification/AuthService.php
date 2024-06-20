@@ -133,5 +133,20 @@ class AuthService implements AuthServiceInterface
             return null;
         }
     }
+
+    public function deleteUserByID(string $id): void
+    {
+        try {
+            $user = Utilisateur::find($id);
+
+            if (!$user) {
+                throw new InvalidArgumentException("Utilisateur avec l'ID $id non trouvé.");
+            }
+
+            $user->delete();
+        } catch (\Exception $e) {
+            throw new Exception("Erreur lors de la suppression de l'utilisateur : " . $e->getMessage());
+        }
+    }
     
 }

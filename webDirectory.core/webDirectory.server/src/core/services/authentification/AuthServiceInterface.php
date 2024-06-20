@@ -15,5 +15,6 @@ interface AuthServiceInterface
     public function connectUser(array $args);
     public function getUsers(): array;
     public function getUsersByID(string $id): ?Utilisateur;
+    public function deleteUserByID(string $id): void;
 
 }
