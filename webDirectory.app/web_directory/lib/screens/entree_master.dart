@@ -22,7 +22,7 @@ class _EntreeMasterState extends State<EntreeMaster> {
           return const Center(child: CircularProgressIndicator());
         }
         return FutureBuilder<List<ListeEntree>>(
-          future: entreeProvider.getEntreeAlphabetique(),
+          future: entreeProvider.getEntreeAlphabetiqueASC(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());

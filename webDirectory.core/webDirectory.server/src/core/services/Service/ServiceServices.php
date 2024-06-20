@@ -37,6 +37,7 @@ class ServiceServices implements ServiceServicesInterface
             $service->libelle = $data['libelle'];
             $service->etage = $data['etage'];
             $service->description = $data['description'];
+            $service->created_by = $_SESSION['id'];
             $service->save();
         } catch (ModelNotFoundException $e) {
             throw new ServiceNotFoundException("Impossible de créer le service : " . $e);

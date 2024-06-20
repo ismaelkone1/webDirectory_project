@@ -37,6 +37,10 @@ class _EntreeDetailState extends State<EntreeDetail> {
                 margin: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
+                    if (entree.urlImage.isNotEmpty)
+                      Image.network(entree.urlImage,
+                          width: 100, height: 100, fit: BoxFit.cover),
+                    const SizedBox(height: 20),
                     ListTile(
                       leading: const Icon(Icons.account_circle,
                           size: 40.0, color: Colors.grey),

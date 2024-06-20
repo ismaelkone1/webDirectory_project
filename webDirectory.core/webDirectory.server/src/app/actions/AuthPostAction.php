@@ -36,6 +36,7 @@ class AuthPostAction extends Action
             if ($this->authService->checkPasswordValid($password, $user_id)) {
                 // Connexion réussie
                 $user = $this->authService->connectUser(['id' => $user_id]);
+                session_start();
                 if ($user) {
                     $routeContext = RouteContext::fromRequest($rq);
                     $routeParser = $routeContext->getRouteParser();

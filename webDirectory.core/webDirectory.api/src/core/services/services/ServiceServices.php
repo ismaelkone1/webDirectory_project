@@ -29,10 +29,25 @@ class ServiceServices implements ServiceServicesInterface
         try {
             $service = Service::with('entrees')->find($id);
 
-            return $service->entrees()->with('services')->get()->toArray();
+            return $service->entrees()->with('services')
+                ->where('is_published', true) // Add condition for published entries
+                ->get()->toArray();
         } catch (ModelNotFoundException $e) {
             return ['error' => $e->getMessage()];
+        }
+    }
 
+    public function getEntreesDuServiceEnFonctionDuNom(mixed $id, mixed $nom)
+    {
+        try {
+            $service = Service::with('entrees')->find($id);
+
+            return $service->entrees()->with('services')
+                ->where('is_published', true) // Add condition for published entries
+                ->where('nom', 'like', '%' . $nom . '%')
+                ->get()->toArray();
+        } catch (ModelNotFoundException $e) {
+            return ['error' => $e->getMessage()];
         }
     }
 }

@@ -11,4 +11,9 @@ async function loadEntreeRecherche(recherche){
 async function loadTrieEntreesNom(sens){
     return await load('/api/entrees?sort=' + sens);
 }
-export {loadEntrees, loadEntreeRecherche, loadTrieEntreesNom};
+
+async function loadEntreesDuServiceEnFonctionDuNom(idService, recherche){
+    return await load(`/api/services/${idService}/entrees?q=${recherche}`);
+}
+
+export {loadEntrees, loadEntreeRecherche, loadTrieEntreesNom, loadEntreesDuServiceEnFonctionDuNom};

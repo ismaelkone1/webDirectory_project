@@ -1,6 +1,11 @@
-import {loadEntreeRecherche, loadEntrees, loadTrieEntreesNom} from './entreeLoader.js';
+import {
+    loadEntreeRecherche,
+    loadEntrees,
+    loadEntreesDuServiceEnFonctionDuNom,
+    loadTrieEntreesNom
+} from './entreeLoader.js';
 import {display_entrees, display_entreesWithoutSort} from './entree_ui.js';
-import {searchServices} from './search.js';
+import {loadSearchedServices} from './search.js';
 import TomSelect from "tom-select";
 import {loadServices} from "./servicesLoader";
 
@@ -12,8 +17,18 @@ async function showEntrees(){
 
 //2)
 
-async function showSearchedEntreesByServices(recherche){
-    let entrees = await searchServices(recherche);
+async function showSearchedEntreesByServices(id, nom= ""){
+    let entrees;
+
+    if (id === ""){
+        entrees = await loadEntrees();
+    }
+    else if (nom === ""){
+        entrees = await loadSearchedServices(id);
+    }
+    else{
+        entrees = await loadEntreesDuServiceEnFonctionDuNom(id, nom);
+    }
     display_entrees(entrees);
 }
 
@@ -22,61 +37,38 @@ buttonListeEntrees.addEventListener('click', showEntrees);
 
 async function services(){
     let services = await loadServices();
+    //On ajout en option le service "Tous les services"
+    services.services.unshift({id: "", libelle: "Tous les services"});
     new TomSelect("#searchService", {
         options: services,
-        valueField: 'libelle',
+        valueField: 'id',
         labelField: 'libelle',
         searchField: 'libelle',
         create: false,
         maxItems: 1,
         persist: false,
         onChange: async function(value){
-            showSearchedEntreesByServices(value);
+            showSearchedEntreesByServices(value, buttonSearch.value);
         }
     });
 }
 services();
 
 //3)
-async function showSearchedEntreesByNom(recherche){
-    let entrees = await loadEntreeRecherche(recherche)
+async function showSearchedEntreesByNom(recherche, idService = ""){
+    let entrees;
+    if (idService === ""){
+        entrees = await loadEntreeRecherche(recherche);
+    }
+    else{
+        entrees = await loadEntreesDuServiceEnFonctionDuNom(parseInt(idService), recherche);
+    }
     display_entrees(entrees);
 }
 
 const buttonSearch = document.getElementById('searchNom');
 buttonSearch.addEventListener('input', function(){
-    showSearchedEntreesByNom(buttonSearch.value);
-});
-
-
-//5)
-async function showSearchedEntreesByNomService(recherche){
-    let entrees = await searchServices(recherche);
-    let entrees2 = await loadEntreeRecherche(recherche);
-
-    //On ajoute les deux listes d'entrees sans les doublons
-    let result = {
-        "type": "ressource",
-        "entrees": []
-    }
-
-    for (let entree of entrees.entrees){
-        if (!result.entrees.includes(entree)){
-            result.entrees.push(entree);
-        }
-    }
-    for (let entree of entrees2.entrees){
-        if (!result.entrees.includes(entree)){
-            result.entrees.push(entree);
-        }
-    }
-
-    display_entrees(result);
-}
-
-const buttonSearch2 = document.getElementById('searchNomService');
-buttonSearch2.addEventListener('input', function(){
-    showSearchedEntreesByNomService(buttonSearch2.value);
+    showSearchedEntreesByNom(buttonSearch.value, document.getElementById('searchService').value);
 });
 
 //6)

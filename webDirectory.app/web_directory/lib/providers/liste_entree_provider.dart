@@ -10,45 +10,24 @@ class ListeEntreeProvider extends ChangeNotifier {
   bool isSearching = false;
   bool noResultsFound = false;
   Completer<void>? _searchCompleter;
+  String rechercheNom = '';
+  int rechercheService = -1;
+  String rechercheSort = '';
 
-  Future<List<ListeEntree>> getEntree() async {
+  Future<List<ListeEntree>> getEntreeAlphabetiqueASC() async {
+    print('getEntreeAlphabetiqueASC');
     if (entrees.isEmpty && !isSearching) {
+      print('fetchEntreeAlphabetiqueASC');
       entrees.clear();
-      await _fetchEntree();
+      await _fetchEntreeAlphabetiqueASC();
     }
 
     return entrees;
   }
 
-  Future<void> _fetchEntree() async {
+  Future<void> _fetchEntreeAlphabetiqueASC() async {
     // final response =
-    //     await http.get(Uri.parse('http://localhost:20003/api/entrees'));
-    final response = await http.get(
-        Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees'));
-
-    if (response.statusCode == 200) {
-      var jsonData = jsonDecode(response.body);
-      var entreesJson = jsonData['entrees'] as List;
-      for (var entreeJson in entreesJson) {
-        entrees.add(ListeEntree.fromJson(entreeJson));
-      }
-    } else {
-      throw Exception('Failed to load Entrees');
-    }
-  }
-
-  Future<List<ListeEntree>> getEntreeAlphabetique() async {
-    if (entrees.isEmpty && !isSearching) {
-      entrees.clear();
-      await _fetchEntreeAlphabetique();
-    }
-
-    return entrees;
-  }
-
-  Future<void> _fetchEntreeAlphabetique() async {
-    // final response =
-    //     await http.get(Uri.parse('http://localhost:20003/api/entrees'));
+    // await http.get(Uri.parse('http://localhost:20003/api/entrees'));
     final response = await http.get(
         Uri.parse('http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees'));
 
@@ -70,75 +49,186 @@ class ListeEntreeProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> searchEntreeByService(String libelle) async {
+  Future<void> searchEntreeByServiceAPI(int id) async {
+    if (rechercheNom.isNotEmpty) {
+      searchByEntreeService(rechercheNom, id);
+      return;
+    }
+
     _searchCompleter?.complete();
     _searchCompleter = Completer<void>();
 
     isSearching = true;
     notifyListeners();
 
-    if (libelle.isEmpty || libelle == 'Tous') {
+    if (id == -1) {
       entrees.clear();
-      await _fetchEntreeAlphabetique();
+      await _fetchEntreeAlphabetiqueASC();
       isSearching = false;
+      noResultsFound = false;
     } else {
       var localCompleter = _searchCompleter;
 
-      var response = entrees.where((entree) {
-        return entree.services!.any((service) {
-          return service.libelle!.toLowerCase().contains(libelle.toLowerCase());
-        });
-      }).toList();
+      entrees.clear();
+      final response = await http.get(Uri.parse(
+          'http://docketu.iutnc.univ-lorraine.fr:20003/api/services/$id/entrees'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
+
+      if (response.statusCode == 200) {
+        for (var entreeJson in entreesJson) {
+          entrees.add(ListeEntree.fromJson(entreeJson));
+        }
+        switchSort();
+      } else {
+        throw Exception('Failed to load Entrees');
+      }
 
       if (localCompleter != _searchCompleter) {
         return;
       }
 
-      if (response.isEmpty) {
+      if (entreesJson.isEmpty) {
         noResultsFound = true;
       } else {
         noResultsFound = false;
       }
-
-      entrees = response;
     }
 
     isSearching = false;
     notifyListeners();
   }
 
-  Future<void> searchEntree(String search) async {
+  Future<void> searchEntreeAPI(String search) async {
+    if (rechercheService != -1) {
+      searchByEntreeService(search, rechercheService);
+      return;
+    }
+
     _searchCompleter?.complete();
     _searchCompleter = Completer<void>();
 
     isSearching = true;
-    notifyListeners();
 
     if (search.isEmpty) {
       entrees.clear();
-      await _fetchEntreeAlphabetique();
       isSearching = false;
+      noResultsFound = false;
     } else {
       var localCompleter = _searchCompleter;
 
-      var response = entrees.where((entree) {
-        return entree.nom!.toLowerCase().contains(search.toLowerCase());
-      }).toList();
+      entrees.clear();
+      final response = await http.get(Uri.parse(
+          'http://docketu.iutnc.univ-lorraine.fr:20003/api/entrees/search?q=$search'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
+
+      if (response.statusCode == 200) {
+        for (var entreeJson in entreesJson) {
+          entrees.add(ListeEntree.fromJson(entreeJson));
+        }
+        switchSort();
+      } else {
+        throw Exception('Failed to load Entrees');
+      }
 
       if (localCompleter != _searchCompleter) {
         return;
       }
 
-      if (response.isEmpty) {
+      if (entreesJson.isEmpty) {
         noResultsFound = true;
       } else {
         noResultsFound = false;
       }
-
-      entrees = response;
     }
 
     isSearching = false;
+    notifyListeners();
+  }
+
+  Future<void> searchByEntreeService(String search, int id) async {
+    _searchCompleter?.complete();
+    _searchCompleter = Completer<void>();
+
+    print('search: $search, id: $id');
+
+    isSearching = true;
+    notifyListeners();
+
+    if (search.isEmpty || id == -1) {
+      entrees.clear();
+      if (search.isEmpty) {
+        await searchEntreeByServiceAPI(id);
+      } else {
+        await searchEntreeAPI(search);
+      }
+      isSearching = false;
+      noResultsFound = false;
+    } else {
+      var localCompleter = _searchCompleter;
+
+      entrees.clear();
+      final response = await http.get(Uri.parse(
+          'http://docketu.iutnc.univ-lorraine.fr:20003/api/services/$id/entrees?q=$search'));
+      var jsonData = jsonDecode(response.body);
+      var entreesJson = jsonData['entrees'] as List;
+
+      if (response.statusCode == 200) {
+        for (var entreeJson in entreesJson) {
+          entrees.add(ListeEntree.fromJson(entreeJson));
+        }
+        switchSort();
+      } else {
+        throw Exception('Failed to load Entrees');
+      }
+
+      if (localCompleter != _searchCompleter) {
+        return;
+      }
+
+      if (entreesJson.isEmpty) {
+        noResultsFound = true;
+      } else {
+        noResultsFound = false;
+      }
+    }
+
+    isSearching = false;
+    notifyListeners();
+  }
+
+  void switchSort() {
+    if (rechercheSort == 'ASC') {
+      rechercheSort = 'DESC';
+      sortEntreeByDESC();
+    } else {
+      rechercheSort = 'ASC';
+      sortEntreeByASC();
+    }
+  }
+
+  Future<void> sortEntreeByASC() async {
+    entrees.sort((a, b) {
+      int compareNom = a.nom!.compareTo(b.nom!);
+      if (compareNom == 0) {
+        return a.prenom!.compareTo(b.prenom!);
+      }
+      return compareNom;
+    });
+
+    notifyListeners();
+  }
+
+  Future<void> sortEntreeByDESC() async {
+    entrees.sort((a, b) {
+      int compareNom = b.nom!.compareTo(a.nom!);
+      if (compareNom == 0) {
+        return b.prenom!.compareTo(a.prenom!);
+      }
+      return compareNom;
+    });
+
     notifyListeners();
   }
 }
