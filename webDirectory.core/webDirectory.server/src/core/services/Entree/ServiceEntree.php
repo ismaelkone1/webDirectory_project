@@ -218,7 +218,6 @@ class ServiceEntree implements ServiceEntreeInterface
 
             return true;
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
             // Gérer les erreurs
             error_log("Erreur lors de la modification de l'entrée : " . $e->getMessage());
             return false;
@@ -228,7 +227,6 @@ class ServiceEntree implements ServiceEntreeInterface
     public function supprimerEntree(int $entreeId): bool
     {
         try {
-            var_dump($entreeId);
             // Récupérer l'entrée par son ID
             $entree = Entree::find($entreeId);
 
@@ -237,13 +235,17 @@ class ServiceEntree implements ServiceEntreeInterface
                 return false;
             }
 
+            // Supprimer les services associés à l'entrée
+            $entree->services()->detach();
+            $entree->telephones()->delete();
+
+
             // Supprimer l'entrée
             $entree->delete();
             error_log('Suppression de l\'entrée réussie');
 
             return true;
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
             // Gérer les erreurs
             error_log("Erreur lors de la suppression de l'entrée : " . $e->getMessage());
             return false;
