@@ -3,6 +3,7 @@
 namespace web\directory\core\services\Entree;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Ramsey\Uuid\Type\Integer;
 use web\directory\core\domain\Utilisateur;
 use web\directory\core\domain\Entree;
 use web\directory\core\services\exception\EntreeNotFoundException;
@@ -104,7 +105,7 @@ class ServiceEntree implements ServiceEntreeInterface
                     mkdir($uploadDir, 0777, true);
                 }
                 if (move_uploaded_file($_FILES['urlImage']['tmp_name'], $uploadFile)) {
-                    $entree->url_image = 'http://localhost:20003/api/image?name=' . $_FILES['urlImage']['name'];
+                    $entree->url_image = 'http://docketu.iutnc.univ-lorraine.fr:20003/api/image?name=' . $_FILES['urlImage']['name'];
                 } else {
                     throw new \Exception("Échec du téléchargement de l'image");
                 }
@@ -196,28 +197,28 @@ class ServiceEntree implements ServiceEntreeInterface
     {
         try {
             // Récupérer l'entrée par son ID
-            $entree = Entree::find($entreeId);
+            $entree = Entree::with('services')->find($entreeId);
             if (!$entree) {
                 error_log('Entrée non trouvée');
                 return false;
             }
+            //On transforme le tableau de services en tableau d'entiers
+            $data['services'] = array_map('intval', $data['services']);
 
             // Mettre à jour les champs de l'entrée
             $entree->nom = $data['nom'];
             $entree->prenom = $data['prenom'];
-            $entree->service = $data['service'];
+            $entree->services()->sync($data['services']);
             $entree->fonction = $data['fonction'];
             $entree->num_bureau = $data['num_bureau'];
             $entree->email = $data['email'];
 
-            var_dump($data);
-
             // Enregistrer les modifications
-            var_dump($entree->save());
-            error_log('Modification de l\'entrée réussie');
+            $entree->save();
 
             return true;
         } catch (\Exception $e) {
+            var_dump($e->getMessage());
             // Gérer les erreurs
             error_log("Erreur lors de la modification de l'entrée : " . $e->getMessage());
             return false;

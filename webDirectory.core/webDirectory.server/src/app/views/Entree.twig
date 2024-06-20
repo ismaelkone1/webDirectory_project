@@ -27,7 +27,20 @@
                     </div>
                     <div class="mb-3">
                         <label for="service" class="form-label"><strong>Service :</strong></label>
-                        <select class="form-control" id="service" name="service">
+                        {% for serviceEntree in entree.services %}
+                            <select class="form-control" id="services" name="services[]">
+                                {% for service in listeService %}
+                                    {% if service.id == serviceEntree.id %}
+                                        <option value="{{ service.id }}" selected>{{ service.libelle }}</option>
+                                    {% else %}
+                                        <option value="{{ service.id }}">{{ service.libelle }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        {% endfor %}
+                        <p>Ajouter un service :</p>
+                        <select class="form-control" id="services" name="services[]">
+                            <option value="">Sélectionner un service</option>
                             {% for service in listeService %}
                                 <option value="{{ service.id }}" {% if service.id == entree.service %} selected {% endif %}>{{ service.libelle }}</option>
                             {% endfor %}
